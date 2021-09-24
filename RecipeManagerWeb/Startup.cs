@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RecipeManagerWeb.Services;
 
 namespace RecipeManagerWeb
 {
@@ -26,7 +27,14 @@ namespace RecipeManagerWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews();
+
+            services.AddScoped<IRecipeService, RecipeService>();
+
+            //services.AddRazorPages();
+
+            services.AddControllers();
+            services.AddSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,7 +46,7 @@ namespace RecipeManagerWeb
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -51,9 +59,15 @@ namespace RecipeManagerWeb
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecipeManagerWeb");
             });
         }
     }

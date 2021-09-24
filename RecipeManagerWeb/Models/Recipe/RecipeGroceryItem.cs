@@ -24,8 +24,8 @@ namespace RecipeManagerWeb.Models.Recipe
         Kg,
         Knolle,
         L,
-        Pkg,
-        St,
+        Packung,
+        Stück,
         TL,
         Würfel,
         Zehe

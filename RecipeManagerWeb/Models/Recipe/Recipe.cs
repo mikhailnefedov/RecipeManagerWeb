@@ -16,11 +16,12 @@ namespace RecipeManagerWeb.Models.Recipe
         public double Amount { get; set; }
         public PortionUnit PortionUnit { get; set; }
         public int Time { get; set; }
-        public Boolean Vegetarian { get; set; }
+        public bool Vegetarian { get; set; }
         public List<RecipeGroceryItem> Ingredients { get; set; }
         public List<InstructionStep> Instructions { get; set; }
         public string Source { get; set; }
         public string Comment { get; set; }
+
     }
 
     public enum PortionUnit
