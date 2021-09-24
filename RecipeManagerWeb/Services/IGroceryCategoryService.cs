@@ -1,4 +1,4 @@
-﻿using RecipeManagerWeb.Models.Recipes;
+﻿using RecipeManagerWeb.Models.Groceries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RecipeManagerWeb.Services
 {
-    public interface IRecipeService
+    public interface IGroceryCategoryService
     {
-        public List<Recipe> GetRecipes();
+        List<GroceryCategory> GetAllGroceryCategories();
     }
 }

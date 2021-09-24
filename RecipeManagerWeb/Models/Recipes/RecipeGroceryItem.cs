@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipeManagerWeb.Models.Recipe
+namespace RecipeManagerWeb.Models.Recipes
 {
     public class RecipeGroceryItem
     {
@@ -13,7 +13,7 @@ namespace RecipeManagerWeb.Models.Recipe
         public int GroceryItemId { get; set; }
         public GroceryItem GroceryItem { get; set; }
         public double Amount { get; set; }
-        public MeasurementUnit Measurementunit { get; set; }
+        public MeasurementUnit AmountUnit { get; set; }
     }
 
     public enum MeasurementUnit

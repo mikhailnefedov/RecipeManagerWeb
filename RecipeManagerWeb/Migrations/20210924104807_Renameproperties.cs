@@ -2,7 +2,7 @@
 
 namespace RecipeManagerWeb.Migrations
 {
-    public partial class GroceryCategory : Migration
+    public partial class Renameproperties : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,7 +86,7 @@ namespace RecipeManagerWeb.Migrations
                     RecipeId = table.Column<int>(type: "int", nullable: false),
                     GroceryItemId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
-                    Measurementunit = table.Column<int>(type: "int", nullable: false)
+                    AmountUnit = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

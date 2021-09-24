@@ -10,8 +10,8 @@ using RecipeManagerWeb.Data;
 namespace RecipeManagerWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210405200335_InstructionStep")]
-    partial class InstructionStep
+    [Migration("20210924104807_Renameproperties")]
+    partial class Renameproperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,7 +125,7 @@ namespace RecipeManagerWeb.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("Measurementunit")
+                    b.Property<int>("AmountUnit")
                         .HasColumnType("int");
 
                     b.HasKey("RecipeId", "GroceryItemId");

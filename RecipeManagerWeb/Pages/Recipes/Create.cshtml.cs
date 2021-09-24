@@ -8,21 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Models.Recipes;
 
-namespace RecipeManagerWeb.Pages
+namespace RecipeManagerWeb.Pages.Recipes
 {
-    public class AddRecipeModel : PageModel
+    public class CreateModel : PageModel
     {
-        private readonly DataContext Context;
-        public SelectList PortionUnits;
+        private readonly RecipeManagerWeb.Data.DataContext _context;
 
-        public AddRecipeModel(DataContext context)
+        public CreateModel(RecipeManagerWeb.Data.DataContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public IActionResult OnGet()
         {
-            PopulatePortionUnits();
             return Page();
         }
 
@@ -37,20 +35,10 @@ namespace RecipeManagerWeb.Pages
                 return Page();
             }
 
-            Context.Recipes.Add(Recipe);
-            await Context.SaveChangesAsync();
+            _context.Recipes.Add(Recipe);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
-        }
-
-        public void PopulatePortionUnits()
-        {
-            List<string> list = Enum.GetValues(typeof(PortionUnit))
-                .Cast<PortionUnit>()
-                .Select(p => p.ToString())
-                .ToList();
-
-            PortionUnits = new SelectList(list);
         }
     }
 }

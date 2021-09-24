@@ -29,8 +29,9 @@ namespace RecipeManagerWeb
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IGroceryCategoryService, GroceryCategoryService>();
 
-            //services.AddRazorPages();
+            services.AddRazorPages();
 
             services.AddControllers();
             services.AddSwaggerGen();
@@ -59,7 +60,7 @@ namespace RecipeManagerWeb
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapRazorPages();
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
 

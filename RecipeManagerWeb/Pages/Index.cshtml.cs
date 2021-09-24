@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using RecipeManagerWeb.Models.Recipe;
+using RecipeManagerWeb.Models.Recipes;
 using RecipeManagerWeb.Services;
 using System;
 using System.Collections.Generic;

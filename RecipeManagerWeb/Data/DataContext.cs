@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecipeManagerWeb.Models.Groceries;
-using RecipeManagerWeb.Models.Recipe;
+using RecipeManagerWeb.Models.Recipes;
 using RecipeManagerWeb.Models.RecipeCategories;
 using System;
 using System.Collections.Generic;

@@ -123,7 +123,7 @@ namespace RecipeManagerWeb.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("Measurementunit")
+                    b.Property<int>("AmountUnit")
                         .HasColumnType("int");
 
                     b.HasKey("RecipeId", "GroceryItemId");
