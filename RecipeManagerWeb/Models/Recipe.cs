@@ -1,4 +1,6 @@
-﻿namespace RecipeManagerWeb.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RecipeManagerWeb.Models
 {
     public class Recipe
     {
