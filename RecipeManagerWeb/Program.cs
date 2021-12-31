@@ -1,4 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using RecipeManagerWeb.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add db configuration
+
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
