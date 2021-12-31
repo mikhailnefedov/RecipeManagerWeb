@@ -12,6 +12,14 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Repositories
+
+builder.Services.AddScoped<IGroceryCategoryRepository, GroceryCategoryRepository>();
+builder.Services.AddScoped<IGroceryItemRepository, GroceryItemRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
