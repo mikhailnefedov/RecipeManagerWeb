@@ -7,12 +7,12 @@ namespace RecipeManagerWeb.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<GroceryItem> GroceryItems { get; set; }
-        public DbSet<GroceryCategory> GroceryCategories { get; set; }
-        public DbSet<InstructionStep> InstructionSteps { get; set; } 
-        public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<RecipeCategory> RecipeCategories { get; set; }
-        public DbSet<RecipeGroceryItem> RecipeGroceryItems { get; set; }
+        public DbSet<GroceryItem> GroceryItems { get; set; } = null!;
+        public DbSet<GroceryCategory> GroceryCategories { get; set; } = null!;
+        public DbSet<InstructionStep> InstructionSteps { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
+        public DbSet<RecipeCategory> RecipeCategories { get; set; } = null!;
+        public DbSet<RecipeGroceryItem> RecipeGroceryItems { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

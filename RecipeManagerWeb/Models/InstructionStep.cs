@@ -6,7 +6,7 @@ namespace RecipeManagerWeb.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Text { get; set; }
-        public Recipe Recipe { get; set; }
+        public string Text { get; set; } = string.Empty;
+        public Recipe Recipe { get; set; } = null!;
     }
 }
