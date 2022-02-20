@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGroceryCategoryRepository, GroceryCategoryRepository>();
 builder.Services.AddScoped<IGroceryItemRepository, GroceryItemRepository>();
 builder.Services.AddScoped<IInstructionStepRepository, InstructionStepRepository>();
+builder.Services.AddScoped<IRecipeCategoryRepository, RecipeCategoryRepository>();
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
 var app = builder.Build();
 

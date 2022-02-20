@@ -18,11 +18,4 @@ namespace RecipeManagerWeb.Models
         public string? Comment { get; set; }
     }
 
-    public enum PortionUnit
-    {
-        Bun,
-        Bread,
-        Cake,
-        Portion,
-    }
 }

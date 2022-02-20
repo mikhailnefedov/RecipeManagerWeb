@@ -1,13 +1,12 @@
-﻿namespace RecipeManagerWeb.Models
+﻿using RecipeManagerWeb.Models;
+
+namespace RecipeManagerWeb.Dtos
 {
-    public class RecipeGroceryItem
+    public class AddRecipeGroceryItemDto
     {
         public int RecipeId { get; set; }
-        public Recipe Recipe { get; set; } = null!;
         public int GroceryItemId { get; set; }
-        public GroceryItem GroceryItem { get; set; } = null!;
         public double Amount { get; set; }
         public MeasurementUnit Measurementunit { get; set; }
     }
-
 }
