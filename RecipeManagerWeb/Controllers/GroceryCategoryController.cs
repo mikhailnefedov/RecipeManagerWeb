@@ -7,17 +7,17 @@ namespace RecipeManagerWeb.Controllers
     [Route("[controller]")]
     public class GroceryCategoryController : ControllerBase
     {
-        private readonly IGroceryCategoryRepository _groceryCategoryRepositoy;
+        private readonly IGroceryCategoryRepository _groceryCategoryRepository;
 
         public GroceryCategoryController(IGroceryCategoryRepository groceryCategoryRepository) 
         { 
-            _groceryCategoryRepositoy = groceryCategoryRepository;
+            _groceryCategoryRepository = groceryCategoryRepository;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddGroceryCategory(string name)
         {
-            return Ok(await _groceryCategoryRepositoy.AddGroceryCategory(name));
+            return Ok(await _groceryCategoryRepository.AddGroceryCategory(name));
         }
     }
 }
