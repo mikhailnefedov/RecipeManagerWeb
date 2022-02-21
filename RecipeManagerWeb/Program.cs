@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 // Repositories
 
 builder.Services.AddScoped<IGroceryCategoryRepository, GroceryCategoryRepository>();
+builder.Services.AddScoped<IGroceryItemRepository, GroceryItemRepository>();
 
 var app = builder.Build();
 
