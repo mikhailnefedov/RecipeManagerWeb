@@ -16,7 +16,7 @@ namespace RecipeManagerWeb.Repositories
         public async Task<GroceryItem> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
             GroceryItem groceryItem = new GroceryItem() { Name = newGroceryItem.Name};
-            groceryItem.Category = await _context.GroceryCategories.FirstOrDefaultAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
+            groceryItem.Category = await _context.GroceryCategories.FirstAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
 
             await _context.GroceryItems.AddAsync(groceryItem);
             await _context.SaveChangesAsync();
