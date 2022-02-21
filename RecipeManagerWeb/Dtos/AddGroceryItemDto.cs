@@ -2,7 +2,7 @@
 {
     public class AddGroceryItemDto
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = String.Empty;
         public int GroceryCategoryId { get; set; } 
     }
 }
