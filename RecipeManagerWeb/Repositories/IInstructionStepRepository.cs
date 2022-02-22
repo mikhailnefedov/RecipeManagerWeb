@@ -5,6 +5,6 @@ namespace RecipeManagerWeb.Repositories
 {
     public interface IInstructionStepRepository
     {
-        public Task<List<InstructionStep>> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps);
+        public Task<List<InstructionStep>> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps, int recipeId);
     }
 }

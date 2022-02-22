@@ -2,7 +2,6 @@
 {
     public class AddInstructionStepDto
     {
-        public string Text { get; set; }
-        public int RecipeId { get; set; }
+        public string Text { get; set; } = string.Empty;
     }
 }

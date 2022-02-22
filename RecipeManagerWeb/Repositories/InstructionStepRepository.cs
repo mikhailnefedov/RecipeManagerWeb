@@ -14,9 +14,9 @@ namespace RecipeManagerWeb.Repositories
             _context = context;
         }
 
-        public async Task<List<InstructionStep>> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps)
+        public async Task<List<InstructionStep>> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps, int recipeId)
         {
-            Recipe recipe = await  _context.Recipes.FirstOrDefaultAsync(r => r.Id == newInstructionSteps[0].RecipeId);
+            Recipe recipe = await  _context.Recipes.FirstAsync(r => r.Id == recipeId);
 
             List<InstructionStep> instructionSteps = newInstructionSteps.Select(i => new InstructionStep()
             {
