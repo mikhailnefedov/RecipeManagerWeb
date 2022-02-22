@@ -41,7 +41,7 @@ namespace RecipeManagerWeb.Repositories
             }
             ).ToList();
 
-            recipe.RecipeCategory = await _context.RecipeCategories.FirstOrDefaultAsync(c => c.Id == newRecipe.RecipeCategoryId);
+            recipe.RecipeCategory = await _context.RecipeCategories.FirstAsync(c => c.Id == newRecipe.RecipeCategoryId);
 
             await _context.Recipes.AddAsync(recipe);
             await _context.InstructionSteps.AddRangeAsync(recipe.Instructions);
