@@ -6,7 +6,7 @@ namespace RecipeManagerWeb.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; } = String.Empty;
+        public string Title { get; set; } = string.Empty;
         public RecipeCategory RecipeCategory { get; set; } = null!;
         public double? Amount { get; set; }
         public PortionUnit? PortionUnit { get; set; }
@@ -18,11 +18,4 @@ namespace RecipeManagerWeb.Models
         public string? Comment { get; set; }
     }
 
-    public enum PortionUnit
-    {
-        Bun,
-        Bread,
-        Cake,
-        Portion,
-    }
 }
