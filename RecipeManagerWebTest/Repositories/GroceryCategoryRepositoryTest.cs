@@ -10,19 +10,13 @@ using System.Threading.Tasks;
 
 namespace RecipeManagerWebTest.Repositories
 {
-    public class GroceryCategoryRepositoryTest
+    public class GroceryCategoryRepositoryTest : BaseRepositoryTest
     {
         private readonly GroceryCategoryRepository _groceryCategoryRepository;
 
-        public GroceryCategoryRepositoryTest()
+        public GroceryCategoryRepositoryTest() : base()
         {
-            var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                .UseInMemoryDatabase(databaseName: "testDB")
-                .Options;
-
-            var context = new DataContext(dbOptions);
-
-            _groceryCategoryRepository = new GroceryCategoryRepository(context);
+            _groceryCategoryRepository = new GroceryCategoryRepository(_context);
         }
 
         [Test]
