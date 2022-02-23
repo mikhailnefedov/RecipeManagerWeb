@@ -25,7 +25,7 @@ namespace RecipeManagerWebTest.Repositories
         [OneTimeTearDown]
         public void TearDown()
         {
-            _context.Dispose();
+            _context.Database.EnsureDeleted();
         }
     }
 }
