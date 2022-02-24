@@ -25,7 +25,7 @@ namespace RecipeManagerWebTest.Repositories
         {
             GroceryCategory category = new GroceryCategory()
             {
-                Name = "categorydfsdfd",
+                Name = "category name",
                 Id = CategoryId
             };
 
