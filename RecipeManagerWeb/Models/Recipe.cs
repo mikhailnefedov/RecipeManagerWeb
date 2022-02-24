@@ -12,8 +12,8 @@ namespace RecipeManagerWeb.Models
         public PortionUnit? PortionUnit { get; set; }
         public int? Time { get; set; }
         public bool? Vegetarian { get; set; }
-        public List<RecipeGroceryItem>? Ingredients { get; set; }
-        public List<InstructionStep>? Instructions { get; set; }
+        public List<RecipeGroceryItem> Ingredients { get; set; } = new List<RecipeGroceryItem>();
+        public List<InstructionStep> Instructions { get; set; } = new List<InstructionStep>();
         public string? Source { get; set; }
         public string? Comment { get; set; }
     }
