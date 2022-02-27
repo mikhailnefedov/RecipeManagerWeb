@@ -16,7 +16,7 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGroceryCategory([FromQuery] AddRecipeCategoryDto newRecipeCategory)
+        public async Task<IActionResult> AddGroceryCategory(AddRecipeCategoryDto newRecipeCategory)
         {
             return Ok(await _recipeCategoryRepository.AddRecipeCategory(newRecipeCategory));
         }

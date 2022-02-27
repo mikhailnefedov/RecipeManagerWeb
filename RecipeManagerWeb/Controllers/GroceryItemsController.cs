@@ -16,7 +16,7 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGroceryItem([FromQuery] AddGroceryItemDto newGroceryItem)
+        public async Task<IActionResult> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
             return Ok(await _groceryItemRepository.AddGroceryItem(newGroceryItem));
         }
