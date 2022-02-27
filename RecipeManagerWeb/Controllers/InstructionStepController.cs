@@ -15,7 +15,7 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddInstructionSteps([FromQuery] List<AddInstructionStepDto> newInstructionSteps, int recipeId)
+        public async Task<IActionResult> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps, int recipeId)
         {
             return Ok(await _instructionStepRepository.AddInstructionSteps(newInstructionSteps, recipeId)); 
         }

@@ -16,7 +16,7 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddRecipe([FromQuery] AddRecipeDto newRecipe)
+        public async Task<IActionResult> AddRecipe(AddRecipeDto newRecipe)
         {
             return Ok(await _recipeRepository.AddRecipe(newRecipe));
         }

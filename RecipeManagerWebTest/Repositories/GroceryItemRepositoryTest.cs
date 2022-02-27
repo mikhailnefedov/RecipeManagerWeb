@@ -2,6 +2,7 @@
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
 using RecipeManagerWeb.Repositories;
+using RecipeManagerWebTest.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,9 @@ namespace RecipeManagerWebTest.Repositories
 
         public GroceryItemRepositoryTest() : base()
         {
-            _groceryItemRepository = new GroceryItemRepository(_context);
+            var mapper = AutoMapperUtility.GetConfiguration();
+
+            _groceryItemRepository = new GroceryItemRepository(_context, mapper);
         }
 
         [OneTimeSetUp]

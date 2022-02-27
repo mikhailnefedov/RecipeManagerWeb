@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
@@ -8,14 +9,16 @@ namespace RecipeManagerWeb.Repositories
     public class GroceryItemRepository : IGroceryItemRepository
     {
         private readonly DataContext _context;
-        public GroceryItemRepository(DataContext context)
+        private readonly IMapper _mapper;
+        public GroceryItemRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<GroceryItem> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
-            GroceryItem groceryItem = new GroceryItem() { Name = newGroceryItem.Name};
+            GroceryItem groceryItem = _mapper.Map<GroceryItem>(newGroceryItem);
             groceryItem.Category = await _context.GroceryCategories.FirstAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
 
             await _context.GroceryItems.AddAsync(groceryItem);
@@ -31,13 +34,7 @@ namespace RecipeManagerWeb.Repositories
 
             if (groceryItem is not null)
             {
-                GetGroceryItemDto dto = new GetGroceryItemDto()
-                {
-                    Id = groceryItem.Id,
-                    Name = groceryItem.Name,
-                    groceryCategoryId = groceryItem.Category.Id,
-                    groceryCategoryName = groceryItem.Category.Name,
-                };
+                GetGroceryItemDto dto = _mapper.Map<GetGroceryItemDto>(groceryItem);
                 return dto;
             }
             else
@@ -51,13 +48,7 @@ namespace RecipeManagerWeb.Repositories
             var groceryItems = await _context.GroceryItems.Include(item => item.Category)
                 .ToListAsync();
 
-            return groceryItems.Select(item => new GetGroceryItemDto()
-            {
-                Id = item.Id,
-                Name = item.Name,
-                groceryCategoryId = item.Category.Id,
-                groceryCategoryName = item.Category.Name,
-            }).ToList();
+            return groceryItems.Select(item => _mapper.Map<GetGroceryItemDto>(item)).ToList();
         }
     }
 }
