@@ -1,4 +1,6 @@
-﻿using RecipeManagerWeb.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RecipeManagerWeb.Data;
+using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
 
 namespace RecipeManagerWeb.Repositories
@@ -21,6 +23,36 @@ namespace RecipeManagerWeb.Repositories
             await _context.SaveChangesAsync();
 
             return groceryCategory;
+        }
+
+        public async Task<GetGroceryCategoryDto?> GetGroceryCategory(int groceryCategoryId)
+        {
+            var groceryCategory = await _context.GroceryCategories.FindAsync(groceryCategoryId);
+
+            if (groceryCategory is not null)
+            {
+                GetGroceryCategoryDto dto = new GetGroceryCategoryDto()
+                {
+                    Id = groceryCategory.Id,
+                    Name = groceryCategory.Name,
+                };
+                return dto;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<GetGroceryCategoryDto>> GetGroceryCategories()
+        {
+            var groceryCategories = await _context.GroceryCategories.ToListAsync();
+
+            return groceryCategories.Select(c => new GetGroceryCategoryDto()
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();     
         }
     }
 }
