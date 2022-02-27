@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Repositories;
+using RecipeManagerWebTest.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace RecipeManagerWebTest.Repositories
 
         public GroceryCategoryRepositoryTest() : base()
         {
-            _groceryCategoryRepository = new GroceryCategoryRepository(_context);
+            var mapper = AutoMapperUtility.GetConfiguration();
+
+            _groceryCategoryRepository = new GroceryCategoryRepository(_context, mapper);
         }
 
         [Test]

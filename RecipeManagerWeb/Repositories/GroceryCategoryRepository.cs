@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
@@ -8,10 +9,12 @@ namespace RecipeManagerWeb.Repositories
     public class GroceryCategoryRepository : IGroceryCategoryRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public GroceryCategoryRepository(DataContext context)
+        public GroceryCategoryRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
 
@@ -31,11 +34,7 @@ namespace RecipeManagerWeb.Repositories
 
             if (groceryCategory is not null)
             {
-                GetGroceryCategoryDto dto = new GetGroceryCategoryDto()
-                {
-                    Id = groceryCategory.Id,
-                    Name = groceryCategory.Name,
-                };
+                GetGroceryCategoryDto dto = _mapper.Map<GetGroceryCategoryDto>(groceryCategory);
                 return dto;
             }
             else
@@ -48,11 +47,7 @@ namespace RecipeManagerWeb.Repositories
         {
             var groceryCategories = await _context.GroceryCategories.ToListAsync();
 
-            return groceryCategories.Select(c => new GetGroceryCategoryDto()
-            {
-                Id = c.Id,
-                Name = c.Name
-            }).ToList();     
+            return groceryCategories.Select(c => _mapper.Map<GetGroceryCategoryDto>(c)).ToList();     
         }
     }
 }

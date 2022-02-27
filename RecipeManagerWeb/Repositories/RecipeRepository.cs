@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
@@ -8,24 +9,17 @@ namespace RecipeManagerWeb.Repositories
     public class RecipeRepository : IRecipeRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public RecipeRepository(DataContext context)
+        public RecipeRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<Recipe> AddRecipe(AddRecipeDto newRecipe)
         {
-            Recipe recipe = new Recipe()
-            {
-                Title = newRecipe.Title,
-                Amount = newRecipe.Amount,
-                Comment = newRecipe.Comment,
-                PortionUnit = newRecipe.PortionUnit,
-                Source = newRecipe.Source,
-                Time = newRecipe.Time,
-                Vegetarian = newRecipe.Vegetarian,   
-            };
+            Recipe recipe = _mapper.Map<Recipe>(newRecipe);
 
             recipe.Instructions = newRecipe.Instructions.Select(i => new InstructionStep() { 
                 Recipe = recipe, 
@@ -44,8 +38,6 @@ namespace RecipeManagerWeb.Repositories
             recipe.RecipeCategory = await _context.RecipeCategories.FirstAsync(c => c.Id == newRecipe.RecipeCategoryId);
 
             await _context.Recipes.AddAsync(recipe);
-            await _context.InstructionSteps.AddRangeAsync(recipe.Instructions);
-            await _context.RecipeGroceryItems.AddRangeAsync(recipe.Ingredients);
             await _context.SaveChangesAsync();
 
             return recipe;

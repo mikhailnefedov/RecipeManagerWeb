@@ -2,6 +2,7 @@
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
 using RecipeManagerWeb.Repositories;
+using RecipeManagerWebTest.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace RecipeManagerWebTest.Repositories
 
         public RecipeRepositoryTest() : base()
         {
-            _recipeRepository = new RecipeRepository(_context);
+            var mapper = AutoMapperUtility.GetConfiguration();
+
+            _recipeRepository = new RecipeRepository(_context, mapper);
         }
 
         [OneTimeSetUp]

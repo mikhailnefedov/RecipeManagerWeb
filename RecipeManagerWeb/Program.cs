@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using RecipeManagerWeb;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Repositories;
 
@@ -23,6 +24,8 @@ builder.Services.AddScoped<IGroceryItemRepository, GroceryItemRepository>();
 builder.Services.AddScoped<IInstructionStepRepository, InstructionStepRepository>();
 builder.Services.AddScoped<IRecipeCategoryRepository, RecipeCategoryRepository>();
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 

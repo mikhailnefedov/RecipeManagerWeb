@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Repositories;
+using RecipeManagerWebTest.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace RecipeManagerWebTest.Repositories
 
         public RecipeCategoryRepositoryTest() : base()
         {
-            _recipeCategoryRepository = new RecipeCategoryRepository(_context);
+            var mapper = AutoMapperUtility.GetConfiguration();
+
+            _recipeCategoryRepository = new RecipeCategoryRepository(_context, mapper);
         }
 
         [Test]
