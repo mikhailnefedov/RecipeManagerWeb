@@ -23,5 +23,41 @@ namespace RecipeManagerWeb.Repositories
 
             return groceryItem;
         }
+
+        public async Task<GetGroceryItemDto?> GetGroceryItem(int groceryItemId)
+        {
+            var groceryItem = await _context.GroceryItems.Include(item => item.Category)
+                .FirstAsync(item => item.Id == groceryItemId);
+
+            if (groceryItem is not null)
+            {
+                GetGroceryItemDto dto = new GetGroceryItemDto()
+                {
+                    Id = groceryItem.Id,
+                    Name = groceryItem.Name,
+                    groceryCategoryId = groceryItem.Category.Id,
+                    groceryCategoryName = groceryItem.Category.Name,
+                };
+                return dto;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<GetGroceryItemDto>> GetGroceryItems()
+        {
+            var groceryItems = await _context.GroceryItems.Include(item => item.Category)
+                .ToListAsync();
+
+            return groceryItems.Select(item => new GetGroceryItemDto()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                groceryCategoryId = item.Category.Id,
+                groceryCategoryName = item.Category.Name,
+            }).ToList();
+        }
     }
 }
