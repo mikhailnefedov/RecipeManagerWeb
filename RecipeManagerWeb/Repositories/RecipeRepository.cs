@@ -42,5 +42,24 @@ namespace RecipeManagerWeb.Repositories
 
             return recipe;
         }
+
+        public async Task<GetRecipeDto?> GetRecipe(int recipeId)
+        {
+            var recipe = await _context.Recipes.Include(r => r.RecipeCategory)
+                .Include(r => r.Instructions)
+                .Include(r => r.Ingredients).ThenInclude(i => i.GroceryItem)
+                .FirstAsync(r => r.Id == recipeId);
+
+            var dto = _mapper.Map<GetRecipeDto>(recipe);
+
+            return dto;
+        }
+
+        public async Task<List<GetRecipeOverviewDto>> GetRecipes()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
+
+            return recipes.Select(r => _mapper.Map<GetRecipeOverviewDto>(r)).ToList();
+        }
     }
 }
