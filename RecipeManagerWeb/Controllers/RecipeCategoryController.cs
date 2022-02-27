@@ -20,5 +20,26 @@ namespace RecipeManagerWeb.Controllers
         {
             return Ok(await _recipeCategoryRepository.AddRecipeCategory(newRecipeCategory));
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRecipeCategory(int id)
+        {
+            var result = await _recipeCategoryRepository.GetRecipeCategory(id);
+            if (result is not null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetRecipeCategories()
+        {
+            return Ok(await _recipeCategoryRepository.GetRecipeCategories());
+        }
     }
 }

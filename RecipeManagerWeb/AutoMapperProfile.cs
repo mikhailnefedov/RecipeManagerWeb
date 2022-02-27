@@ -21,6 +21,8 @@ namespace RecipeManagerWeb
             CreateMap<InstructionStep, GetInstructionStepDto>();
             CreateMap<RecipeGroceryItem, GetRecipeGroceryItemDto>()
                 .ForMember(dest => dest.GroceryName, opt => opt.MapFrom(src => src.GroceryItem.Name));
+
+            CreateMap<RecipeCategory, GetRecipeCategoryDto>();
         }
     }
 }
