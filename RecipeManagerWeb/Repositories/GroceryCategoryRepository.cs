@@ -49,5 +49,33 @@ namespace RecipeManagerWeb.Repositories
 
             return groceryCategories.Select(c => _mapper.Map<GetGroceryCategoryDto>(c)).ToList();     
         }
+
+        public async Task<bool> DeleteGroceryCategory(int groceryCategoryId)
+        {
+            try
+            {
+                var groceryCategory = await _context.GroceryCategories.FindAsync(groceryCategoryId);
+                if (groceryCategory is null) return false;
+
+                int relatedItemsCount = await _context.GroceryItems.Where(item => item.Category == groceryCategory).CountAsync();
+
+                if (relatedItemsCount == 0)
+                {
+
+                    _context.GroceryCategories.Remove(groceryCategory);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            } 
+        }
     }
 }
