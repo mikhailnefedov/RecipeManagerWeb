@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Models;
@@ -24,6 +25,28 @@ namespace RecipeManagerWeb.Repositories
             await _context.SaveChangesAsync();
 
             return category;
+        }
+
+        public async Task<GetRecipeCategoryDto?> GetRecipeCategory(int categoryId)
+        {
+            var recipeCategory = await _context.RecipeCategories.FindAsync(categoryId);
+
+            if (recipeCategory is not null)
+            {
+                GetRecipeCategoryDto dto = _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
+                return dto;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<GetRecipeCategoryDto>> GetRecipeCategories()
+        {
+            var recipeCategories = await _context.RecipeCategories.ToListAsync();
+
+            return recipeCategories.Select(c => _mapper.Map<GetRecipeCategoryDto>(c)).ToList();
         }
     }
 }
