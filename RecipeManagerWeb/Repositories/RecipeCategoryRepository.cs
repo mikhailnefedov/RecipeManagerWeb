@@ -48,5 +48,33 @@ namespace RecipeManagerWeb.Repositories
 
             return recipeCategories.Select(c => _mapper.Map<GetRecipeCategoryDto>(c)).ToList();
         }
+
+        public async Task<bool> DeleteRecipeCategory(int recipeCategoryId)
+        {
+            try
+            {
+                var recipeCategory = await _context.RecipeCategories.FindAsync(recipeCategoryId);
+                if (recipeCategory is null) return false;
+
+                int relatedRecipesCount = await _context.Recipes.Where(recipe => recipe.RecipeCategory == recipeCategory).CountAsync();
+
+                if (relatedRecipesCount == 0)
+                {
+
+                    _context.RecipeCategories.Remove(recipeCategory);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
