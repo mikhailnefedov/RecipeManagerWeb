@@ -6,11 +6,11 @@ namespace RecipeManagerWeb.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RecipeCategoryController : ControllerBase
+    public class RecipeCategoriesController : ControllerBase
     {
         private readonly IRecipeCategoryRepository _recipeCategoryRepository;
 
-        public RecipeCategoryController(IRecipeCategoryRepository recipeCategoryRepository) 
+        public RecipeCategoriesController(IRecipeCategoryRepository recipeCategoryRepository) 
         {
             _recipeCategoryRepository = recipeCategoryRepository;
         }

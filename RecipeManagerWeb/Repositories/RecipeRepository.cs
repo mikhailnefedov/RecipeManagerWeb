@@ -17,7 +17,7 @@ namespace RecipeManagerWeb.Repositories
             _mapper = mapper;
         }
 
-        public async Task<Recipe> AddRecipe(AddRecipeDto newRecipe)
+        public async Task<GetRecipeDto> AddRecipe(AddRecipeDto newRecipe)
         {
             Recipe recipe = _mapper.Map<Recipe>(newRecipe);
 
@@ -40,7 +40,7 @@ namespace RecipeManagerWeb.Repositories
             await _context.Recipes.AddAsync(recipe);
             await _context.SaveChangesAsync();
 
-            return recipe;
+            return _mapper.Map<GetRecipeDto>(recipe);
         }
 
         public async Task<GetRecipeDto?> GetRecipe(int recipeId)
@@ -57,7 +57,8 @@ namespace RecipeManagerWeb.Repositories
 
         public async Task<List<GetRecipeOverviewDto>> GetRecipes()
         {
-            var recipes = await _context.Recipes.ToListAsync();
+            var recipes = await _context.Recipes.Include(r => r.RecipeCategory)
+                .ToListAsync();
 
             return recipes.Select(r => _mapper.Map<GetRecipeOverviewDto>(r)).ToList();
         }
