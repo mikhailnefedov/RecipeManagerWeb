@@ -43,6 +43,26 @@ namespace RecipeManagerWeb.Repositories
             return _mapper.Map<GetRecipeDto>(recipe);
         }
 
+        public async Task<bool> DeleteRecipe(int recipeId)
+        {
+            try
+            {
+                var recipe = await _context.Recipes.Include(r => r.Ingredients)
+                    .Include(r => r.Instructions)
+                    .FirstAsync(r => r.Id == recipeId);
+                if (recipe is null) return false;
+
+                _context.Recipes.Remove(recipe);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<GetRecipeDto?> GetRecipe(int recipeId)
         {
             var recipe = await _context.Recipes.Include(r => r.RecipeCategory)
