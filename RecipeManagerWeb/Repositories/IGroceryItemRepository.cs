@@ -8,5 +8,6 @@ namespace RecipeManagerWeb.Repositories
         public Task<GroceryItem> AddGroceryItem(AddGroceryItemDto newGroceryItem);
         public Task<GetGroceryItemDto?> GetGroceryItem(int groceryItemId);
         public Task<List<GetGroceryItemDto>> GetGroceryItems();
+        public Task<bool> DeleteGroceryItem(int groceryItemId);
     }
 }
