@@ -40,5 +40,13 @@ namespace RecipeManagerWeb.Controllers
         {
             return Ok(await _recipeRepository.GetRecipes());
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecipe(int id)
+        {
+            var result = await _recipeRepository.DeleteRecipe(id);
+
+            return result ? Ok() : BadRequest();
+        }
     }
 }
