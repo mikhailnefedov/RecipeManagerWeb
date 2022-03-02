@@ -29,6 +29,9 @@ namespace RecipeManagerWeb
             CreateMap<UpdateGroceryCategoryDto, GroceryCategory>();
             CreateMap<UpdateGroceryItemDto, GroceryItem>();
             CreateMap<UpdateRecipeCategoryDto, RecipeCategory>();
+            CreateMap<UpdateRecipeDto, Recipe>();
+            CreateMap<UpdateRecipeGroceryItemDto, RecipeGroceryItem>();
+            CreateMap<UpdateInstructionStepDto, InstructionStep>();
         }
     }
 }

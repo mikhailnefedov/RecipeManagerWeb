@@ -82,5 +82,27 @@ namespace RecipeManagerWeb.Repositories
 
             return recipes.Select(r => _mapper.Map<GetRecipeOverviewDto>(r)).ToList();
         }
+
+        public async Task<GetRecipeDto?> UpdateRecipe(UpdateRecipeDto updatedRecipe)
+        {
+            try
+            {
+                Recipe? recipe = await _context.Recipes.FindAsync(updatedRecipe.Id);
+                RecipeCategory? category = await _context.RecipeCategories.FindAsync(updatedRecipe.recipeCategoryId);
+
+                if (recipe is null || category is null) return null;
+
+                _mapper.Map(updatedRecipe, recipe);
+                recipe.RecipeCategory = category;
+
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<GetRecipeDto>(recipe);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
