@@ -49,5 +49,13 @@ namespace RecipeManagerWeb.Controllers
 
             return result ? Ok() : BadRequest();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipe)
+        {
+            var result = await _recipeCategoryRepository.UpdateRecipeCategory(updatedRecipe);
+
+            return result != null ? Ok(result) : BadRequest();
+        }
     }
 }
