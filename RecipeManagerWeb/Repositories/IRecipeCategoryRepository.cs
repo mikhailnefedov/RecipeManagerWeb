@@ -9,5 +9,6 @@ namespace RecipeManagerWeb.Repositories
         public Task<GetRecipeCategoryDto?> GetRecipeCategory(int categoryId);
         public Task<List<GetRecipeCategoryDto>> GetRecipeCategories();
         public Task<bool> DeleteRecipeCategory(int recipeCategoryId);
+        public Task<GetRecipeCategoryDto?> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipeCategory);
     }
 }

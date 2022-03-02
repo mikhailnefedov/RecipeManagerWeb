@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeManagerWeb.Dtos;
 using RecipeManagerWeb.Repositories;
 
 namespace RecipeManagerWeb.Controllers
@@ -47,6 +48,14 @@ namespace RecipeManagerWeb.Controllers
             var result = await _groceryCategoryRepository.DeleteGroceryCategory(id);
 
             return result ? Ok() : BadRequest();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateGroceryCategory(UpdateGroceryCategoryDto dto)
+        {
+            var result = await _groceryCategoryRepository.UpdateGroceryCategory(dto);
+
+            return result != null ? Ok(result) : BadRequest();
         }
 
     }

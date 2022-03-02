@@ -76,5 +76,23 @@ namespace RecipeManagerWeb.Repositories
                 return false;
             }
         }
+
+        public async Task<GetRecipeCategoryDto?> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipeCategory)
+        {
+            try
+            {
+                RecipeCategory? recipeCategory = await _context.RecipeCategories.FindAsync(updatedRecipeCategory.Id);
+
+                _mapper.Map(updatedRecipeCategory, recipeCategory);
+
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

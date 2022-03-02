@@ -77,5 +77,23 @@ namespace RecipeManagerWeb.Repositories
                 return false;
             } 
         }
+
+        public async Task<GetGroceryCategoryDto?> UpdateGroceryCategory(UpdateGroceryCategoryDto updatedGroceryCategory)
+        {
+            try
+            {
+                GroceryCategory? groceryCategory = await _context.GroceryCategories.FindAsync(updatedGroceryCategory.Id);
+
+                _mapper.Map(updatedGroceryCategory, groceryCategory);
+
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<GetGroceryCategoryDto>(groceryCategory);
+            }
+            catch(Exception)
+            {
+                return null;
+            }
+        }
     }
 }

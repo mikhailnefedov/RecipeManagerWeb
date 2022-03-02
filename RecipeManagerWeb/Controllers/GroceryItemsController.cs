@@ -48,5 +48,13 @@ namespace RecipeManagerWeb.Controllers
 
             return result ? Ok() : BadRequest();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateGroceryItem(UpdateGroceryItemDto updatedItem)
+        {
+            var result = await _groceryItemRepository.UpdateGroceryItem(updatedItem);
+
+            return result != null ? Ok(result) : BadRequest();
+        }
     }
 }
