@@ -9,5 +9,6 @@ namespace RecipeManagerWeb.Repositories
         public Task<GetGroceryCategoryDto?> GetGroceryCategory(int groceryCategoryId);
         public Task<List<GetGroceryCategoryDto>> GetGroceryCategories();
         public Task<bool> DeleteGroceryCategory(int groceryCategoryId);
+        public Task<GetGroceryCategoryDto?> UpdateGroceryCategory(UpdateGroceryCategoryDto updatedGroceryCategory);
     }
 }
