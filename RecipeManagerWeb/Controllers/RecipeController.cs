@@ -8,52 +8,47 @@ namespace RecipeManagerWeb.Controllers
     [Route("[controller]")]
     public class RecipesController : ControllerBase
     {
-        private readonly IRecipeRepository _recipeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RecipesController(IRecipeRepository recipeRepository)
+        public RecipesController(IUnitOfWork unitOfWork)
         {
-            _recipeRepository = recipeRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddRecipe(AddRecipeDto newRecipe)
         {
-            return Ok(await _recipeRepository.AddRecipe(newRecipe));
+            var result = await _unitOfWork.RecipeRepository.AddRecipe(newRecipe);
+            await _unitOfWork.Save();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecipe(int id)
         {
-            var result = await _recipeRepository.GetRecipe(id);
-            if (result is not null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var result = await _unitOfWork.RecipeRepository.GetRecipe(id);
+            return result != null ? Ok(result) : BadRequest();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGroceryCategories()
+        public async Task<IActionResult> GetRecipes()
         {
-            return Ok(await _recipeRepository.GetRecipes());
+            return Ok(await _unitOfWork.RecipeRepository.GetRecipes());
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {
-            var result = await _recipeRepository.DeleteRecipe(id);
-
+            var result = await _unitOfWork.RecipeRepository.DeleteRecipe(id);
+            await _unitOfWork.Save();
             return result ? Ok() : BadRequest();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateRecipe(UpdateRecipeDto updatedRecipe)
         {
-            var result = await _recipeRepository.UpdateRecipe(updatedRecipe);
-
+            var result = await _unitOfWork.RecipeRepository.UpdateRecipe(updatedRecipe);
+            await _unitOfWork.Save();
             return result != null ? Ok(result) : BadRequest();
         }
     }

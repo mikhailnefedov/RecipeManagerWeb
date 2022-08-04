@@ -6,22 +6,22 @@ namespace RecipeManagerWeb.Repositories
     {
         private readonly DataContext _context;
 
-        public GroceryItemRepository GroceryItemRepository { get; }
+        public IGroceryItemRepository GroceryItemRepository { get; }
 
-        public GroceryCategoryRepository GroceryCategoryRepository { get; }
+        public IGroceryCategoryRepository GroceryCategoryRepository { get; }
 
-        public InstructionStepRepository InstructionStepRepository { get; }
+        public IInstructionStepRepository InstructionStepRepository { get; }
 
-        public RecipeCategoryRepository RecipeCategoryRepository { get; }
+        public IRecipeCategoryRepository RecipeCategoryRepository { get; }
 
-        public RecipeRepository RecipeRepository { get; }
+        public IRecipeRepository RecipeRepository { get; }
 
         public UnitOfWork(DataContext context,
-            GroceryItemRepository groceryItemRepository,
-            GroceryCategoryRepository groceryCategoryRepository,
-            InstructionStepRepository instructionStepRepository,
-            RecipeCategoryRepository recipeCategoryRepository,
-            RecipeRepository recipeRepository)
+            IGroceryItemRepository groceryItemRepository,
+            IGroceryCategoryRepository groceryCategoryRepository,
+            IInstructionStepRepository instructionStepRepository,
+            IRecipeCategoryRepository recipeCategoryRepository,
+            IRecipeRepository recipeRepository)
         {
             _context = context;
             GroceryItemRepository = groceryItemRepository;
