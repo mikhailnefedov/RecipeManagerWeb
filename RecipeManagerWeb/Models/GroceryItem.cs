@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecipeManagerWeb.Models
 {
@@ -7,6 +8,8 @@ namespace RecipeManagerWeb.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public GroceryCategory Category { get; set; } = null!;
+        public int GroceryCategoryId { get; set; }
+        [ForeignKey("GroceryCategoryId")]
+        public GroceryCategory GroceryCategory { get; set; } = null!;
     }
 }

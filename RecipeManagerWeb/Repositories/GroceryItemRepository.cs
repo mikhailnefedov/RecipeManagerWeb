@@ -19,7 +19,7 @@ namespace RecipeManagerWeb.Repositories
         public async Task<GroceryItem> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
             GroceryItem groceryItem = _mapper.Map<GroceryItem>(newGroceryItem);
-            groceryItem.Category = await _context.GroceryCategories.FirstAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
+            groceryItem.GroceryCategory = await _context.GroceryCategories.FirstAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
 
             await _context.GroceryItems.AddAsync(groceryItem);
             await _context.SaveChangesAsync();
@@ -29,7 +29,7 @@ namespace RecipeManagerWeb.Repositories
 
         public async Task<GetGroceryItemDto?> GetGroceryItem(int groceryItemId)
         {
-            var groceryItem = await _context.GroceryItems.Include(item => item.Category)
+            var groceryItem = await _context.GroceryItems.Include(item => item.GroceryCategory)
                 .FirstAsync(item => item.Id == groceryItemId);
 
             if (groceryItem is not null)
@@ -45,7 +45,7 @@ namespace RecipeManagerWeb.Repositories
 
         public async Task<List<GetGroceryItemDto>> GetGroceryItems()
         {
-            var groceryItems = await _context.GroceryItems.Include(item => item.Category)
+            var groceryItems = await _context.GroceryItems.Include(item => item.GroceryCategory)
                 .ToListAsync();
 
             return groceryItems.Select(item => _mapper.Map<GetGroceryItemDto>(item)).ToList();
@@ -88,7 +88,7 @@ namespace RecipeManagerWeb.Repositories
                 if (groceryItem is null || groceryCategory is null) return null;
 
                 _mapper.Map(updatedGroceryItem, groceryItem);
-                groceryItem.Category = groceryCategory;
+                groceryItem.GroceryCategory = groceryCategory;
                 
                 await _context.SaveChangesAsync();
 

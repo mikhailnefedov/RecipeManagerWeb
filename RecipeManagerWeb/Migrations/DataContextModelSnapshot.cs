@@ -38,7 +38,7 @@ namespace RecipeManagerWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("GroceryCategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -47,7 +47,7 @@ namespace RecipeManagerWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("GroceryCategoryId");
 
                     b.ToTable("GroceryItems");
                 });
@@ -151,13 +151,13 @@ namespace RecipeManagerWeb.Migrations
 
             modelBuilder.Entity("RecipeManagerWeb.Models.GroceryItem", b =>
                 {
-                    b.HasOne("RecipeManagerWeb.Models.GroceryCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("RecipeManagerWeb.Models.GroceryCategory", "GroceryCategory")
+                        .WithMany("GroceryItems")
+                        .HasForeignKey("GroceryCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("GroceryCategory");
                 });
 
             modelBuilder.Entity("RecipeManagerWeb.Models.InstructionStep", b =>
@@ -199,6 +199,11 @@ namespace RecipeManagerWeb.Migrations
                     b.Navigation("GroceryItem");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipeManagerWeb.Models.GroceryCategory", b =>
+                {
+                    b.Navigation("GroceryItems");
                 });
 
             modelBuilder.Entity("RecipeManagerWeb.Models.Recipe", b =>

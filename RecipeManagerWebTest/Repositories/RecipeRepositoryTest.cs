@@ -44,7 +44,7 @@ namespace RecipeManagerWebTest.Repositories
             {
                 Id= GroceryItemId,
                 Name = "item",
-                Category = groceryCategory
+                GroceryCategory = groceryCategory
             };
 
             _context.RecipeCategories.Add(recipeCategory);

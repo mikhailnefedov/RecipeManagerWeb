@@ -57,7 +57,7 @@ namespace RecipeManagerWeb.Repositories
                 var groceryCategory = await _context.GroceryCategories.FindAsync(groceryCategoryId);
                 if (groceryCategory is null) return false;
 
-                int relatedItemsCount = await _context.GroceryItems.Where(item => item.Category == groceryCategory).CountAsync();
+                int relatedItemsCount = await _context.GroceryItems.Where(item => item.GroceryCategory == groceryCategory).CountAsync();
 
                 if (relatedItemsCount == 0)
                 {
