@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecipeManagerWeb.Extensions;
 using RecipeManagerWeb.Models;
 
 namespace RecipeManagerWeb.Data
@@ -18,6 +19,8 @@ namespace RecipeManagerWeb.Data
         {
             modelBuilder.Entity<RecipeGroceryItem>()
                 .HasKey(rg => new { rg.RecipeId, rg.GroceryItemId });
+
+            modelBuilder.SeedData();
         }
     }
 }
