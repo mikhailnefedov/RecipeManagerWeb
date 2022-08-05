@@ -8,16 +8,18 @@ namespace RecipeManagerWeb.Controllers
     [Route("[controller]")]
     public class InstructionStepController : ControllerBase
     {
-        private readonly IInstructionStepRepository _instructionStepRepository;
-        public InstructionStepController(IInstructionStepRepository instructionStepRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public InstructionStepController(IUnitOfWork unitOfWork)
         {
-            _instructionStepRepository = instructionStepRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddInstructionSteps(List<AddInstructionStepDto> newInstructionSteps, int recipeId)
         {
-            return Ok(await _instructionStepRepository.AddInstructionSteps(newInstructionSteps, recipeId)); 
+            var result = await _unitOfWork.InstructionStepRepository.AddInstructionSteps(newInstructionSteps, recipeId);
+            await _unitOfWork.Save();
+            return Ok(result); 
         }
     }
 }

@@ -4,7 +4,7 @@
 
 namespace RecipeManagerWeb.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,7 @@ namespace RecipeManagerWeb.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Abbreviation = table.Column<string>(type: "TEXT", nullable: false),
+                    Abbreviation = table.Column<string>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -42,14 +42,14 @@ namespace RecipeManagerWeb.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    GroceryCategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GroceryItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GroceryItems_GroceryCategories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_GroceryItems_GroceryCategories_GroceryCategoryId",
+                        column: x => x.GroceryCategoryId,
                         principalTable: "GroceryCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -63,12 +63,12 @@ namespace RecipeManagerWeb.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     RecipeCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Amount = table.Column<double>(type: "REAL", nullable: false),
-                    PortionUnit = table.Column<int>(type: "INTEGER", nullable: false),
-                    Time = table.Column<int>(type: "INTEGER", nullable: false),
-                    Vegetarian = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Source = table.Column<string>(type: "TEXT", nullable: false),
-                    Comment = table.Column<string>(type: "TEXT", nullable: false)
+                    Amount = table.Column<double>(type: "REAL", nullable: true),
+                    PortionUnit = table.Column<int>(type: "INTEGER", nullable: true),
+                    Time = table.Column<int>(type: "INTEGER", nullable: true),
+                    Vegetarian = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Source = table.Column<string>(type: "TEXT", nullable: true),
+                    Comment = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,9 +128,9 @@ namespace RecipeManagerWeb.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroceryItems_CategoryId",
+                name: "IX_GroceryItems_GroceryCategoryId",
                 table: "GroceryItems",
-                column: "CategoryId");
+                column: "GroceryCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstructionSteps_RecipeId",

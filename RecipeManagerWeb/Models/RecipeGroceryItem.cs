@@ -1,4 +1,6 @@
-﻿namespace RecipeManagerWeb.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RecipeManagerWeb.Models
 {
     public class RecipeGroceryItem
     {

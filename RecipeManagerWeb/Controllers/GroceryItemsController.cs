@@ -8,52 +8,47 @@ namespace RecipeManagerWeb.Controllers
     [Route("[controller]")]
     public class GroceryItemsController : ControllerBase
     {
-        private readonly IGroceryItemRepository _groceryItemRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GroceryItemsController(IGroceryItemRepository groceryItemRepository)
+        public GroceryItemsController(IUnitOfWork unitOfWork)
         {
-            _groceryItemRepository = groceryItemRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
-            return Ok(await _groceryItemRepository.AddGroceryItem(newGroceryItem));
+            var result = await _unitOfWork.GroceryItemRepository.AddGroceryItem(newGroceryItem);
+            await _unitOfWork.Save();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroceryItem(int id)
         {
-            var result = await _groceryItemRepository.GetGroceryItem(id);
-            if (result is not null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var result = await _unitOfWork.GroceryItemRepository.GetGroceryItem(id);
+            return result != null ? Ok(result) : BadRequest();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGroceryItems()
         {
-            return Ok(await _groceryItemRepository.GetGroceryItems());
+            return Ok(await _unitOfWork.GroceryItemRepository.GetGroceryItems());
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroceryItem(int id)
         {
-            var result = await _groceryItemRepository.DeleteGroceryItem(id);
-
+            var result = await _unitOfWork.GroceryItemRepository.DeleteGroceryItem(id);
+            await _unitOfWork.Save();
             return result ? Ok() : BadRequest();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateGroceryItem(UpdateGroceryItemDto updatedItem)
         {
-            var result = await _groceryItemRepository.UpdateGroceryItem(updatedItem);
-
+            var result = await _unitOfWork.GroceryItemRepository.UpdateGroceryItem(updatedItem);
+            await _unitOfWork.Save();
             return result != null ? Ok(result) : BadRequest();
         }
     }

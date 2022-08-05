@@ -17,82 +17,51 @@ namespace RecipeManagerWeb.Repositories
             _mapper = mapper;
         }
 
-        public async Task<RecipeCategory> AddRecipeCategory(AddRecipeCategoryDto newRecipeCategory)
+        public async Task<GetRecipeCategoryDto> AddRecipeCategory(AddRecipeCategoryDto newRecipeCategory)
         {
-            RecipeCategory category = _mapper.Map<RecipeCategory>(newRecipeCategory);
-
-            await _context.RecipeCategories.AddAsync(category);
-            await _context.SaveChangesAsync();
-
-            return category;
+            RecipeCategory recipeCategory = _mapper.Map<RecipeCategory>(newRecipeCategory);
+            await _context.RecipeCategories.AddAsync(recipeCategory);
+            return _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
         }
 
         public async Task<GetRecipeCategoryDto?> GetRecipeCategory(int categoryId)
         {
             var recipeCategory = await _context.RecipeCategories.FindAsync(categoryId);
-
-            if (recipeCategory is not null)
-            {
-                GetRecipeCategoryDto dto = _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
-                return dto;
-            }
-            else
-            {
-                return null;
-            }
+            return recipeCategory != null ? _mapper.Map<GetRecipeCategoryDto>(recipeCategory) : null;
         }
 
         public async Task<List<GetRecipeCategoryDto>> GetRecipeCategories()
         {
             var recipeCategories = await _context.RecipeCategories.ToListAsync();
-
             return recipeCategories.Select(c => _mapper.Map<GetRecipeCategoryDto>(c)).ToList();
         }
 
         public async Task<bool> DeleteRecipeCategory(int recipeCategoryId)
         {
-            try
-            {
-                var recipeCategory = await _context.RecipeCategories.FindAsync(recipeCategoryId);
-                if (recipeCategory is null) return false;
+            var recipeCategory = await _context.RecipeCategories.FindAsync(recipeCategoryId);
+            if (recipeCategory is null) return false;
 
-                int relatedRecipesCount = await _context.Recipes.Where(recipe => recipe.RecipeCategory == recipeCategory).CountAsync();
+            bool usedInRecipes = await _context.Recipes.AnyAsync(recipe => recipe.RecipeCategory == recipeCategory);
 
-                if (relatedRecipesCount == 0)
-                {
-
-                    _context.RecipeCategories.Remove(recipeCategory);
-                    await _context.SaveChangesAsync();
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
+            if (usedInRecipes)
             {
                 return false;
+            }
+            else
+            {
+                _context.RecipeCategories.Remove(recipeCategory);
+                return true;
             }
         }
 
         public async Task<GetRecipeCategoryDto?> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipeCategory)
         {
-            try
-            {
-                RecipeCategory? recipeCategory = await _context.RecipeCategories.FindAsync(updatedRecipeCategory.Id);
 
-                _mapper.Map(updatedRecipeCategory, recipeCategory);
-
-                await _context.SaveChangesAsync();
-
-                return _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            RecipeCategory? recipeCategory = await _context.RecipeCategories.FindAsync(updatedRecipeCategory.Id);
+            if (recipeCategory is null) return null;
+            _mapper.Map(updatedRecipeCategory, recipeCategory);
+            return _mapper.Map<GetRecipeCategoryDto>(recipeCategory);
         }
+
     }
 }
