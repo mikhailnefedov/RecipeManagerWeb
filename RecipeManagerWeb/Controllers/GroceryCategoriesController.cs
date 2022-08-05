@@ -8,44 +8,40 @@ namespace RecipeManagerWeb.Controllers
     [Route("[controller]")]
     public class GroceryCategoriesController : ControllerBase
     {
-        private readonly IGroceryCategoryRepository _groceryCategoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GroceryCategoriesController(IGroceryCategoryRepository groceryCategoryRepository) 
-        { 
-            _groceryCategoryRepository = groceryCategoryRepository;
+        public GroceryCategoriesController(IUnitOfWork unitOfWork) 
+        {
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddGroceryCategory(string name)
         {
-            return Ok(await _groceryCategoryRepository.AddGroceryCategory(name));
+            var result = await _unitOfWork.GroceryCategoryRepository.AddGroceryCategory(name);
+            await _unitOfWork.Save();
+            return Ok(result);
         }
         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroceryCategory(int id)
         {
-            var result = await _groceryCategoryRepository.GetGroceryCategory(id);
-            if (result is not null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var result = await _unitOfWork.GroceryCategoryRepository.GetGroceryCategory(id);
+            return result != null ? Ok(result) : BadRequest();
         }
 
         
         [HttpGet]
         public async Task<IActionResult> GetGroceryCategories()
         {
-            return Ok(await _groceryCategoryRepository.GetGroceryCategories());
+            return Ok(await _unitOfWork.GroceryCategoryRepository.GetGroceryCategories());
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroceryCategory(int id)
         {
-            var result = await _groceryCategoryRepository.DeleteGroceryCategory(id);
+            var result = await _unitOfWork.GroceryCategoryRepository.DeleteGroceryCategory(id);
+            await _unitOfWork.Save();
 
             return result ? Ok() : BadRequest();
         }
@@ -53,8 +49,9 @@ namespace RecipeManagerWeb.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateGroceryCategory(UpdateGroceryCategoryDto dto)
         {
-            var result = await _groceryCategoryRepository.UpdateGroceryCategory(dto);
-
+            var result = await _unitOfWork.GroceryCategoryRepository.UpdateGroceryCategory(dto);
+            await _unitOfWork.Save();
+            
             return result != null ? Ok(result) : BadRequest();
         }
 

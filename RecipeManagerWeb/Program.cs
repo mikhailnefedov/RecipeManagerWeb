@@ -25,6 +25,8 @@ builder.Services.AddScoped<IInstructionStepRepository, InstructionStepRepository
 builder.Services.AddScoped<IRecipeCategoryRepository, RecipeCategoryRepository>();
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();

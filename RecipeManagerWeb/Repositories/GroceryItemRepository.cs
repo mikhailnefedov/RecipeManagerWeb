@@ -16,88 +16,53 @@ namespace RecipeManagerWeb.Repositories
             _mapper = mapper;
         }
 
-        public async Task<GroceryItem> AddGroceryItem(AddGroceryItemDto newGroceryItem)
+        public async Task<GetGroceryItemDto> AddGroceryItem(AddGroceryItemDto newGroceryItem)
         {
             GroceryItem groceryItem = _mapper.Map<GroceryItem>(newGroceryItem);
-            groceryItem.Category = await _context.GroceryCategories.FirstAsync(c => c.Id == newGroceryItem.GroceryCategoryId);
 
             await _context.GroceryItems.AddAsync(groceryItem);
-            await _context.SaveChangesAsync();
-
-            return groceryItem;
+            return _mapper.Map<GetGroceryItemDto>(groceryItem);
         }
 
         public async Task<GetGroceryItemDto?> GetGroceryItem(int groceryItemId)
         {
-            var groceryItem = await _context.GroceryItems.Include(item => item.Category)
+            var groceryItem = await _context.GroceryItems.Include(item => item.GroceryCategory)
                 .FirstAsync(item => item.Id == groceryItemId);
-
-            if (groceryItem is not null)
-            {
-                GetGroceryItemDto dto = _mapper.Map<GetGroceryItemDto>(groceryItem);
-                return dto;
-            }
-            else
-            {
-                return null;
-            }
+            return groceryItem != null ? _mapper.Map<GetGroceryItemDto>(groceryItem) : null;
         }
 
         public async Task<List<GetGroceryItemDto>> GetGroceryItems()
         {
-            var groceryItems = await _context.GroceryItems.Include(item => item.Category)
+            var groceryItems = await _context.GroceryItems.Include(item => item.GroceryCategory)
                 .ToListAsync();
-
             return groceryItems.Select(item => _mapper.Map<GetGroceryItemDto>(item)).ToList();
         }
 
         public async Task<bool> DeleteGroceryItem(int groceryItemId)
         {
-            try
-            {
-                var groceryItem = await _context.GroceryItems.FindAsync(groceryItemId);
-                if (groceryItem is null) return false;
 
-                int usageInRecipesCount = await _context.RecipeGroceryItems.Where(item => item.GroceryItemId == groceryItemId).CountAsync();
+            var groceryItem = await _context.GroceryItems.FindAsync(groceryItemId);
+            if (groceryItem is null) return false;
 
-                if (usageInRecipesCount == 0)
-                {
-                    _context.GroceryItems.Remove(groceryItem);
-                    await _context.SaveChangesAsync();
+            bool usedInRecipes = await _context.RecipeGroceryItems.AnyAsync(item => item.GroceryItemId == groceryItemId);
 
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
+            if (usedInRecipes)
             {
                 return false;
+            }
+            else
+            {
+                _context.GroceryItems.Remove(groceryItem);
+                return true;
             }
         }
 
         public async Task<GetGroceryItemDto?> UpdateGroceryItem(UpdateGroceryItemDto updatedGroceryItem)
         {
-            try
-            {
-                GroceryItem? groceryItem = await _context.GroceryItems.FindAsync(updatedGroceryItem.Id);
-                GroceryCategory? groceryCategory = await _context.GroceryCategories.FindAsync(updatedGroceryItem.groceryCategoryId);
-                
-                if (groceryItem is null || groceryCategory is null) return null;
-
-                _mapper.Map(updatedGroceryItem, groceryItem);
-                groceryItem.Category = groceryCategory;
-                
-                await _context.SaveChangesAsync();
-
-                return _mapper.Map<GetGroceryItemDto>(groceryItem);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            GroceryItem? groceryItem = await _context.GroceryItems.FindAsync(updatedGroceryItem.Id);
+            if (groceryItem is null) return null;
+            _mapper.Map(updatedGroceryItem, groceryItem);
+            return _mapper.Map<GetGroceryItemDto>(groceryItem);
         }
     }
 }
