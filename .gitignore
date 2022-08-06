@@ -235,3 +235,6 @@ _Pvt_Extensions
 recipemanager.db-shm
 recipemanager.db-wal
 
+# Visual Studio Code
+
+.vscode/
