@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class RecipeCategoryList extends Component {
+  static displayName = RecipeCategoryList.name
 
   constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
+    super(props)
+    this.state = { forecasts: [], loading: true }
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateWeatherData()
   }
 
   static renderForecastsTable(forecasts) {
@@ -19,6 +19,7 @@ export class FetchData extends Component {
           <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Aktionen</th>
           </tr>
         </thead>
         <tbody>
@@ -26,34 +27,36 @@ export class FetchData extends Component {
             <tr key={forecast.id}>
               <td>{forecast.id}</td>
               <td>{forecast.name}</td>
+              <td></td>
             </tr>
           ))}
         </tbody>
       </table>
-    );
+    )
   }
 
   render() {
     let contents = this.state.loading ? (
       <p>
-        <em>Loading...</em>
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
       </p>
     ) : (
-      FetchData.renderForecastsTable(this.state.forecasts)
-    );
+      RecipeCategoryList.renderForecastsTable(this.state.forecasts)
+    )
 
     return (
       <div>
-        <h1 id="tabelLabel">Überschrift</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel">Rezeptkategorien</h1>
         {contents}
       </div>
-    );
+    )
   }
 
   async populateWeatherData() {
-    const response = await fetch("/grocerycategories");
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    const response = await fetch('/api/recipecategories')
+    const data = await response.json()
+    this.setState({ forecasts: data, loading: false })
   }
 }

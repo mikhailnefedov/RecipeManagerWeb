@@ -5,7 +5,7 @@ using RecipeManagerWeb.Repositories;
 namespace RecipeManagerWeb.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class GroceryCategoriesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
