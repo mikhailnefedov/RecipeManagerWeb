@@ -2,16 +2,21 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'reactstrap'
 import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs'
+import './styles.css'
 
-export class Home extends Component {
-  static displayName = Home.name
+export class RecipeCategoryList extends Component {
+  static displayName = RecipeCategoryList.name
 
   constructor(props) {
     super(props)
-    this.state = { recipes: [], loading: true }
+    this.state = { categories: [], loading: true }
   }
 
-  static renderRecipes(recipes) {
+  componentDidMount() {
+    this.populateCategories()
+  }
+
+  static renderCategories(categories) {
     return (
       <table
         className="table table-striped table-bordered"
@@ -20,27 +25,15 @@ export class Home extends Component {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Kategorie</th>
             <th>Name</th>
-            <th>Menge</th>
-            <th>Einheit</th>
-            <th>Zeit</th>
-            <th>Vegetarisch</th>
             <th>Aktionen</th>
           </tr>
         </thead>
         <tbody>
-          {recipes.map((recipe) => (
-            <tr key={recipe.id}>
-              <td>{recipe.id}</td>
-              <td>{recipe.recipeCategory.name}</td>
-              <td>{recipe.title}</td>
-              <td>{recipe.amount}</td>
-              <td>{recipe.portionUnit}</td>
-              <td>{recipe.time}</td>
-              <td>
-                <input type="checkbox" checked={recipe.vegetarian}></input>
-              </td>
+          {categories.map((category) => (
+            <tr key={category.id}>
+              <td>{category.id}</td>
+              <td>{category.name}</td>
               <td class="whitespace-nowrap text-sm">
                 <button class="edit-button inline-block px-4 leading-none border rounded ">
                   <BsFillPencilFill />
@@ -64,27 +57,27 @@ export class Home extends Component {
         </div>
       </p>
     ) : (
-      Home.renderRecipes(this.state.recipes)
+      RecipeCategoryList.renderCategories(this.state.categories)
     )
 
     return (
       <div>
-        <h1 id="tabelLabel">Rezepte</h1>
-        <NavLink tag={Link} className="text-dark create-entity" to="/addrecipe">
-          Neues Rezept hinzufügen
+        <h1 id="tabelLabel">Rezeptkategorien</h1>
+        <NavLink
+          tag={Link}
+          className="text-dark create-entity"
+          to="/addrecipecategory"
+        >
+          Neue Kategorie hinzufügen
         </NavLink>
         {contents}
       </div>
     )
   }
 
-  componentDidMount() {
-    this.populateRecipes()
-  }
-
-  async populateRecipes() {
-    const response = await fetch('/api/recipes')
+  async populateCategories() {
+    const response = await fetch('/api/recipecategories')
     const data = await response.json()
-    this.setState({ recipes: data, loading: false })
+    this.setState({ categories: data, loading: false })
   }
 }
