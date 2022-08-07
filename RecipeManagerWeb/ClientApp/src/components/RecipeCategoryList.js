@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { NavLink } from 'reactstrap'
+import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs'
+import './styles.css'
 
 export class RecipeCategoryList extends Component {
   static displayName = RecipeCategoryList.name
 
   constructor(props) {
     super(props)
-    this.state = { forecasts: [], loading: true }
+    this.state = { categories: [], loading: true }
   }
 
   componentDidMount() {
-    this.populateWeatherData()
+    this.populateCategories()
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderCategories(categories) {
     return (
-      <table className="table table-striped" aria-labelledby="tabelLabel">
+      <table
+        className="table table-striped table-bordered"
+        aria-labelledby="tabelLabel"
+      >
         <thead>
           <tr>
             <th>Id</th>
@@ -23,11 +30,18 @@ export class RecipeCategoryList extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map((forecast) => (
-            <tr key={forecast.id}>
-              <td>{forecast.id}</td>
-              <td>{forecast.name}</td>
-              <td></td>
+          {categories.map((category) => (
+            <tr key={category.id}>
+              <td>{category.id}</td>
+              <td>{category.name}</td>
+              <td class="whitespace-nowrap text-sm">
+                <button class="edit-button inline-block px-4 leading-none border rounded ">
+                  <BsFillPencilFill />
+                </button>
+                <button class="inline-block px-4 leading-none border rounded ">
+                  <BsFillTrashFill />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -43,20 +57,27 @@ export class RecipeCategoryList extends Component {
         </div>
       </p>
     ) : (
-      RecipeCategoryList.renderForecastsTable(this.state.forecasts)
+      RecipeCategoryList.renderCategories(this.state.categories)
     )
 
     return (
       <div>
         <h1 id="tabelLabel">Rezeptkategorien</h1>
+        <NavLink
+          tag={Link}
+          className="text-dark create-entity"
+          to="/addrecipecategory"
+        >
+          Neue Kategorie hinzufügen
+        </NavLink>
         {contents}
       </div>
     )
   }
 
-  async populateWeatherData() {
+  async populateCategories() {
     const response = await fetch('/api/recipecategories')
     const data = await response.json()
-    this.setState({ forecasts: data, loading: false })
+    this.setState({ categories: data, loading: false })
   }
 }
