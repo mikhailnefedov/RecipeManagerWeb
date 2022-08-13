@@ -281,7 +281,7 @@ namespace RecipeManagerWeb.Extensions
             Recipe recipe1 = new Recipe
             {
                 Id = recipe1Id,
-                Title = "Example recipe 1",
+                Name = "Example recipe 1",
                 RecipeCategoryId = 1,
                 Amount = 2.0,
                 PortionUnit = PortionUnit.Cake,
@@ -293,7 +293,7 @@ namespace RecipeManagerWeb.Extensions
             Recipe recipe2 = new Recipe
             {
                 Id = recipe2Id,
-                Title = "Example recipe 2",
+                Name = "Example recipe 2",
                 RecipeCategoryId = 2,
                 Amount = 4.0,
                 PortionUnit = PortionUnit.Portion,

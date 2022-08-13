@@ -7,7 +7,7 @@ namespace RecipeManagerWeb.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public int RecipeCategoryId { get; set; }
         [ForeignKey("RecipeCategoryId")]
         public RecipeCategory RecipeCategory { get; set; } = null!;

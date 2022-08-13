@@ -34,7 +34,7 @@ namespace RecipeManagerWebTest.Repositories
             Recipe recipe = new Recipe()
             {
                 Id = RecipeId,
-                Title = "Recipe title",
+                Name = "Recipe title",
                 RecipeCategory = category,
             };
 
