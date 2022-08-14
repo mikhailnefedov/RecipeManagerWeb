@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using RecipeManagerWeb.Dtos;
+using RecipeManagerWeb.Models;
 using RecipeManagerWeb.Repositories;
 
 namespace RecipeManagerWeb.Controllers
@@ -9,50 +11,54 @@ namespace RecipeManagerWeb.Controllers
     public class GroceryCategoriesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GroceryCategoriesController(IUnitOfWork unitOfWork) 
+        public GroceryCategoriesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGroceryCategory(string name)
+        public async Task<ActionResult<GetGroceryCategoryDto>> AddGroceryCategory(string name)
         {
-            var result = await _unitOfWork.GroceryCategoryRepository.AddGroceryCategory(name);
+            GroceryCategory groceryCategory = new GroceryCategory { Name = name };
+            await _unitOfWork.GroceryCategoryRepository.Add(groceryCategory);
             await _unitOfWork.Save();
-            return Ok(result);
-        }
-        
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetGroceryCategory(int id)
-        {
-            var result = await _unitOfWork.GroceryCategoryRepository.GetGroceryCategory(id);
-            return result != null ? Ok(result) : BadRequest();
+            return Ok(_mapper.Map<GetGroceryCategoryDto>(groceryCategory));
         }
 
-        
-        [HttpGet]
-        public async Task<IActionResult> GetGroceryCategories()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetGroceryCategoryDto>> GetGroceryCategory(int id)
         {
-            return Ok(await _unitOfWork.GroceryCategoryRepository.GetGroceryCategories());
+            var groceryCategory = await _unitOfWork.GroceryCategoryRepository.GetById(id);
+            return groceryCategory != null ? Ok(_mapper.Map<GetGroceryCategoryDto>(groceryCategory)) : BadRequest();
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<List<GetGroceryCategoryDto>>> GetGroceryCategories()
+        {
+            var results = await _unitOfWork.GroceryCategoryRepository.GetAll();
+            return Ok(_mapper.Map<List<GetGroceryCategoryDto>>(results));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroceryCategory(int id)
+        public async Task<ActionResult<bool>> DeleteGroceryCategory(int id)
         {
-            var result = await _unitOfWork.GroceryCategoryRepository.DeleteGroceryCategory(id);
+            var groceryCategory = await _unitOfWork.GroceryCategoryRepository.GetById(id);
+            _unitOfWork.GroceryCategoryRepository.Remove(groceryCategory);
             await _unitOfWork.Save();
-
-            return result ? Ok() : BadRequest();
+            return Ok(true);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateGroceryCategory(UpdateGroceryCategoryDto dto)
+        public async Task<ActionResult<GetGroceryCategoryDto>> UpdateGroceryCategory(UpdateGroceryCategoryDto dto)
         {
-            var result = await _unitOfWork.GroceryCategoryRepository.UpdateGroceryCategory(dto);
+            var groceryCategory = _mapper.Map<GroceryCategory>(dto);
+            _unitOfWork.GroceryCategoryRepository.Update(groceryCategory);
             await _unitOfWork.Save();
-            
-            return result != null ? Ok(result) : BadRequest();
+            return Ok(_mapper.Map<GetGroceryCategoryDto>(groceryCategory));
         }
 
     }
