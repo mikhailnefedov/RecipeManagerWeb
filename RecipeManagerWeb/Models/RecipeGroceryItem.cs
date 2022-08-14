@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace RecipeManagerWeb.Models
+﻿namespace RecipeManagerWeb.Models
 {
     public class RecipeGroceryItem
     {
@@ -9,7 +7,7 @@ namespace RecipeManagerWeb.Models
         public int GroceryItemId { get; set; }
         public GroceryItem GroceryItem { get; set; } = null!;
         public double Amount { get; set; }
-        public MeasurementUnit Measurementunit { get; set; }
+        public MeasurementUnit Measurement { get; set; }
     }
 
 }
