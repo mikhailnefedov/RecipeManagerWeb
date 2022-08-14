@@ -20,6 +20,15 @@ namespace RecipeManagerWeb.Data
             modelBuilder.Entity<RecipeGroceryItem>()
                 .HasKey(rg => new { rg.RecipeId, rg.GroceryItemId });
 
+            //Auto Includes
+            modelBuilder.Entity<GroceryItem>().Navigation(g => g.GroceryCategory).AutoInclude();
+            modelBuilder.Entity<GroceryCategory>().Navigation(g => g.GroceryItems).AutoInclude();
+            modelBuilder.Entity<Recipe>().Navigation(r => r.RecipeCategory).AutoInclude();
+            modelBuilder.Entity<Recipe>().Navigation(r => r.Instructions).AutoInclude();
+            modelBuilder.Entity<Recipe>().Navigation(r => r.Ingredients).AutoInclude();
+            modelBuilder.Entity<RecipeGroceryItem>().Navigation(r => r.Recipe).AutoInclude();
+            modelBuilder.Entity<RecipeGroceryItem>().Navigation(r => r.GroceryItem).AutoInclude();
+
             modelBuilder.SeedData();
         }
     }

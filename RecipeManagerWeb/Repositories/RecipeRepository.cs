@@ -31,7 +31,7 @@ namespace RecipeManagerWeb.Repositories
             recipe.Ingredients = newRecipe.Ingredients.Select(i => new RecipeGroceryItem()
             {
                 Amount = i.Amount,
-                Measurementunit = i.Measurementunit,
+                Measurement = i.Measurementunit,
                 GroceryItemId = i.GroceryItemId,
                 Recipe = recipe
             }
@@ -70,6 +70,12 @@ namespace RecipeManagerWeb.Repositories
             var recipes = await _context.Recipes.Include(r => r.RecipeCategory)
                 .ToListAsync();
             return recipes.Select(r => _mapper.Map<GetRecipeOverviewDto>(r)).ToList();
+        }
+
+        public async Task<List<Recipe>> GetRecipes(List<int> recipeIds)
+        {
+            return await _context.Recipes.Include(r => r.Ingredients)
+                .Where(r => recipeIds.Contains(r.Id)).ToListAsync();
         }
 
         public async Task<GetRecipeDto?> UpdateRecipe(UpdateRecipeDto updatedRecipe)

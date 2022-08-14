@@ -317,14 +317,21 @@ namespace RecipeManagerWeb.Extensions
                     RecipeId = recipe1Id,
                     GroceryItemId = 1,
                     Amount = 5.0,
-                    Measurementunit = MeasurementUnit.Kg,
+                    Measurement = MeasurementUnit.Kg,
                 },
                 new
                 {
                     RecipeId = recipe1Id,
                     GroceryItemId = 3,
                     Amount = 5.0,
-                    Measurementunit = MeasurementUnit.L,
+                    Measurement = MeasurementUnit.L,
+                },
+                new
+                {
+                    RecipeId = recipe2Id,
+                    GroceryItemId = 3,
+                    Amount = 10.0,
+                    Measurement = MeasurementUnit.Kg,
                 }
                 );
         }
