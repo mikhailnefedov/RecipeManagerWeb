@@ -53,12 +53,11 @@ namespace RecipeManagerWeb.Controllers
             var orderedRecipeSelection = recipeSelection.OrderBy(r => r.RecipeId);
 
             ShoppingList shoppingList = new ShoppingList();
-            for (int i = 0; i < orderedRecipes.Count(); i++)
-            {
-                var ingredients = orderedRecipes.ElementAt(i).GetIngredientsForRequestedAmount(
-                    orderedRecipeSelection.ElementAt(i).RequestedAmount);
-                ingredients.ForEach(i => shoppingList.AddGroceryItem(i));
-            }
+
+            var ingredientsList = orderedRecipes.Zip(orderedRecipeSelection,
+                (recipe, recipeSelection) => recipe.GetIngredientsForRequestedAmount(recipeSelection.RequestedAmount)).ToList();
+            ingredientsList.ForEach(list => shoppingList.AddGroceryItems(list));
+
             return shoppingList;
         }
 

@@ -9,6 +9,11 @@
             Groceries = new Dictionary<GroceryItem, Dictionary<MeasurementUnit, double>>();
         }
 
+        public void AddGroceryItems(List<RecipeGroceryItem> itemsToAdd)
+        {
+            itemsToAdd.ForEach(i => AddGroceryItem(i));
+        }
+
         public void AddGroceryItem(RecipeGroceryItem itemToAdd)
         {
             if (isGroceryInList(itemToAdd.GroceryItem))

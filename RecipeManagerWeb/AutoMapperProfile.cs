@@ -32,7 +32,6 @@ namespace RecipeManagerWeb
             CreateMap<UpdateRecipeDto, Recipe>();
             CreateMap<UpdateRecipeGroceryItemDto, RecipeGroceryItem>();
             CreateMap<UpdateInstructionStepDto, InstructionStep>();
-
         }
     }
 }
