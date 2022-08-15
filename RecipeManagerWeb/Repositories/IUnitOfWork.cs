@@ -4,7 +4,6 @@
     {
         IGroceryItemRepository GroceryItemRepository { get; }
         IGroceryCategoryRepository GroceryCategoryRepository { get; }
-        IInstructionStepRepository InstructionStepRepository { get; }
         IRecipeCategoryRepository RecipeCategoryRepository { get; }
         IRecipeRepository RecipeRepository { get; }
 

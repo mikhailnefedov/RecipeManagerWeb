@@ -10,8 +10,6 @@ namespace RecipeManagerWeb.Repositories
 
         public IGroceryCategoryRepository GroceryCategoryRepository { get; }
 
-        public IInstructionStepRepository InstructionStepRepository { get; }
-
         public IRecipeCategoryRepository RecipeCategoryRepository { get; }
 
         public IRecipeRepository RecipeRepository { get; }
@@ -19,14 +17,12 @@ namespace RecipeManagerWeb.Repositories
         public UnitOfWork(DataContext context,
             IGroceryItemRepository groceryItemRepository,
             IGroceryCategoryRepository groceryCategoryRepository,
-            IInstructionStepRepository instructionStepRepository,
             IRecipeCategoryRepository recipeCategoryRepository,
             IRecipeRepository recipeRepository)
         {
             _context = context;
             GroceryItemRepository = groceryItemRepository;
             GroceryCategoryRepository = groceryCategoryRepository;
-            InstructionStepRepository = instructionStepRepository;
             RecipeCategoryRepository = recipeCategoryRepository;
             RecipeRepository = recipeRepository;
         }
