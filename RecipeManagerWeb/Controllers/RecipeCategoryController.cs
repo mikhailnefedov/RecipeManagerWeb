@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using RecipeManagerWeb.Dtos;
+using RecipeManagerWeb.Models;
 using RecipeManagerWeb.Repositories;
 
 namespace RecipeManagerWeb.Controllers
@@ -9,48 +11,64 @@ namespace RecipeManagerWeb.Controllers
     public class RecipeCategoriesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public RecipeCategoriesController(IUnitOfWork unitOfWork) 
+        public RecipeCategoriesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGroceryCategory(AddRecipeCategoryDto newRecipeCategory)
+        public async Task<ActionResult<GetRecipeCategoryDto>> AddGroceryCategory(AddRecipeCategoryDto newRecipeCategory)
         {
-            var result = await _unitOfWork.RecipeCategoryRepository.AddRecipeCategory(newRecipeCategory);
+            RecipeCategory recipeCategory = _mapper.Map<RecipeCategory>(newRecipeCategory);
+            await _unitOfWork.RecipeCategoryRepository.Add(recipeCategory);
             await _unitOfWork.Save();
-            return Ok(result);
+            return Ok(_mapper.Map<GetRecipeCategoryDto>(recipeCategory));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecipeCategory(int id)
+        public async Task<ActionResult<GetRecipeCategoryDto>> GetRecipeCategory(int id)
         {
-            var result = await _unitOfWork.RecipeCategoryRepository.GetRecipeCategory(id);
-            return result != null ? Ok(result) : BadRequest();
+            var recipeCategory = await _unitOfWork.RecipeCategoryRepository.GetById(id);
+            return recipeCategory != null ? Ok(_mapper.Map<GetRecipeCategoryDto>(recipeCategory)) : BadRequest();
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> GetRecipeCategories()
+        public async Task<ActionResult<List<GetRecipeCategoryDto>>> GetRecipeCategories()
         {
-            return Ok(await _unitOfWork.RecipeCategoryRepository.GetRecipeCategories());
+            var recipeCategories = await _unitOfWork.RecipeCategoryRepository.GetAll();
+            return Ok(_mapper.Map<List<GetRecipeCategoryDto>>(recipeCategories));
+
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipeCategory(int id)
         {
-            var result = await _unitOfWork.RecipeCategoryRepository.DeleteRecipeCategory(id);
-            await _unitOfWork.Save();
-            return result ? Ok() : BadRequest();
+            var recipeCategory = await _unitOfWork.RecipeCategoryRepository.GetById(id);
+            bool recipeCategoryInUse = await _unitOfWork.RecipeCategoryRepository.CheckIfCategoryIsUsed(recipeCategory);
+
+            if (recipeCategoryInUse)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _unitOfWork.RecipeCategoryRepository.Remove(recipeCategory);
+                await _unitOfWork.Save();
+                return Ok(true);
+            }
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipe)
+        public async Task<ActionResult<GetRecipeCategoryDto>> UpdateRecipeCategory(UpdateRecipeCategoryDto updatedRecipe)
         {
-            var result = await _unitOfWork.RecipeCategoryRepository.UpdateRecipeCategory(updatedRecipe);
+            var recipeCategory = _mapper.Map<RecipeCategory>(updatedRecipe);
+            _unitOfWork.RecipeCategoryRepository.Update(recipeCategory);
             await _unitOfWork.Save();
-            return result != null ? Ok(result) : BadRequest();
+            return Ok(_mapper.Map<GetRecipeCategoryDto>(recipeCategory));
         }
     }
 }

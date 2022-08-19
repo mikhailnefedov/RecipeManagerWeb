@@ -1,9 +1,8 @@
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using RecipeManagerWeb;
 using RecipeManagerWeb.Data;
 using RecipeManagerWeb.Repositories;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +12,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews().AddJsonOptions(x => 
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
 {
     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
@@ -25,7 +24,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IGroceryCategoryRepository, GroceryCategoryRepository>();
 builder.Services.AddScoped<IGroceryItemRepository, GroceryItemRepository>();
-builder.Services.AddScoped<IInstructionStepRepository, InstructionStepRepository>();
 builder.Services.AddScoped<IRecipeCategoryRepository, RecipeCategoryRepository>();
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
