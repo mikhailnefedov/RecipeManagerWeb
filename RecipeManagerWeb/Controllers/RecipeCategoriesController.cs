@@ -45,7 +45,7 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipeCategory(int id)
+        public async Task<ActionResult<bool>> DeleteRecipeCategory(int id)
         {
             var recipeCategory = await _unitOfWork.RecipeCategoryRepository.GetById(id);
             bool recipeCategoryInUse = await _unitOfWork.RecipeCategoryRepository.CheckIfCategoryIsUsed(recipeCategory);
