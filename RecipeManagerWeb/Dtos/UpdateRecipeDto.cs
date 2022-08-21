@@ -1,12 +1,11 @@
 ﻿using RecipeManagerWeb.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace RecipeManagerWeb.Dtos
 {
     public class UpdateRecipeDto
     {
         public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public int recipeCategoryId { get; set; }
         public double? Amount { get; set; }
         public PortionUnit? PortionUnit { get; set; }
@@ -22,11 +21,12 @@ namespace RecipeManagerWeb.Dtos
     {
         public int GroceryItemId { get; set; }
         public double Amount { get; set; }
-        public MeasurementUnit Measurementunit { get; set; }
+        public MeasurementUnit Measurement { get; set; }
     }
 
     public class UpdateInstructionStepDto
     {
+        public int Id { get; set; }
         public string Text { get; set; } = string.Empty;
     }
 
