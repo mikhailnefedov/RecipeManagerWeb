@@ -5,7 +5,7 @@ namespace RecipeManagerWeb.Dtos
     public class GetRecipeDto
     {
         public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public GetRecipeCategoryDto RecipeCategory { get; set; } = null!;
         public double? Amount { get; set; }
         public PortionUnit? PortionUnit { get; set; }

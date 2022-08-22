@@ -6,6 +6,6 @@ namespace RecipeManagerWeb.Dtos
     {
         public int GroceryItemId { get; set; }
         public double Amount { get; set; }
-        public MeasurementUnit Measurementunit { get; set; }
+        public MeasurementUnit Measurement { get; set; }
     }
 }

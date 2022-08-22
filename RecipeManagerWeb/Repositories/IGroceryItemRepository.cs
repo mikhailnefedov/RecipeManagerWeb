@@ -1,14 +1,9 @@
-﻿using RecipeManagerWeb.Dtos;
-using RecipeManagerWeb.Models;
+﻿using RecipeManagerWeb.Models;
 
 namespace RecipeManagerWeb.Repositories
 {
-    public interface IGroceryItemRepository
+    public interface IGroceryItemRepository : IRepository<GroceryItem>
     {
-        public Task<GetGroceryItemDto> AddGroceryItem(AddGroceryItemDto newGroceryItem);
-        public Task<GetGroceryItemDto?> GetGroceryItem(int groceryItemId);
-        public Task<List<GetGroceryItemDto>> GetGroceryItems();
-        public Task<bool> DeleteGroceryItem(int groceryItemId);
-        public Task<GetGroceryItemDto?> UpdateGroceryItem(UpdateGroceryItemDto updatedGroceryItem);
+        public Task<bool> CheckIfItemIsUsedInRecipes(GroceryItem item);
     }
 }

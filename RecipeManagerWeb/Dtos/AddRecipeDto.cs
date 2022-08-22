@@ -4,7 +4,7 @@ namespace RecipeManagerWeb.Dtos
 {
     public class AddRecipeDto
     {
-        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public int RecipeCategoryId { get; set; }
         public double? Amount { get; set; }
         public PortionUnit? PortionUnit { get; set; }

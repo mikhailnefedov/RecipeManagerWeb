@@ -10,9 +10,10 @@ namespace RecipeManagerWeb
         {
             CreateMap<AddGroceryItemDto, GroceryItem>();
             CreateMap<AddRecipeCategoryDto, RecipeCategory>();
-            CreateMap<AddRecipeDto, Recipe>()
-                .ForMember(dest => dest.Instructions, opt => opt.Ignore())
-                .ForMember(dest => dest.Ingredients, opt => opt.Ignore());
+            CreateMap<AddRecipeDto, Recipe>();
+            CreateMap<AddRecipeGroceryItemDto, RecipeGroceryItem>();
+            CreateMap<AddInstructionStepDto, InstructionStep>();
+
             CreateMap<GroceryCategory, GetGroceryCategoryDto>();
             CreateMap<GroceryItem, GetGroceryItemDto>()
                 .ForMember(dest => dest.groceryCategoryId, opt => opt.MapFrom(src => src.GroceryCategory.Id))
