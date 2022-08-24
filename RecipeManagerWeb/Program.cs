@@ -31,7 +31,15 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", corsBuilder => 
+    corsBuilder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:3000")));
+
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -43,7 +51,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",
