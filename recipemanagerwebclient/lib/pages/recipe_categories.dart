@@ -4,11 +4,13 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
-import 'package:recipemanagerwebclient/models/tables/recipe_category_table.dart';
+import 'package:recipemanagerwebclient/widgets/tables/recipe_category_table.dart';
 
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 import 'package:http/http.dart' as http;
+
+import '../widgets/popups/create_recipe_category_popup.dart';
 
 class RecipeCategories extends StatefulWidget {
   const RecipeCategories({super.key});
@@ -41,22 +43,14 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
             children: [
               ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18.0), // here
-                  child: Text("Rezeptkategorie hinzufügen"),
-                ),
-                onPressed: () {},
+                label: Text("Rezeptkategorie hinzufügen"),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => CreateRecipeCategoryPopup(),
+                  );
+                },
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.33,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Suche',
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                ),
-              )
             ],
           ),
           Divider(),
