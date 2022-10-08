@@ -3,4 +3,5 @@ class RequestURL {
 
   static const String recipeCategories = "${_host}recipecategories";
   static const String groceryCategories = "${_host}grocerycategories";
+  static const String groceryItems = "${_host}groceryitems";
 }
