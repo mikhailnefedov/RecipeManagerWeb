@@ -82,11 +82,4 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
       throw Exception('Fail');
     }
   }
-
-  DataRow createRow({required String abbreviation, required String name}) {
-    return DataRow(cells: <DataCell>[
-      DataCell(Text(abbreviation)),
-      DataCell(Text(name)),
-    ]);
-  }
 }

@@ -20,9 +20,9 @@ namespace RecipeManagerWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetGroceryCategoryDto>> AddGroceryCategory(string name)
+        public async Task<ActionResult<GetGroceryCategoryDto>> AddGroceryCategory(AddGroceryCategoryDto dto)
         {
-            GroceryCategory groceryCategory = new GroceryCategory { Name = name };
+            GroceryCategory groceryCategory = _mapper.Map<GroceryCategory>(dto);
             await _unitOfWork.GroceryCategoryRepository.Add(groceryCategory);
             await _unitOfWork.Save();
             return Ok(_mapper.Map<GetGroceryCategoryDto>(groceryCategory));

@@ -9,6 +9,7 @@ namespace RecipeManagerWeb
         public AutoMapperProfile()
         {
             CreateMap<AddGroceryItemDto, GroceryItem>();
+            CreateMap<AddGroceryCategoryDto, GroceryCategory>();
             CreateMap<AddRecipeCategoryDto, RecipeCategory>();
             CreateMap<AddRecipeDto, Recipe>();
             CreateMap<AddRecipeGroceryItemDto, RecipeGroceryItem>();
