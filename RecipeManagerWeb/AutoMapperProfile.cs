@@ -20,7 +20,7 @@ namespace RecipeManagerWeb
                 .ForMember(dest => dest.groceryCategoryId, opt => opt.MapFrom(src => src.GroceryCategory.Id))
                 .ForMember(dest => dest.groceryCategoryName, opt => opt.MapFrom(src => src.GroceryCategory.Name));
 
-            CreateMap<Recipe, GetRecipeOverviewDto>();
+            CreateMap<Recipe, GetSmallRecipeDto>();
             CreateMap<Recipe, GetRecipeDto>();
             CreateMap<InstructionStep, GetInstructionStepDto>();
             CreateMap<RecipeGroceryItem, GetRecipeGroceryItemDto>()
