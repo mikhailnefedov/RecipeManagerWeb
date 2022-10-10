@@ -300,6 +300,7 @@ namespace RecipeManagerWeb.Extensions
                 Time = 30,
                 Vegetarian = false,
                 Source = "https://www.",
+                Comment = ""
             };
 
             builder.Entity<Recipe>().HasData(recipe1, recipe2);

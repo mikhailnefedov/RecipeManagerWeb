@@ -41,11 +41,7 @@ class _RecipesState extends State<Recipes> {
                 icon: Icon(Icons.add),
                 label: Text("Rezepte hinzufügen"),
                 onPressed: () {
-                  /*
-                  showDialog(
-                    context: context,
-                    builder: (context) => CreateRecipeCategoryPopup(),
-                  );*/
+                  Navigator.pushNamed(context, "/createrecipe");
                 },
               ),
             ],

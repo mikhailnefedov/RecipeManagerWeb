@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/pages/create_recipe_page.dart';
 import 'package:recipemanagerwebclient/pages/grocery_categories.dart';
 import 'package:recipemanagerwebclient/pages/grocery_items.dart';
 import 'package:recipemanagerwebclient/pages/recipe_categories.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/groceryitems': (context) => GroceryItems(),
         '/grocerycategories': (context) => GroceryCategories(),
         '/recipe': (context) => RecipePage(),
+        '/createrecipe': (context) => CreateRecipePage(),
       },
       initialRoute: '/',
     );

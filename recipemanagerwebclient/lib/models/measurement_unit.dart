@@ -1,0 +1,4 @@
+enum MeasurementUnit {
+  Kg,
+  L,
+}
