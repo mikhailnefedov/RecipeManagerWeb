@@ -37,11 +37,11 @@ namespace RecipeManagerWeb.Controllers
             return recipe != null ? Ok(_mapper.Map<GetRecipeDto>(recipe)) : BadRequest();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<GetRecipeDto>>> GetRecipesOverview()
+        [HttpGet("smallrecipes")]
+        public async Task<ActionResult<List<GetSmallRecipeDto>>> GetSmallRecipes()
         {
             var recipes = await _unitOfWork.RecipeRepository.GetAll();
-            return Ok(_mapper.Map<List<GetRecipeOverviewDto>>(recipes));
+            return Ok(_mapper.Map<List<GetSmallRecipeDto>>(recipes));
         }
 
         [HttpDelete("{id}")]
