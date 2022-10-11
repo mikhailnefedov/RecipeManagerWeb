@@ -27,6 +27,7 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
       child: Text(e.name),
     );
   }).toList();
+  late List<GroceryItem> groceryItems;
 
   int groceryItemId = 0;
   double amount = 0.0;
@@ -43,6 +44,11 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
     groceryItemIdController.addListener(() {
       groceryItemId = int.parse(groceryItemIdController.text);
     });
+    call();
+  }
+
+  void call() async {
+    groceryItems = await fetchItems();
   }
 
   @override
@@ -52,6 +58,18 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
       content: Center(
         child: SingleChildScrollView(
           child: Column(children: [
+            IconButton(
+              onPressed: () async {
+                GroceryItem item = await showSearch(
+                    context: context,
+                    delegate: IngredientSearchDelegate(groceryItems));
+                setState(() {
+                  groceryItemId = item.id;
+                  groceryItemIdController.text = '${item.id}';
+                });
+              },
+              icon: Icon(Icons.search),
+            ),
             TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -93,6 +111,89 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
           child: Text('Hinzufügen'),
         )
       ],
+    );
+  }
+
+  Future<List<GroceryItem>> fetchItems() async {
+    final response = await http.get(Uri.parse(RequestURL.groceryItems));
+
+    if (response.statusCode == 200) {
+      final map = jsonDecode(response.body);
+      return (map as List).map((e) => GroceryItem.fromJson(e)).toList();
+    } else {
+      throw Exception('Fail');
+    }
+  }
+}
+
+class IngredientSearchDelegate extends SearchDelegate {
+  late List<GroceryItem> _groceryItems;
+
+  IngredientSearchDelegate(this._groceryItems);
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  // third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    List<GroceryItem> matchQuery = [];
+    for (var item in _groceryItems) {
+      if (item.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result.name),
+        );
+      },
+    );
+  }
+
+  // last overwrite to show the
+  // querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<GroceryItem> matchQuery = [];
+    for (var item in _groceryItems) {
+      if (item.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result.name),
+          onTap: () {
+            close(context, result);
+          },
+        );
+      },
     );
   }
 }

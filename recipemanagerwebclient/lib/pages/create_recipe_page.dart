@@ -39,7 +39,10 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   RecipeCategory recipeCategory =
       RecipeCategory(id: 100, abbreviation: '', name: 'Placeholder');
 
-  CreateRecipe newRecipe = CreateRecipe();
+  int textControllerId = 0;
+  List<TextEditingController> instructionControllers = [];
+
+  CreateRecipe newRecipe = CreateRecipe(ingredients: [], instructions: []);
 
   @override
   void initState() {
@@ -189,8 +192,9 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                         DataCell(Text('${value.amount}')),
                         DataCell(Text(value.measurement.name)),
                       ]));
-                      newRecipe.ingredients.add(value);
                     });
+                    newRecipe.ingredients
+                        .add(value!); //TODO: Fix adding to model
                   });
                 },
               ),
@@ -201,10 +205,25 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                 itemCount: newRecipe.instructions.length,
                 itemBuilder: (context, index) {
                   var textController = TextEditingController()
-                    ..text = newRecipe.instructions[index];
+                    ..text = newRecipe.instructions[index].text;
+                  instructionControllers.add(textController);
+                  textController.addListener(
+                    () {
+                      newRecipe.instructions[index].text = textController.text;
+                    },
+                  );
                   return TextFormField(controller: textController);
                 },
               ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    textControllerId++;
+                    newRecipe.instructions.add(CreateInstruction(text: ''));
+                  });
+                },
+                icon: Icon(Icons.add),
+              )
             ],
           ),
         ),
@@ -245,9 +264,18 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
     );
   }
 
-  void postRecipe() async {
+  Future<void> postRecipe() async {
     newRecipe.recipeCategoryId = recipeCategory.id;
-    print(newRecipe.toJson());
+    var jsonRecipe = newRecipe;
+    print(jsonEncode(newRecipe.toJson()));
+
+    await http.post(
+      Uri.parse(RequestURL.recipes),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(newRecipe.toJson()),
+    );
   }
 
   void createDropDownMenu() async {

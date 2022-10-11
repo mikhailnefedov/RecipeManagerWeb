@@ -10,7 +10,7 @@ class CreateRecipe {
   int time;
   bool vegetarian;
   List<CreateIngredient> ingredients;
-  List<String> instructions;
+  List<CreateInstruction> instructions;
   String source;
   String comment;
 
@@ -36,7 +36,7 @@ class CreateRecipe {
       'time': time,
       'vegetarian': vegetarian,
       'ingredients': ingredients.map((e) => e.toJson()).toList(),
-      'instructions': instructions,
+      'instructions': instructions.map((e) => e.toJson()).toList(),
       'source': source,
       'comment': comment,
     };
@@ -58,6 +58,18 @@ class CreateIngredient {
       'groceryItemId': groceryItemId,
       'amount': amount,
       'measurement': measurement.name,
+    };
+  }
+}
+
+class CreateInstruction {
+  String text;
+
+  CreateInstruction({required this.text});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
     };
   }
 }

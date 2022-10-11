@@ -57,7 +57,6 @@ class _CreateGroceryItemPopupState extends State<CreateGroceryItemPopup> {
                   value: e,
                   child: Text(e.name),
                 );
-                ;
               }).toList(),
               onChanged: (value) {
                 category = value!;
