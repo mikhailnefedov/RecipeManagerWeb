@@ -6,7 +6,6 @@ import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
 import 'package:recipemanagerwebclient/models/portion_unit.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
 import 'package:recipemanagerwebclient/widgets/popups/create_ingredient_popup.dart';
-import 'package:recipemanagerwebclient/widgets/popups/create_recipe_category_popup.dart';
 
 import '../api/request_urls.dart';
 import '../models/recipe.dart';
