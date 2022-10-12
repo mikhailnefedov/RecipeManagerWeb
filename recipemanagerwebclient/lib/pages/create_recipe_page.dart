@@ -37,9 +37,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   RecipeCategory recipeCategory =
       RecipeCategory(id: 100, abbreviation: '', name: 'Placeholder');
 
-  int textControllerId = 0;
-  List<TextEditingController> instructionControllers = [];
-
   CreateRecipe newRecipe = CreateRecipe(ingredients: [], instructions: []);
 
   @override
@@ -204,7 +201,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                 itemBuilder: (context, index) {
                   var textController = TextEditingController()
                     ..text = newRecipe.instructions[index].text;
-                  instructionControllers.add(textController);
                   textController.addListener(
                     () {
                       newRecipe.instructions[index].text = textController.text;
@@ -216,7 +212,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    textControllerId++;
                     newRecipe.instructions.add(CreateInstruction(text: ''));
                   });
                 },
@@ -227,29 +222,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
         ),
       ),
     );
-  }
-
-  Future<Recipe> loadRecipe(int recipeId) async {
-    final response =
-        await http.get(Uri.parse("${RequestURL.recipes}/$recipeId"));
-
-    if (response.statusCode == 200) {
-      return Recipe.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Fail');
-    }
-  }
-
-  void fillControllers(Recipe recipe) {
-    nameController.text = recipe.name;
-    recipeCategories.add(DropdownMenuItem<RecipeCategory>(
-      value: recipe.recipeCategory,
-      child: Text(recipe.recipeCategory.name),
-    ));
-    amountController.text = "${recipe.amount}";
-    timeController.text = "${recipe.time}";
-    sourceController.text = recipe.source;
-    commentController.text = recipe.comment;
   }
 
   DataRow createRow(Ingredient ingredient) {
