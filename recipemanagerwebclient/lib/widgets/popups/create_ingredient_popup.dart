@@ -13,7 +13,7 @@ class CreateIngredientPopup extends StatefulWidget {
   const CreateIngredientPopup({Key? key}) : super(key: key);
 
   @override
-  _CreateIngredientPopupState createState() => _CreateIngredientPopupState();
+  State<CreateIngredientPopup> createState() => _CreateIngredientPopupState();
 }
 
 class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
@@ -126,7 +126,7 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
 }
 
 class IngredientSearchDelegate extends SearchDelegate {
-  late List<GroceryItem> _groceryItems;
+  late final List<GroceryItem> _groceryItems;
 
   IngredientSearchDelegate(this._groceryItems);
 

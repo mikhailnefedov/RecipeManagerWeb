@@ -16,11 +16,10 @@ class CreateRecipePage extends StatefulWidget {
   const CreateRecipePage({Key? key}) : super(key: key);
 
   @override
-  _CreateRecipePageState createState() => _CreateRecipePageState();
+  State<CreateRecipePage> createState() => _CreateRecipePageState();
 }
 
 class _CreateRecipePageState extends State<CreateRecipePage> {
-  late Future<Recipe> _recipe;
   final nameController = TextEditingController();
   List<DropdownMenuItem<RecipeCategory>> recipeCategories = [];
   final amountController = TextEditingController();
@@ -265,7 +264,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
   Future<void> postRecipe() async {
     newRecipe.recipeCategoryId = recipeCategory.id;
-    var jsonRecipe = newRecipe;
     print(jsonEncode(newRecipe.toJson()));
 
     await http.post(

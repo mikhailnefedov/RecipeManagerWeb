@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/models/portion_unit.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
@@ -15,11 +14,10 @@ class RecipePage extends StatefulWidget {
   const RecipePage({Key? key}) : super(key: key);
 
   @override
-  _RecipePageState createState() => _RecipePageState();
+  State<RecipePage> createState() => _RecipePageState();
 }
 
 class _RecipePageState extends State<RecipePage> {
-  late Future<Recipe> _recipe;
   final nameController = TextEditingController();
   List<DropdownMenuItem<RecipeCategory>> recipeCategories = [];
   final amountController = TextEditingController();
