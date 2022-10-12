@@ -19,4 +19,4 @@ jobs:
       - name: Analyze
         run: |
           cd recipemanagerwebclient
-          flutter analyze
+          flutter build web
