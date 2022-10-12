@@ -18,5 +18,5 @@ jobs:
           channel: "stable"
       - name: Analyze
         run: |
-        cd .\recipemanagerwebclient\
-        flutter analyze
+          cd .\recipemanagerwebclient\
+          flutter analyze
