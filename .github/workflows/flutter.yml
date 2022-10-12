@@ -1,0 +1,22 @@
+name: Flutter
+
+on:
+  push:
+    branches: [master, feature/**, bugfix/**]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.4"
+          channel: "stable"
+      - name: Analyze
+        run: |
+          cd recipemanagerwebclient
+          flutter build web
