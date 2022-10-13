@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import 'package:recipemanagerwebclient/dtos/create_grocery_category.dart';
 
@@ -31,7 +32,7 @@ class _CreateGroceryItemPopupState extends State<CreateGroceryItemPopup> {
   }
 
   void call() async {
-    var fetchedCategories = await fetchCategories();
+    var fetchedCategories = await HttpHelper.fetchGroceryCategories();
     setState(() {
       categories = fetchedCategories;
     });
@@ -87,16 +88,5 @@ class _CreateGroceryItemPopupState extends State<CreateGroceryItemPopup> {
       },
       body: jsonEncode(newCategory.toJson()),
     );
-  }
-
-  Future<List<GroceryCategory>> fetchCategories() async {
-    final response = await http.get(Uri.parse(RequestURL.groceryCategories));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => GroceryCategory.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

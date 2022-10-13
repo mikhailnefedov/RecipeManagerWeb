@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
 import 'package:recipemanagerwebclient/models/portion_unit.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
@@ -248,7 +249,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   }
 
   void createDropDownMenu() async {
-    List<RecipeCategory> fetchedCategories = await fetchCategories();
+    List<RecipeCategory> fetchedCategories =
+        await HttpHelper.fetchRecipeCategories();
     setState(() {
       recipeCategories = fetchedCategories.map((e) {
         return DropdownMenuItem<RecipeCategory>(
@@ -258,16 +260,5 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       }).toList();
       recipeCategory = fetchedCategories[0];
     });
-  }
-
-  Future<List<RecipeCategory>> fetchCategories() async {
-    final response = await http.get(Uri.parse(RequestURL.recipeCategories));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => RecipeCategory.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

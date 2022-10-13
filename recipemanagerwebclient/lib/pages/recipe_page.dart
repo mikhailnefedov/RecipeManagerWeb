@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/portion_unit.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
 
-import '../api/request_urls.dart';
 import '../models/recipe.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
@@ -47,7 +44,7 @@ class _RecipePageState extends State<RecipePage> {
       drawer: NavigationDrawer(),
       appBar: Header(),
       body: FutureBuilder<Recipe>(
-        future: loadRecipe(recipeId),
+        future: HttpHelper.fetchRecipe(recipeId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             fillControllers(snapshot.requireData);
@@ -169,17 +166,6 @@ class _RecipePageState extends State<RecipePage> {
         },
       ),
     );
-  }
-
-  Future<Recipe> loadRecipe(int recipeId) async {
-    final response =
-        await http.get(Uri.parse("${RequestURL.recipes}/$recipeId"));
-
-    if (response.statusCode == 200) {
-      return Recipe.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Fail');
-    }
   }
 
   void fillControllers(Recipe recipe) {

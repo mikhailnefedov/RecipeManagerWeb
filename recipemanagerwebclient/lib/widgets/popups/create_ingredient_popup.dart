@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
 import 'package:recipemanagerwebclient/models/measurement_unit.dart';
-
-import 'package:http/http.dart' as http;
-
-import '../../api/request_urls.dart';
 import '../../models/grocery_item.dart';
 
 class CreateIngredientPopup extends StatefulWidget {
@@ -47,7 +42,7 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
   }
 
   void call() async {
-    groceryItems = await fetchItems();
+    groceryItems = await HttpHelper.fetchGroceryItems();
   }
 
   @override
@@ -111,17 +106,6 @@ class _CreateIngredientPopupState extends State<CreateIngredientPopup> {
         )
       ],
     );
-  }
-
-  Future<List<GroceryItem>> fetchItems() async {
-    final response = await http.get(Uri.parse(RequestURL.groceryItems));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => GroceryItem.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }
 
