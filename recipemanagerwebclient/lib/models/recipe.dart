@@ -1,7 +1,11 @@
-import 'package:recipemanagerwebclient/models/measurement_unit.dart';
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:recipemanagerwebclient/models/data_layer.dart';
+import 'ingredient.dart';
+import 'instruction_step.dart';
 
+part 'recipe.g.dart';
+
+@JsonSerializable()
 class Recipe {
   final int id;
   final String name;
@@ -16,17 +20,17 @@ class Recipe {
   final String comment;
 
   const Recipe({
-    required this.id,
-    required this.name,
-    required this.recipeCategory,
-    required this.amount,
-    required this.portionUnit,
-    required this.time,
-    required this.vegetarian,
-    required this.ingredients,
-    required this.instructions,
-    required this.source,
-    required this.comment,
+    this.id = 0,
+    this.name = '',
+    this.recipeCategory = const RecipeCategory(),
+    this.amount = 0.0,
+    this.portionUnit = PortionUnit.Bread,
+    this.time = 0,
+    this.vegetarian = false,
+    this.ingredients = const <Ingredient>[],
+    this.instructions = const <InstructionStep>[],
+    this.source = '',
+    this.comment = '',
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
@@ -46,46 +50,6 @@ class Recipe {
           .toList(),
       source: json['source'],
       comment: json['comment'],
-    );
-  }
-}
-
-class Ingredient {
-  final int groceryItemId;
-  final String groceryName;
-  final double amount;
-  final MeasurementUnit measurement;
-
-  Ingredient({
-    required this.groceryItemId,
-    required this.groceryName,
-    required this.amount,
-    required this.measurement,
-  });
-
-  factory Ingredient.fromJson(Map<String, dynamic> json) {
-    return Ingredient(
-      groceryItemId: json['groceryItemId'],
-      groceryName: json['groceryName'],
-      amount: json['amount'],
-      measurement: MeasurementUnit.values.byName(json['measurement']),
-    );
-  }
-}
-
-class InstructionStep {
-  final int id;
-  final String text;
-
-  InstructionStep({
-    required this.id,
-    required this.text,
-  });
-
-  factory InstructionStep.fromJson(Map<String, dynamic> json) {
-    return InstructionStep(
-      id: json['id'],
-      text: json['text'],
     );
   }
 }

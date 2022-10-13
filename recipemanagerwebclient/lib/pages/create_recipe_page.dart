@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
 import 'package:recipemanagerwebclient/widgets/popups/create_ingredient_popup.dart';
 
 import '../api/request_urls.dart';
-import '../models/recipe.dart';
+import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 

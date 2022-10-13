@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
 
-import '../models/recipe.dart';
+import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 

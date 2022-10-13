@@ -4,4 +4,6 @@ export 'measurement_unit.dart';
 export 'portion_unit.dart';
 export 'recipe_category.dart';
 export 'recipe.dart';
+export 'ingredient.dart';
+export 'instruction_step.dart';
 export 'small_recipe.dart';
