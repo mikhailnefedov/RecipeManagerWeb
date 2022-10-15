@@ -5,16 +5,16 @@ import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
-class RecipePage extends StatefulWidget {
+class RecipeView extends StatefulWidget {
   static const route = '/recipe';
 
-  const RecipePage({Key? key}) : super(key: key);
+  const RecipeView({Key? key}) : super(key: key);
 
   @override
-  State<RecipePage> createState() => _RecipePageState();
+  State<RecipeView> createState() => _RecipeViewState();
 }
 
-class _RecipePageState extends State<RecipePage> {
+class _RecipeViewState extends State<RecipeView> {
   final nameController = TextEditingController();
   List<DropdownMenuItem<RecipeCategory>> recipeCategories = [];
   final amountController = TextEditingController();
