@@ -1,14 +1,13 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
-import '../api/request_urls.dart';
+import 'package:recipemanagerwebclient/views/recipe_page.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class Recipes extends StatefulWidget {
+  static const route = '/recipes';
+
   const Recipes({super.key});
 
   @override
@@ -21,7 +20,7 @@ class _RecipesState extends State<Recipes> {
   @override
   void initState() {
     super.initState();
-    _recipes = fetchRecipes();
+    _recipes = HttpHelper.fetchSmallRecipes();
   }
 
   @override
@@ -41,7 +40,7 @@ class _RecipesState extends State<Recipes> {
                 icon: Icon(Icons.add),
                 label: Text("Rezepte hinzufügen"),
                 onPressed: () {
-                  Navigator.pushNamed(context, "/createrecipe");
+                  Navigator.pushNamed(context, RecipePage.route);
                 },
               ),
             ],
@@ -68,7 +67,7 @@ class _RecipesState extends State<Recipes> {
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
-                                    "/recipe",
+                                    RecipePage.route,
                                     arguments: {
                                       "id": snapshot.requireData[index].id
                                     },
@@ -89,16 +88,5 @@ class _RecipesState extends State<Recipes> {
         ],
       ),
     );
-  }
-
-  Future<List<SmallRecipe>> fetchRecipes() async {
-    final response = await http.get(Uri.parse(RequestURL.smallRecipes));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => SmallRecipe.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

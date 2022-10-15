@@ -1,18 +1,16 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/grocery_category.dart';
 import 'package:recipemanagerwebclient/widgets/tables/grocery_category_table.dart';
 
-import '../api/request_urls.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
-
-import 'package:http/http.dart' as http;
 
 import '../widgets/popups/create_grocery_category_popup.dart';
 
 class GroceryCategories extends StatefulWidget {
+  static const route = '/grocerycategories';
+
   const GroceryCategories({super.key});
 
   @override
@@ -25,7 +23,7 @@ class _GroceryCategoriesState extends State<GroceryCategories> {
   @override
   void initState() {
     super.initState();
-    categories = fetchCategories();
+    categories = HttpHelper.fetchGroceryCategories();
   }
 
   @override
@@ -70,16 +68,5 @@ class _GroceryCategoriesState extends State<GroceryCategories> {
         ],
       ),
     );
-  }
-
-  Future<List<GroceryCategory>> fetchCategories() async {
-    final response = await http.get(Uri.parse(RequestURL.groceryCategories));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => GroceryCategory.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

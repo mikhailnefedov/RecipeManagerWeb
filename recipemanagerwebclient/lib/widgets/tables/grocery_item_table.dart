@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:recipemanagerwebclient/api/request_urls.dart';
-import '../../models/grocery_category.dart';
 import '../../models/grocery_item.dart';
 
 class GroceryItemTable extends StatefulWidget {

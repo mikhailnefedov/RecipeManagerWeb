@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import 'package:recipemanagerwebclient/dtos/create_grocery_category.dart';
-import 'package:recipemanagerwebclient/dtos/create_recipe_category.dart';
-
-import '../../models/grocery_category.dart';
 
 class CreateGroceryCategoryPopup extends StatefulWidget {
   const CreateGroceryCategoryPopup({

@@ -1,6 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:recipemanagerwebclient/models/portion_unit.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
 
+part 'small_recipe.g.dart';
+
+@JsonSerializable()
 class SmallRecipe {
   final int id;
   final String name;
@@ -11,24 +15,15 @@ class SmallRecipe {
   final bool vegetarian;
 
   const SmallRecipe({
-    required this.id,
-    required this.name,
-    required this.recipeCategory,
-    required this.amount,
-    required this.portionUnit,
-    required this.time,
-    required this.vegetarian,
+    this.id = 0,
+    this.name = '',
+    this.recipeCategory = const RecipeCategory(),
+    this.amount = 0.0,
+    this.portionUnit = PortionUnit.Bread,
+    this.time = 0,
+    this.vegetarian = false,
   });
 
-  factory SmallRecipe.fromJson(Map<String, dynamic> json) {
-    return SmallRecipe(
-      id: json['id'],
-      name: json['name'],
-      recipeCategory: RecipeCategory.fromJson(json['recipeCategory']),
-      amount: json['amount'],
-      portionUnit: PortionUnit.values.byName(json['portionUnit']),
-      time: json['time'],
-      vegetarian: json['vegetarian'],
-    );
-  }
+  factory SmallRecipe.fromJson(Map<String, dynamic> json) =>
+      _$SmallRecipeFromJson(json);
 }

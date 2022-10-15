@@ -1,7 +1,6 @@
-import 'dart:js';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../views/views.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -18,31 +17,31 @@ class NavigationDrawer extends StatelessWidget {
             buildMenuItem(
               context: context,
               text: 'Rezepte',
-              route: '/recipes',
+              route: Recipes.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
               text: 'Einkaufsliste',
-              route: '/shoppinglist',
+              route: ShoppingList.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
               text: 'Rezeptkategorien',
-              route: '/recipecategories',
+              route: RecipeCategories.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
               text: 'Lebensmittel',
-              route: '/groceryitems',
+              route: GroceryItems.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
               text: 'Lebensmittelkategorien',
-              route: '/grocerycategories',
+              route: GroceryCategories.route,
             )
           ],
         ),

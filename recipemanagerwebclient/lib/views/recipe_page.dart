@@ -1,25 +1,20 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 
-import '../api/request_urls.dart';
-import '../models/recipe.dart';
+import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class RecipePage extends StatefulWidget {
+  static const route = '/recipe';
+
   const RecipePage({Key? key}) : super(key: key);
 
   @override
-  _RecipePageState createState() => _RecipePageState();
+  State<RecipePage> createState() => _RecipePageState();
 }
 
 class _RecipePageState extends State<RecipePage> {
-  late Future<Recipe> _recipe;
   final nameController = TextEditingController();
   List<DropdownMenuItem<RecipeCategory>> recipeCategories = [];
   final amountController = TextEditingController();
@@ -49,7 +44,7 @@ class _RecipePageState extends State<RecipePage> {
       drawer: NavigationDrawer(),
       appBar: Header(),
       body: FutureBuilder<Recipe>(
-        future: loadRecipe(recipeId),
+        future: HttpHelper.fetchRecipe(recipeId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             fillControllers(snapshot.requireData);
@@ -171,17 +166,6 @@ class _RecipePageState extends State<RecipePage> {
         },
       ),
     );
-  }
-
-  Future<Recipe> loadRecipe(int recipeId) async {
-    final response =
-        await http.get(Uri.parse("${RequestURL.recipes}/$recipeId"));
-
-    if (response.statusCode == 200) {
-      return Recipe.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Fail');
-    }
   }
 
   void fillControllers(Recipe recipe) {

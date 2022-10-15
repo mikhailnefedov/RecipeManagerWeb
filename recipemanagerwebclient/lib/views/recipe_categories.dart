@@ -1,18 +1,16 @@
-import 'dart:convert';
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/api/request_urls.dart';
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/recipe_category.dart';
 import 'package:recipemanagerwebclient/widgets/tables/recipe_category_table.dart';
 
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
-import 'package:http/http.dart' as http;
 
 import '../widgets/popups/create_recipe_category_popup.dart';
 
 class RecipeCategories extends StatefulWidget {
+  static const route = '/recipecategories';
+
   const RecipeCategories({super.key});
 
   @override
@@ -25,7 +23,7 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
   @override
   void initState() {
     super.initState();
-    categories = fetchCategories();
+    categories = HttpHelper.fetchRecipeCategories();
   }
 
   @override
@@ -70,16 +68,5 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
         ],
       ),
     );
-  }
-
-  Future<List<RecipeCategory>> fetchCategories() async {
-    final response = await http.get(Uri.parse(RequestURL.recipeCategories));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => RecipeCategory.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

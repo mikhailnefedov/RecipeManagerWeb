@@ -2,26 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
 import 'package:recipemanagerwebclient/widgets/popups/create_ingredient_popup.dart';
-import 'package:recipemanagerwebclient/widgets/popups/create_recipe_category_popup.dart';
 
 import '../api/request_urls.dart';
-import '../models/recipe.dart';
+import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class CreateRecipePage extends StatefulWidget {
+  static const route = '/createrecipe';
+
   const CreateRecipePage({Key? key}) : super(key: key);
 
   @override
-  _CreateRecipePageState createState() => _CreateRecipePageState();
+  State<CreateRecipePage> createState() => _CreateRecipePageState();
 }
 
 class _CreateRecipePageState extends State<CreateRecipePage> {
-  late Future<Recipe> _recipe;
   final nameController = TextEditingController();
   List<DropdownMenuItem<RecipeCategory>> recipeCategories = [];
   final amountController = TextEditingController();
@@ -38,9 +37,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   final commentController = TextEditingController();
   RecipeCategory recipeCategory =
       RecipeCategory(id: 100, abbreviation: '', name: 'Placeholder');
-
-  int textControllerId = 0;
-  List<TextEditingController> instructionControllers = [];
 
   CreateRecipe newRecipe = CreateRecipe(ingredients: [], instructions: []);
 
@@ -206,7 +202,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
                 itemBuilder: (context, index) {
                   var textController = TextEditingController()
                     ..text = newRecipe.instructions[index].text;
-                  instructionControllers.add(textController);
                   textController.addListener(
                     () {
                       newRecipe.instructions[index].text = textController.text;
@@ -218,7 +213,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    textControllerId++;
                     newRecipe.instructions.add(CreateInstruction(text: ''));
                   });
                 },
@@ -229,29 +223,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
         ),
       ),
     );
-  }
-
-  Future<Recipe> loadRecipe(int recipeId) async {
-    final response =
-        await http.get(Uri.parse("${RequestURL.recipes}/$recipeId"));
-
-    if (response.statusCode == 200) {
-      return Recipe.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Fail');
-    }
-  }
-
-  void fillControllers(Recipe recipe) {
-    nameController.text = recipe.name;
-    recipeCategories.add(DropdownMenuItem<RecipeCategory>(
-      value: recipe.recipeCategory,
-      child: Text(recipe.recipeCategory.name),
-    ));
-    amountController.text = "${recipe.amount}";
-    timeController.text = "${recipe.time}";
-    sourceController.text = recipe.source;
-    commentController.text = recipe.comment;
   }
 
   DataRow createRow(Ingredient ingredient) {
@@ -266,7 +237,6 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
 
   Future<void> postRecipe() async {
     newRecipe.recipeCategoryId = recipeCategory.id;
-    var jsonRecipe = newRecipe;
     print(jsonEncode(newRecipe.toJson()));
 
     await http.post(
@@ -279,7 +249,8 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
   }
 
   void createDropDownMenu() async {
-    List<RecipeCategory> fetchedCategories = await fetchCategories();
+    List<RecipeCategory> fetchedCategories =
+        await HttpHelper.fetchRecipeCategories();
     setState(() {
       recipeCategories = fetchedCategories.map((e) {
         return DropdownMenuItem<RecipeCategory>(
@@ -289,16 +260,5 @@ class _CreateRecipePageState extends State<CreateRecipePage> {
       }).toList();
       recipeCategory = fetchedCategories[0];
     });
-  }
-
-  Future<List<RecipeCategory>> fetchCategories() async {
-    final response = await http.get(Uri.parse(RequestURL.recipeCategories));
-
-    if (response.statusCode == 200) {
-      final map = jsonDecode(response.body);
-      return (map as List).map((e) => RecipeCategory.fromJson(e)).toList();
-    } else {
-      throw Exception('Fail');
-    }
   }
 }

@@ -1,3 +1,4 @@
+//TODO: Remove class
 class RequestURL {
   static const String _host = "https://localhost:7287/api/";
 

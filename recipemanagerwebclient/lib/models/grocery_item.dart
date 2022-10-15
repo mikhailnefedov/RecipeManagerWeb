@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'grocery_item.g.dart';
+
+@JsonSerializable()
 class GroceryItem {
   final int id;
   final String name;
@@ -5,17 +10,11 @@ class GroceryItem {
   final String groceryCategoryName;
 
   const GroceryItem(
-      {required this.id,
-      required this.name,
-      required this.groceryCategoryId,
-      required this.groceryCategoryName});
+      {this.id = 0,
+      this.name = '',
+      this.groceryCategoryId = 0,
+      this.groceryCategoryName = ''});
 
-  factory GroceryItem.fromJson(Map<String, dynamic> json) {
-    return GroceryItem(
-      id: json['id'],
-      name: json['name'],
-      groceryCategoryId: json['groceryCategoryId'],
-      groceryCategoryName: json['groceryCategoryName'],
-    );
-  }
+  factory GroceryItem.fromJson(Map<String, dynamic> json) =>
+      _$GroceryItemFromJson(json);
 }

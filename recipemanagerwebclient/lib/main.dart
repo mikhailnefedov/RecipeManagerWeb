@@ -1,15 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/pages/create_recipe_page.dart';
-import 'package:recipemanagerwebclient/pages/grocery_categories.dart';
-import 'package:recipemanagerwebclient/pages/grocery_items.dart';
-import 'package:recipemanagerwebclient/pages/recipe_categories.dart';
-import 'package:recipemanagerwebclient/pages/recipe_page.dart';
-import 'package:recipemanagerwebclient/pages/shopping_list.dart';
 
 import 'home_page.dart';
-import 'pages/recipes.dart';
+import 'views/recipes.dart';
+import 'views/views.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,13 +20,13 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomePage(),
-        '/recipes': (context) => Recipes(),
-        '/shoppinglist': (context) => ShoppingList(),
-        '/recipecategories': (context) => RecipeCategories(),
-        '/groceryitems': (context) => GroceryItems(),
-        '/grocerycategories': (context) => GroceryCategories(),
-        '/recipe': (context) => RecipePage(),
-        '/createrecipe': (context) => CreateRecipePage(),
+        Recipes.route: (context) => Recipes(),
+        ShoppingList.route: (context) => ShoppingList(),
+        RecipeCategories.route: (context) => RecipeCategories(),
+        GroceryItems.route: (context) => GroceryItems(),
+        GroceryCategories.route: (context) => GroceryCategories(),
+        RecipePage.route: (context) => RecipePage(),
+        CreateRecipePage.route: (context) => CreateRecipePage(),
       },
       initialRoute: '/',
     );
