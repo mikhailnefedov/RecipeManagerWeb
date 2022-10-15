@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
+import 'package:recipemanagerwebclient/views/recipe_page.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class Recipes extends StatefulWidget {
+  static const route = '/recipes';
+
   const Recipes({super.key});
 
   @override
@@ -37,7 +40,7 @@ class _RecipesState extends State<Recipes> {
                 icon: Icon(Icons.add),
                 label: Text("Rezepte hinzufügen"),
                 onPressed: () {
-                  Navigator.pushNamed(context, "/createrecipe");
+                  Navigator.pushNamed(context, RecipePage.route);
                 },
               ),
             ],
@@ -64,7 +67,7 @@ class _RecipesState extends State<Recipes> {
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
-                                    "/recipe",
+                                    RecipePage.route,
                                     arguments: {
                                       "id": snapshot.requireData[index].id
                                     },

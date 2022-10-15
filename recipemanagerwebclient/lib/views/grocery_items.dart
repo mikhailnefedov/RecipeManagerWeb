@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
-import 'package:recipemanagerwebclient/models/recipe_category.dart';
-import 'package:recipemanagerwebclient/widgets/tables/recipe_category_table.dart';
+import 'package:recipemanagerwebclient/widgets/tables/grocery_item_table.dart';
 
+import '../models/grocery_item.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
+import '../widgets/popups/create_grocery_item_popup.dart';
 
-import '../widgets/popups/create_recipe_category_popup.dart';
+class GroceryItems extends StatefulWidget {
+  static const route = '/groceryitems';
 
-class RecipeCategories extends StatefulWidget {
-  const RecipeCategories({super.key});
+  const GroceryItems({super.key});
 
   @override
-  State<RecipeCategories> createState() => _RecipeCategoriesState();
+  State<GroceryItems> createState() => _GroceryItemsState();
 }
 
-class _RecipeCategoriesState extends State<RecipeCategories> {
-  late Future<List<RecipeCategory>> categories;
+class _GroceryItemsState extends State<GroceryItems> {
+  late Future<List<GroceryItem>> items;
 
   @override
   void initState() {
     super.initState();
-    categories = HttpHelper.fetchRecipeCategories();
+    items = HttpHelper.fetchGroceryItems();
   }
 
   @override
@@ -39,23 +40,23 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
             children: [
               ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Text("Rezeptkategorie hinzufügen"),
+                label: Text("Lebensmittel hinzufügen"),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => CreateRecipeCategoryPopup(),
+                    builder: (context) => CreateGroceryItemPopup(),
                   );
                 },
               ),
             ],
           ),
           Divider(),
-          FutureBuilder<List<RecipeCategory>>(
-            future: categories,
+          FutureBuilder<List<GroceryItem>>(
+            future: items,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return RecipeCategoryTable(
-                  categories: snapshot.requireData,
+                return GroceryItemTable(
+                  items: snapshot.requireData,
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
@@ -63,6 +64,8 @@ class _RecipeCategoriesState extends State<RecipeCategories> {
               return const CircularProgressIndicator();
             },
           ),
+          Divider(),
+          Text('TODO: Better Pagination/Scrolling necessary')
         ],
       ),
     );

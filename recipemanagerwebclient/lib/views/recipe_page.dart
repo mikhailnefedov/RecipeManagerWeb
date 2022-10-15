@@ -6,6 +6,8 @@ import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class RecipePage extends StatefulWidget {
+  static const route = '/recipe';
+
   const RecipePage({Key? key}) : super(key: key);
 
   @override

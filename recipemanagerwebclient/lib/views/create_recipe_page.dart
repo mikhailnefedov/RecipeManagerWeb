@@ -12,6 +12,8 @@ import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class CreateRecipePage extends StatefulWidget {
+  static const route = '/createrecipe';
+
   const CreateRecipePage({Key? key}) : super(key: key);
 
   @override

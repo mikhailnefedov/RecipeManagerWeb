@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
-import 'package:recipemanagerwebclient/models/grocery_category.dart';
-import 'package:recipemanagerwebclient/widgets/tables/grocery_category_table.dart';
+import 'package:recipemanagerwebclient/models/recipe_category.dart';
+import 'package:recipemanagerwebclient/widgets/tables/recipe_category_table.dart';
 
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
-import '../widgets/popups/create_grocery_category_popup.dart';
+import '../widgets/popups/create_recipe_category_popup.dart';
 
-class GroceryCategories extends StatefulWidget {
-  const GroceryCategories({super.key});
+class RecipeCategories extends StatefulWidget {
+  static const route = '/recipecategories';
+
+  const RecipeCategories({super.key});
 
   @override
-  State<GroceryCategories> createState() => _GroceryCategoriesState();
+  State<RecipeCategories> createState() => _RecipeCategoriesState();
 }
 
-class _GroceryCategoriesState extends State<GroceryCategories> {
-  late Future<List<GroceryCategory>> categories;
+class _RecipeCategoriesState extends State<RecipeCategories> {
+  late Future<List<RecipeCategory>> categories;
 
   @override
   void initState() {
     super.initState();
-    categories = HttpHelper.fetchGroceryCategories();
+    categories = HttpHelper.fetchRecipeCategories();
   }
 
   @override
@@ -39,22 +41,22 @@ class _GroceryCategoriesState extends State<GroceryCategories> {
             children: [
               ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Text("Lebensmittelkategorie hinzufügen"),
+                label: Text("Rezeptkategorie hinzufügen"),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => CreateGroceryCategoryPopup(),
+                    builder: (context) => CreateRecipeCategoryPopup(),
                   );
                 },
               ),
             ],
           ),
           Divider(),
-          FutureBuilder<List<GroceryCategory>>(
+          FutureBuilder<List<RecipeCategory>>(
             future: categories,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return GroceryCategoryTable(
+                return RecipeCategoryTable(
                   categories: snapshot.requireData,
                 );
               } else if (snapshot.hasError) {

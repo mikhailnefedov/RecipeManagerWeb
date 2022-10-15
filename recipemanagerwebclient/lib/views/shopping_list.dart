@@ -4,6 +4,8 @@ import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
 class ShoppingList extends StatefulWidget {
+  static const route = '/shoppinglist';
+
   const ShoppingList({super.key});
 
   @override
