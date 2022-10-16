@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
+import 'package:recipemanagerwebclient/widgets/recipe/instruction_steps_list.dart';
 import 'package:recipemanagerwebclient/widgets/recipe/recipe_header.dart';
 
 import '../models/data_layer.dart';
@@ -78,17 +79,7 @@ class _RecipeViewState extends State<RecipeView> {
                             .toList(),
                       ),
                       Divider(),
-                      Text('Anleitung:'),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.requireData.instructions.length,
-                        itemBuilder: (context, index) {
-                          var textController = TextEditingController()
-                            ..text =
-                                snapshot.requireData.instructions[index].text;
-                          return TextFormField(controller: textController);
-                        },
-                      ),
+                      InstructionStepsList(recipe: _recipe),
                     ],
                   ),
                 ),

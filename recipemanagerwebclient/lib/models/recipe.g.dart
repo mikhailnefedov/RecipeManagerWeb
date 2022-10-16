@@ -40,7 +40,7 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'time': instance.time,
       'vegetarian': instance.vegetarian,
       'ingredients': instance.ingredients,
-      'instructions': instance.instructions,
+      'instructions': instance.instructions.map((e) => e.toJson()).toList(),
       'source': instance.source,
       'comment': instance.comment,
     };

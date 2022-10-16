@@ -4,8 +4,8 @@ part 'instruction_step.g.dart';
 
 @JsonSerializable()
 class InstructionStep {
-  final int id;
-  final String text;
+  int id;
+  String text;
 
   InstructionStep({
     this.id = 0,
@@ -14,4 +14,5 @@ class InstructionStep {
 
   factory InstructionStep.fromJson(Map<String, dynamic> json) =>
       _$InstructionStepFromJson(json);
+  Map<String, dynamic> toJson() => _$InstructionStepToJson(this);
 }
