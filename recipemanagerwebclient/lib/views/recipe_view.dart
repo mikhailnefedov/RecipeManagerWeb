@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
-import 'package:recipemanagerwebclient/widgets/recipe/instruction_steps_list.dart';
-import 'package:recipemanagerwebclient/widgets/recipe/recipe_header.dart';
-
 import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
+import '../widgets/recipe/recipe_widgets.dart';
 
 class RecipeView extends StatefulWidget {
   static const route = '/recipe';
@@ -37,7 +35,6 @@ class _RecipeViewState extends State<RecipeView> {
   Widget build(BuildContext context) {
     //Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     //int recipeId = arguments["id"];
-
     int recipeId = 1;
 
     return Scaffold(
@@ -62,21 +59,9 @@ class _RecipeViewState extends State<RecipeView> {
                       RecipeHeader(
                         recipe: snapshot.requireData,
                       ),
-                      DataTable(
-                        columns: const <DataColumn>[
-                          DataColumn(
-                            label: Text('Lebensmittel'),
-                          ),
-                          DataColumn(
-                            label: Text("Menge"),
-                          ),
-                          DataColumn(
-                            label: Text("Einheit"),
-                          ),
-                        ],
-                        rows: snapshot.requireData.ingredients
-                            .map((e) => createRow(e))
-                            .toList(),
+                      Divider(),
+                      IngredientTable(
+                        recipe: _recipe,
                       ),
                       Divider(),
                       InstructionStepsList(recipe: _recipe),
@@ -90,16 +75,6 @@ class _RecipeViewState extends State<RecipeView> {
           }
         },
       ),
-    );
-  }
-
-  DataRow createRow(Ingredient ingredient) {
-    return DataRow(
-      cells: <DataCell>[
-        DataCell(Text(ingredient.groceryName)),
-        DataCell(Text('${ingredient.amount}')),
-        DataCell(Text(ingredient.measurement.name)),
-      ],
     );
   }
 }
