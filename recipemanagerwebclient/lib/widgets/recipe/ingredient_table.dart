@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/widgets/popups/ingredient_popup.dart';
 
 import '../../models/data_layer.dart';
 
@@ -40,7 +41,15 @@ class _IngredientTableState extends State<IngredientTable> {
         ),
         IconButton(
           icon: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () async {
+            var newIngredient = await showDialog<Ingredient>(
+              context: context,
+              builder: (context) => IngredientPopup(),
+            );
+            setState(() {
+              _recipe.ingredients.add(newIngredient!);
+            });
+          },
         ),
       ],
     );
@@ -64,7 +73,17 @@ class _IngredientTableState extends State<IngredientTable> {
               IconButton(
                 icon: Icon(Icons.edit),
                 splashRadius: 16.0,
-                onPressed: () {},
+                onPressed: () async {
+                  var updatedIngredient = await showDialog(
+                    context: context,
+                    builder: (context) => IngredientPopup(
+                      ingredient: ingredient,
+                    ),
+                  );
+                  setState(() {
+                    ingredient = updatedIngredient;
+                  });
+                },
               ),
               IconButton(
                 icon: Icon(Icons.delete),

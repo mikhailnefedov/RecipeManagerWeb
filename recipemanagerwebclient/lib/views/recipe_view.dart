@@ -71,7 +71,7 @@ class _RecipeViewState extends State<RecipeView> {
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),
