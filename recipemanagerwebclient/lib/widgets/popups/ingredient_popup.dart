@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/widgets/dropdowns/measurement_unit_dropdown.dart';
 
-import '../../models/ingredient.dart';
+import '../../api/http_helper.dart';
 import 'ingredient_search_delegate.dart';
 
 class IngredientPopup extends StatefulWidget {
@@ -15,9 +15,9 @@ class IngredientPopup extends StatefulWidget {
 
 class _IngredientPopupState extends State<IngredientPopup> {
   late Ingredient _ingredient;
+  late List<GroceryItem> groceryItems;
 
   TextEditingController amountController = TextEditingController();
-  TextEditingController itemController = TextEditingController();
 
   @override
   void initState() {
@@ -28,10 +28,11 @@ class _IngredientPopupState extends State<IngredientPopup> {
     amountController.addListener(() {
       _ingredient.amount = double.parse(amountController.text);
     });
-    itemController.text = _ingredient.groceryName;
-    itemController.addListener(() {
-      _ingredient.groceryName = itemController.text;
-    });
+    fetchGroceryItems(); //TODO: better loading of these entities
+  }
+
+  void fetchGroceryItems() async {
+    groceryItems = await HttpHelper.fetchGroceryItems();
   }
 
   @override
@@ -41,25 +42,22 @@ class _IngredientPopupState extends State<IngredientPopup> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Grocery item',
-              prefixIcon: IconButton(
+          Row(
+            children: [
+              IconButton(
                 onPressed: () async {
-                  /*
-            GroceryItem item = await showSearch(
-                context: context,
-                delegate: IngredientSearchDelegate(groceryItems));
-            setState(() {
-              groceryItemId = item.id;
-              groceryItemIdController.text = '${item.id}';
-            });*/
+                  GroceryItem item = await showSearch(
+                      context: context,
+                      delegate: IngredientSearchDelegate(groceryItems));
+                  setState(() {
+                    _ingredient.groceryItemId = item.id;
+                    _ingredient.groceryName = item.name;
+                  });
                 },
                 icon: Icon(Icons.search),
               ),
-            ),
-            controller: itemController,
+              Text(_ingredient.groceryName),
+            ],
           ),
           SizedBox(
             height: 16.0,

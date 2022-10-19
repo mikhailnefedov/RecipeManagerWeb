@@ -44,6 +44,7 @@ class _IngredientTableState extends State<IngredientTable> {
           onPressed: () async {
             var newIngredient = await showDialog<Ingredient>(
               context: context,
+              barrierDismissible: false,
               builder: (context) => IngredientPopup(),
             );
             setState(() {
