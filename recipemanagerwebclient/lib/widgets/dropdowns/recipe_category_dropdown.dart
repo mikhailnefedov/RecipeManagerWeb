@@ -18,7 +18,7 @@ class RecipeCategoryDropdown extends StatefulWidget {
 
 class _RecipeCategoryDropdownState extends State<RecipeCategoryDropdown> {
   late Recipe _recipe;
-  late RecipeCategory _recipeCategory;
+  late RecipeCategory? _recipeCategory;
 
   @override
   void initState() {
@@ -34,7 +34,8 @@ class _RecipeCategoryDropdownState extends State<RecipeCategoryDropdown> {
           if (snapshot.hasData) {
             _recipeCategory = snapshot.requireData
                 .map((e) => e.value)
-                .firstWhere((e) => e == _recipe.recipeCategory)!;
+                .firstWhere((e) => e == _recipe.recipeCategory,
+                    orElse: () => null);
 
             return DropdownButton(
               value: _recipeCategory,

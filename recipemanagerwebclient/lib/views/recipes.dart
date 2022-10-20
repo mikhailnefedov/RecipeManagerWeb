@@ -40,7 +40,11 @@ class _RecipesState extends State<Recipes> {
                 icon: Icon(Icons.add),
                 label: Text("Rezepte hinzufügen"),
                 onPressed: () {
-                  Navigator.pushNamed(context, RecipeView.route);
+                  Navigator.pushNamed(
+                    context,
+                    RecipeView.route,
+                    arguments: {"isNew": true},
+                  );
                 },
               ),
             ],

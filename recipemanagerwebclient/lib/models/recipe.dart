@@ -14,8 +14,8 @@ class Recipe {
   PortionUnit portionUnit;
   int time;
   bool vegetarian;
-  final List<Ingredient> ingredients;
-  final List<InstructionStep> instructions;
+  late List<Ingredient> ingredients;
+  late List<InstructionStep> instructions;
   String source;
   String comment;
 
@@ -27,11 +27,14 @@ class Recipe {
     this.portionUnit = PortionUnit.Bread,
     this.time = 0,
     this.vegetarian = false,
-    this.ingredients = const <Ingredient>[],
-    this.instructions = const <InstructionStep>[],
+    List<Ingredient>? ingredients,
+    List<InstructionStep>? instructions,
     this.source = '',
     this.comment = '',
-  });
+  }) {
+    this.ingredients = ingredients ?? <Ingredient>[];
+    this.instructions = instructions ?? <InstructionStep>[];
+  }
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
   Map<String, dynamic> toJson() => _$RecipeToJson(this);

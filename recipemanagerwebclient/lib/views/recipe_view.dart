@@ -8,7 +8,7 @@ import '../widgets/recipe/recipe_widgets.dart';
 class RecipeView extends StatefulWidget {
   static const route = '/recipe';
 
-  const RecipeView({Key? key}) : super(key: key);
+  RecipeView({Key? key}) : super(key: key);
 
   @override
   State<RecipeView> createState() => _RecipeViewState();
@@ -25,6 +25,7 @@ class _RecipeViewState extends State<RecipeView> {
   }).toList();
 
   late Recipe _recipe;
+  late bool isNew;
 
   @override
   void initState() {
@@ -33,9 +34,12 @@ class _RecipeViewState extends State<RecipeView> {
 
   @override
   Widget build(BuildContext context) {
-    //Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    //int recipeId = arguments["id"];
-    int recipeId = 1;
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    isNew = arguments['isNew'] ?? false;
+    if (isNew) {
+      _recipe = Recipe();
+    }
+    int recipeId = arguments["id"] ?? 1;
 
     return Scaffold(
       drawer: NavigationDrawer(),
@@ -44,12 +48,16 @@ class _RecipeViewState extends State<RecipeView> {
           icon: Icon(Icons.save),
           onPressed: () {
             print(_recipe.toJson());
+            _recipe.ingredients.add(Ingredient());
           }),
       body: FutureBuilder<Recipe>(
-        future: HttpHelper.fetchRecipe(recipeId),
+        future: isNew
+            ? Future<Recipe>.value(Recipe())
+            : HttpHelper.fetchRecipe(recipeId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             _recipe = snapshot.requireData;
+
             return SingleChildScrollView(
               child: Center(
                 child: Padding(
@@ -57,7 +65,7 @@ class _RecipeViewState extends State<RecipeView> {
                   child: Column(
                     children: [
                       RecipeHeader(
-                        recipe: snapshot.requireData,
+                        recipe: _recipe,
                       ),
                       Divider(),
                       IngredientTable(

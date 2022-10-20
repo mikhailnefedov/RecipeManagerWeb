@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
-import 'package:recipemanagerwebclient/widgets/popups/create_ingredient_popup.dart';
 
 import '../api/request_urls.dart';
 import '../models/data_layer.dart';
@@ -173,26 +172,6 @@ class _CreateRecipeViewState extends State<CreateRecipeView> {
                   ),
                 ],
                 rows: dataRows,
-              ),
-              ElevatedButton.icon(
-                icon: Icon(Icons.add),
-                label: Text("Zutat hinzufügen"),
-                onPressed: () {
-                  showDialog<CreateIngredient>(
-                    context: context,
-                    builder: (context) => CreateIngredientPopup(),
-                  ).then((value) {
-                    setState(() {
-                      dataRows.add(DataRow(cells: [
-                        DataCell(Text('${value!.groceryItemId}')),
-                        DataCell(Text('${value.amount}')),
-                        DataCell(Text(value.measurement.name)),
-                      ]));
-                    });
-                    newRecipe.ingredients
-                        .add(value!); //TODO: Fix adding to model
-                  });
-                },
               ),
               Divider(),
               Text('Anleitung:'),
