@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
-import 'package:recipemanagerwebclient/views/recipe_page.dart';
+import 'package:recipemanagerwebclient/views/recipe_view.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
@@ -40,7 +40,11 @@ class _RecipesState extends State<Recipes> {
                 icon: Icon(Icons.add),
                 label: Text("Rezepte hinzufügen"),
                 onPressed: () {
-                  Navigator.pushNamed(context, RecipePage.route);
+                  Navigator.pushNamed(
+                    context,
+                    RecipeView.route,
+                    arguments: {"isNew": true},
+                  );
                 },
               ),
             ],
@@ -67,7 +71,7 @@ class _RecipesState extends State<Recipes> {
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
-                                    RecipePage.route,
+                                    RecipeView.route,
                                     arguments: {
                                       "id": snapshot.requireData[index].id
                                     },

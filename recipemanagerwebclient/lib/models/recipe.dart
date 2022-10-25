@@ -8,18 +8,18 @@ part 'recipe.g.dart';
 @JsonSerializable()
 class Recipe {
   final int id;
-  final String name;
-  final RecipeCategory recipeCategory;
-  final double amount;
-  final PortionUnit portionUnit;
-  final int time;
-  final bool vegetarian;
-  final List<Ingredient> ingredients;
-  final List<InstructionStep> instructions;
-  final String source;
-  final String comment;
+  String name;
+  RecipeCategory recipeCategory;
+  double amount;
+  PortionUnit portionUnit;
+  int time;
+  bool vegetarian;
+  late List<Ingredient> ingredients;
+  late List<InstructionStep> instructions;
+  String source;
+  String comment;
 
-  const Recipe({
+  Recipe({
     this.id = 0,
     this.name = '',
     this.recipeCategory = const RecipeCategory(),
@@ -27,29 +27,15 @@ class Recipe {
     this.portionUnit = PortionUnit.Bread,
     this.time = 0,
     this.vegetarian = false,
-    this.ingredients = const <Ingredient>[],
-    this.instructions = const <InstructionStep>[],
+    List<Ingredient>? ingredients,
+    List<InstructionStep>? instructions,
     this.source = '',
     this.comment = '',
-  });
-
-  factory Recipe.fromJson(Map<String, dynamic> json) {
-    return Recipe(
-      id: json['id'],
-      name: json['name'],
-      recipeCategory: RecipeCategory.fromJson(json['recipeCategory']),
-      amount: json['amount'],
-      portionUnit: PortionUnit.values.byName(json['portionUnit']),
-      time: json['time'],
-      vegetarian: json['vegetarian'],
-      ingredients: ((json['ingredients']) as List)
-          .map((e) => Ingredient.fromJson(e))
-          .toList(),
-      instructions: ((json['instructions']) as List)
-          .map((e) => InstructionStep.fromJson(e))
-          .toList(),
-      source: json['source'],
-      comment: json['comment'],
-    );
+  }) {
+    this.ingredients = ingredients ?? <Ingredient>[];
+    this.instructions = instructions ?? <InstructionStep>[];
   }
+
+  factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
+  Map<String, dynamic> toJson() => _$RecipeToJson(this);
 }

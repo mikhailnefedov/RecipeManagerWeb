@@ -238,3 +238,10 @@ recipemanager.db-wal
 # Visual Studio Code
 
 .vscode/
+recipemanagerwebclient/linux/flutter/generated_plugin_registrant.cc
+recipemanagerwebclient/linux/flutter/generated_plugin_registrant.h
+recipemanagerwebclient/linux/flutter/generated_plugins.cmake
+recipemanagerwebclient/windows/flutter/generated_plugin_registrant.cc
+recipemanagerwebclient/windows/flutter/generated_plugin_registrant.h
+recipemanagerwebclient/macos/Flutter/GeneratedPluginRegistrant.swift
+recipemanagerwebclient/windows/flutter/generated_plugins.cmake

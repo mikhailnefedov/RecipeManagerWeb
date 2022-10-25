@@ -6,10 +6,10 @@ part 'ingredient.g.dart';
 
 @JsonSerializable()
 class Ingredient {
-  final int groceryItemId;
-  final String groceryName;
-  final double amount;
-  final MeasurementUnit measurement;
+  int groceryItemId;
+  String groceryName;
+  double amount;
+  MeasurementUnit measurement;
 
   Ingredient({
     this.groceryItemId = 0,
@@ -20,4 +20,5 @@ class Ingredient {
 
   factory Ingredient.fromJson(Map<String, dynamic> json) =>
       _$IngredientFromJson(json);
+  Map<String, dynamic> toJson() => _$IngredientToJson(this);
 }

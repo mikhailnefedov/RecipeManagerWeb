@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'recipe_category.g.dart';
 
 @JsonSerializable()
-class RecipeCategory {
+class RecipeCategory extends Equatable {
   final int id;
   final String abbreviation;
   final String name;
@@ -16,4 +17,8 @@ class RecipeCategory {
 
   factory RecipeCategory.fromJson(Map<String, dynamic> json) =>
       _$RecipeCategoryFromJson(json);
+  Map<String, dynamic> toJson() => _$RecipeCategoryToJson(this);
+
+  @override
+  List<Object> get props => [id, abbreviation, name];
 }
