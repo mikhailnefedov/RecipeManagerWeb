@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         GroceryItems.route: (context) => GroceryItems(),
         GroceryCategories.route: (context) => GroceryCategories(),
         RecipeView.route: (context) => RecipeView(),
-        CreateRecipeView.route: (context) => CreateRecipeView(),
       },
       initialRoute: '/',
     );
