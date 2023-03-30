@@ -27,6 +27,7 @@ class _GroceryCategoryTableState extends State<GroceryCategoryTable> {
   @override
   Widget build(BuildContext context) {
     return DataTable(
+      //header: Text('Lebensmittelkategorie'),
       sortColumnIndex: _currentSortColumn,
       sortAscending: _isAscending,
       columns: <DataColumn>[
