@@ -1,7 +1,7 @@
 import 'package:recipemanagerwebclient/api/web_client.dart';
 import 'package:recipemanagerwebclient/models/base_model.dart';
 
-import '../models/grocery_category.dart';
+import '../models/data_layer.dart';
 
 abstract class BaseRepository<T extends BaseModel> {
   final WebClient webclient;
@@ -13,6 +13,14 @@ abstract class BaseRepository<T extends BaseModel> {
   T fromJson(Map<String, dynamic> json) {
     if (T == GroceryCategory) {
       return GroceryCategory.fromJson(json) as T;
+    } else if (T == GroceryItem) {
+      return GroceryItem.fromJson(json) as T;
+    } else if (T == Recipe) {
+      return Recipe.fromJson(json) as T;
+    } else if (T == SmallRecipe) {
+      return SmallRecipe.fromJson(json) as T;
+    } else if (T == RecipeCategory) {
+      return RecipeCategory.fromJson(json) as T;
     } else {
       throw ArgumentError('Unable to deserialize json. Target class unknown');
     }
@@ -23,7 +31,7 @@ abstract class BaseRepository<T extends BaseModel> {
     return (response as List).map((e) => fromJson(e)).toList();
   }
 
-  Future<T> fetchById(String id) async {
+  Future<T> fetchById(int id) async {
     final response = await webclient.get("$route/$id");
     return fromJson(response);
   }

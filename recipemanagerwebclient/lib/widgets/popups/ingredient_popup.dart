@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/api/grocery_item_repository.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/widgets/dropdowns/measurement_unit_dropdown.dart';
 
-import '../../api/http_helper.dart';
 import 'ingredient_search_delegate.dart';
 
 class IngredientPopup extends StatefulWidget {
@@ -32,7 +32,8 @@ class _IngredientPopupState extends State<IngredientPopup> {
   }
 
   void fetchGroceryItems() async {
-    groceryItems = await HttpHelper.fetchGroceryItems();
+    GroceryItemRepository _groceryItemRepository = GroceryItemRepository();
+    groceryItems = await _groceryItemRepository.fetchAll();
   }
 
   @override

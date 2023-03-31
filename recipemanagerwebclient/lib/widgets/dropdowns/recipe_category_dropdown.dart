@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/api/recipe_category_repository.dart';
 
-import '../../api/http_helper.dart';
 import '../../models/recipe.dart';
 import '../../models/recipe_category.dart';
 
@@ -53,8 +53,10 @@ class _RecipeCategoryDropdownState extends State<RecipeCategoryDropdown> {
   }
 
   Future<List<DropdownMenuItem<RecipeCategory>>> createMenuItems() async {
+    RecipeCategoryRepository recipeCategoryRepository =
+        RecipeCategoryRepository();
     List<RecipeCategory> fetchedCategories =
-        await HttpHelper.fetchRecipeCategories();
+        await recipeCategoryRepository.fetchAll();
 
     return fetchedCategories.map((e) {
       return DropdownMenuItem<RecipeCategory>(

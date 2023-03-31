@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:recipemanagerwebclient/api/http_helper.dart';
+import 'package:recipemanagerwebclient/api/grocery_category_repository.dart';
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import 'package:recipemanagerwebclient/dtos/create_grocery_category.dart';
 
@@ -21,6 +21,7 @@ class _CreateGroceryItemPopupState extends State<CreateGroceryItemPopup> {
   late TextEditingController nameController;
   late GroceryCategory category;
   late List<GroceryCategory> categories;
+  late GroceryCategoryRepository _groceryCategoryRepository;
 
   @override
   void initState() {
@@ -29,10 +30,11 @@ class _CreateGroceryItemPopupState extends State<CreateGroceryItemPopup> {
     categories = [];
     call();
     category = GroceryCategory(id: 0, name: "");
+    _groceryCategoryRepository = GroceryCategoryRepository();
   }
 
   void call() async {
-    var fetchedCategories = await HttpHelper.fetchGroceryCategories();
+    var fetchedCategories = await _groceryCategoryRepository.fetchAll();
     setState(() {
       categories = fetchedCategories;
     });

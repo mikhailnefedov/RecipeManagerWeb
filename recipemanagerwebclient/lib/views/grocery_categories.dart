@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/api/base_repository.dart';
 import 'package:recipemanagerwebclient/api/grocery_category_repository.dart';
-import 'package:recipemanagerwebclient/api/http_helper.dart';
 import 'package:recipemanagerwebclient/models/grocery_category.dart';
 import 'package:recipemanagerwebclient/widgets/tables/grocery_category_table.dart';
 

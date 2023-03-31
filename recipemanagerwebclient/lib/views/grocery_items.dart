@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/api/http_helper.dart';
+import 'package:recipemanagerwebclient/api/grocery_item_repository.dart';
 import 'package:recipemanagerwebclient/widgets/tables/grocery_item_table.dart';
 
 import '../models/grocery_item.dart';
@@ -17,12 +17,14 @@ class GroceryItems extends StatefulWidget {
 }
 
 class _GroceryItemsState extends State<GroceryItems> {
+  late GroceryItemRepository _groceryItemRepository;
   late Future<List<GroceryItem>> items;
 
   @override
   void initState() {
     super.initState();
-    items = HttpHelper.fetchGroceryItems();
+    _groceryItemRepository = GroceryItemRepository();
+    items = _groceryItemRepository.fetchAll();
   }
 
   @override

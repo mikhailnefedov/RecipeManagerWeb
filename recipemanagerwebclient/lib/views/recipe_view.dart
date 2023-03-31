@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/api/http_helper.dart';
+import 'package:recipemanagerwebclient/api/recipe_repository.dart';
 import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
@@ -24,12 +24,14 @@ class _RecipeViewState extends State<RecipeView> {
     );
   }).toList();
 
+  late RecipeRepository _recipeRepository;
   late Recipe _recipe;
   late bool isNew;
 
   @override
   void initState() {
     super.initState();
+    _recipeRepository = RecipeRepository();
   }
 
   @override
@@ -53,7 +55,7 @@ class _RecipeViewState extends State<RecipeView> {
       body: FutureBuilder<Recipe>(
         future: isNew
             ? Future<Recipe>.value(Recipe())
-            : HttpHelper.fetchRecipe(recipeId),
+            : _recipeRepository.fetchById(recipeId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             _recipe = snapshot.requireData;

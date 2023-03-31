@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipemanagerwebclient/api/http_helper.dart';
+import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
 import 'package:recipemanagerwebclient/views/recipe_view.dart';
 import '../widgets/header.dart';
@@ -15,12 +15,14 @@ class Recipes extends StatefulWidget {
 }
 
 class _RecipesState extends State<Recipes> {
+  late SmallRecipeRepository _smallRecipeRepository;
   late Future<List<SmallRecipe>> _recipes;
 
   @override
   void initState() {
     super.initState();
-    _recipes = HttpHelper.fetchSmallRecipes();
+    _smallRecipeRepository = SmallRecipeRepository();
+    _recipes = _smallRecipeRepository.fetchAll();
   }
 
   @override
