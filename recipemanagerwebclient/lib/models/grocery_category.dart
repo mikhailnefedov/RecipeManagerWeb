@@ -5,8 +5,8 @@ part 'grocery_category.g.dart';
 
 @JsonSerializable()
 class GroceryCategory extends BaseModel {
-  final int id;
-  final String name;
+  int id;
+  String name;
 
   GroceryCategory({
     this.id = 0,

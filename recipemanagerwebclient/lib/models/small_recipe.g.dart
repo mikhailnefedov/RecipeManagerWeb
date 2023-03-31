@@ -10,7 +10,7 @@ SmallRecipe _$SmallRecipeFromJson(Map<String, dynamic> json) => SmallRecipe(
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
       recipeCategory: json['recipeCategory'] == null
-          ? const RecipeCategory()
+          ? RecipeCategory()
           : RecipeCategory.fromJson(
               json['recipeCategory'] as Map<String, dynamic>),
       amount: (json['amount'] as num?)?.toDouble() ?? 0.0,

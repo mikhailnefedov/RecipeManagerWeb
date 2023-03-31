@@ -1,15 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:recipemanagerwebclient/models/base_model.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
-import 'ingredient.dart';
-import 'instruction_step.dart';
 
 part 'recipe.g.dart';
 
 @JsonSerializable()
-class Recipe {
+class Recipe extends BaseModel {
   final int id;
   String name;
-  RecipeCategory recipeCategory;
+  late RecipeCategory recipeCategory;
   double amount;
   PortionUnit portionUnit;
   int time;
@@ -22,7 +21,7 @@ class Recipe {
   Recipe({
     this.id = 0,
     this.name = '',
-    this.recipeCategory = const RecipeCategory(),
+    RecipeCategory? recipeCategory,
     this.amount = 0.0,
     this.portionUnit = PortionUnit.Bread,
     this.time = 0,
@@ -32,10 +31,13 @@ class Recipe {
     this.source = '',
     this.comment = '',
   }) {
+    this.recipeCategory = recipeCategory ?? RecipeCategory();
     this.ingredients = ingredients ?? <Ingredient>[];
     this.instructions = instructions ?? <InstructionStep>[];
   }
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
+  static convertFromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$RecipeToJson(this);
 }

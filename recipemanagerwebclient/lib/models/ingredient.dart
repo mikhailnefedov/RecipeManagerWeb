@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:recipemanagerwebclient/models/base_model.dart';
 
 import 'measurement_unit.dart';
 
@@ -20,5 +21,6 @@ class Ingredient {
 
   factory Ingredient.fromJson(Map<String, dynamic> json) =>
       _$IngredientFromJson(json);
+
   Map<String, dynamic> toJson() => _$IngredientToJson(this);
 }
