@@ -35,4 +35,8 @@ abstract class BaseRepository<T extends BaseModel> {
     final response = await webclient.get("$route/$id");
     return fromJson(response);
   }
+
+  Future<void> deleteById(int id) async {
+    final response = await webclient.delete("$route/$id");
+  }
 }

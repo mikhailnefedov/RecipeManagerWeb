@@ -11,4 +11,10 @@ class WebClient {
     final dynamic jsonResponse = json.decode(response.body);
     return jsonResponse;
   }
+
+  Future<dynamic> delete(String route) async {
+    final response = await http.delete(Uri.parse(_host + route));
+    final dynamic jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
 }

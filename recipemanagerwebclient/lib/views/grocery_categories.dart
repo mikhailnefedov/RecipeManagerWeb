@@ -6,7 +6,7 @@ import 'package:recipemanagerwebclient/widgets/tables/grocery_category_table.dar
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
 
-import '../widgets/popups/create_grocery_category_popup.dart';
+import '../widgets/popups/save_grocery_category_popup.dart';
 
 class GroceryCategories extends StatefulWidget {
   static const route = '/grocerycategories';
@@ -19,13 +19,16 @@ class GroceryCategories extends StatefulWidget {
 
 class _GroceryCategoriesState extends State<GroceryCategories> {
   late GroceryCategoryRepository _groceryCategoryRepository;
-  late Future<List<GroceryCategory>> categories;
+  late Future<List<GroceryCategory>> _categories;
+  late TextEditingController _searchController;
+  String _searchString = "";
 
   @override
   void initState() {
     super.initState();
     _groceryCategoryRepository = GroceryCategoryRepository();
-    categories = _groceryCategoryRepository.fetchAll();
+    _categories = _groceryCategoryRepository.fetchAll();
+    _searchController = TextEditingController(text: _searchString);
   }
 
   @override
@@ -39,27 +42,34 @@ class _GroceryCategoriesState extends State<GroceryCategories> {
             height: 16,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                width: 8,
+              ),
               ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Text("Lebensmittelkategorie hinzufügen"),
+                label: Text("Hinzufügen"),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => CreateGroceryCategoryPopup(),
+                    builder: (context) => SaveGroceryCategoryPopup(),
                   );
                 },
               ),
             ],
           ),
-          Divider(),
           FutureBuilder<List<GroceryCategory>>(
-            future: categories,
+            future: _categories,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return GroceryCategoryTable(
-                  categories: snapshot.requireData,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GroceryCategoryTable(
+                    categories: snapshot.requireData
+                        .where(
+                            (element) => element.name.contains(_searchString))
+                        .toList(),
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
