@@ -41,7 +41,7 @@ class NavigationDrawer extends StatelessWidget {
             buildMenuItem(
               context: context,
               text: 'Lebensmittelkategorien',
-              route: GroceryCategories.route,
+              route: GroceryCategoriesMain.route,
             )
           ],
         ),
