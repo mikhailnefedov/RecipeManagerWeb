@@ -4,6 +4,7 @@ import 'package:recipemanagerwebclient/api/grocery_category_repository.dart';
 
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import '../../models/grocery_category.dart';
+import '../popups/save_grocery_category_popup.dart';
 
 class GroceryCategoryTable extends StatefulWidget {
   GroceryCategoryTable({Key? key, required this.categories}) : super(key: key);
@@ -104,7 +105,13 @@ class _DataSource extends DataTableSource {
                 IconButton(
                   icon: Icon(Icons.edit),
                   splashRadius: 20.0,
-                  onPressed: () async {},
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => SaveGroceryCategoryPopup(
+                          groceryCategory: currentData),
+                    ).then((value) => notifyListeners());
+                  },
                 ),
                 IconButton(
                   icon: Icon(Icons.delete),

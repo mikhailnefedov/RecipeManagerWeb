@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:recipemanagerwebclient/api/request_urls.dart';
+import 'package:recipemanagerwebclient/api/grocery_category_repository.dart';
 import 'package:recipemanagerwebclient/dtos/create_grocery_category.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 
@@ -21,6 +18,8 @@ class _SaveGroceryCategoryPopupState extends State<SaveGroceryCategoryPopup> {
   bool _isCreate = false;
   late GroceryCategory _groceryCategory;
   late TextEditingController _nameController;
+  final GroceryCategoryRepository _groceryCategoryRepository =
+      GroceryCategoryRepository();
 
   @override
   void initState() {
@@ -50,9 +49,12 @@ class _SaveGroceryCategoryPopupState extends State<SaveGroceryCategoryPopup> {
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         IconButton(
-          onPressed: () {
-            postCategory();
-            Navigator.pop(context);
+          onPressed: () async {
+            if (_isCreate) {
+              addGroceryCategory();
+            } else {
+              updateGroceryCategory();
+            }
           },
           icon: Icon(Icons.save),
           splashRadius: 20.0,
@@ -61,16 +63,15 @@ class _SaveGroceryCategoryPopupState extends State<SaveGroceryCategoryPopup> {
     );
   }
 
-  Future<void> postCategory() async {
-    CreateGroceryCategory newCategory =
-        CreateGroceryCategory(name: _nameController.text);
+  void addGroceryCategory() async {
+    GroceryCategory groceryCategory = await _groceryCategoryRepository
+        .add(CreateGroceryCategory(name: _nameController.text));
+    Navigator.pop(context, groceryCategory);
+  }
 
-    await http.post(
-      Uri.parse(RequestURL.groceryCategories),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(newCategory.toJson()),
-    );
+  void updateGroceryCategory() async {
+    _groceryCategory.name = _nameController.text;
+    await _groceryCategoryRepository.update(_groceryCategory);
+    Navigator.pop(context, _groceryCategory);
   }
 }

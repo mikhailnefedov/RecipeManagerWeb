@@ -59,7 +59,12 @@ class _GroceryCategoriesViewState extends State<GroceryCategoriesView> {
                   showDialog(
                     context: context,
                     builder: (context) => SaveGroceryCategoryPopup(),
-                  );
+                  ).then((value) {
+                    GroceryCategory groceryCategory = value as GroceryCategory;
+                    setState(() {
+                      _groceryCategories.add(groceryCategory);
+                    });
+                  });
                 },
               ),
             ),

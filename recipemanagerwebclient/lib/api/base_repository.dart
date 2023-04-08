@@ -39,4 +39,13 @@ abstract class BaseRepository<T extends BaseModel> {
   Future<void> deleteById(int id) async {
     final response = await webclient.delete("$route/$id");
   }
+
+  Future<T> add(BaseModel dto) async {
+    final response = await webclient.post(route, dto);
+    return fromJson(response);
+  }
+
+  Future<void> update(T model) async {
+    final response = await webclient.update(route, model);
+  }
 }

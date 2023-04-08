@@ -10,7 +10,7 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
       recipeCategory: json['recipeCategory'] == null
-          ? RecipeCategory()
+          ? null
           : RecipeCategory.fromJson(
               json['recipeCategory'] as Map<String, dynamic>),
       amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
@@ -20,13 +20,11 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       time: json['time'] as int? ?? 0,
       vegetarian: json['vegetarian'] as bool? ?? false,
       ingredients: (json['ingredients'] as List<dynamic>?)
-              ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <Ingredient>[],
+          ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
+          .toList(),
       instructions: (json['instructions'] as List<dynamic>?)
-              ?.map((e) => InstructionStep.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <InstructionStep>[],
+          ?.map((e) => InstructionStep.fromJson(e as Map<String, dynamic>))
+          .toList(),
       source: json['source'] as String? ?? '',
       comment: json['comment'] as String? ?? '',
     );
@@ -34,13 +32,13 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
 Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'recipeCategory': instance.recipeCategory.toJson(),
+      'recipeCategory': instance.recipeCategory,
       'amount': instance.amount,
       'portionUnit': _$PortionUnitEnumMap[instance.portionUnit]!,
       'time': instance.time,
       'vegetarian': instance.vegetarian,
-      'ingredients': instance.ingredients.map((e) => e.toJson()).toList(),
-      'instructions': instance.instructions.map((e) => e.toJson()).toList(),
+      'ingredients': instance.ingredients,
+      'instructions': instance.instructions,
       'source': instance.source,
       'comment': instance.comment,
     };
