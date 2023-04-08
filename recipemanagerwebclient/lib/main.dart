@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomePage(),
         Recipes.route: (context) => Recipes(),
         ShoppingList.route: (context) => ShoppingList(),
-        RecipeCategories.route: (context) => RecipeCategories(),
+        RecipeCategoriesMain.route: (context) => RecipeCategoriesMain(),
         GroceryItems.route: (context) => GroceryItems(),
         GroceryCategoriesMain.route: (context) => GroceryCategoriesMain(),
         RecipeView.route: (context) => RecipeView(),
