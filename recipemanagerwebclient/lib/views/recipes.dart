@@ -57,30 +57,41 @@ class _RecipesState extends State<Recipes> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Expanded(
-                  child: ListView.builder(
+                  child: GridView.builder(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 2,
+                      ),
                       itemCount: snapshot.requireData.length,
                       scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                title: Text(snapshot.requireData[index].name),
-                                subtitle: Text(snapshot
-                                    .requireData[index].recipeCategory.name),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RecipeView.route,
-                                    arguments: {
-                                      "id": snapshot.requireData[index].id
-                                    },
-                                  );
-                                },
+                        return Padding(
+                          padding: (index % 2) == 0
+                              ? EdgeInsets.only(bottom: 10)
+                              : EdgeInsets.only(top: 10),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RecipeView.route,
+                                  arguments: {
+                                    "id": snapshot.requireData[index].id
+                                  },
+                                );
+                              },
+                              child: Container(
+                                child: Text(snapshot.requireData[index].name),
                               ),
-                            ],
+                            ),
                           ),
                         );
                       }),
