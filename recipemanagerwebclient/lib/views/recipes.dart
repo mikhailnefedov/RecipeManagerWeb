@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
+import 'package:recipemanagerwebclient/views/recipe_card.dart';
 import 'package:recipemanagerwebclient/views/recipe_view.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
@@ -61,7 +62,7 @@ class _RecipesState extends State<Recipes> {
                       padding: EdgeInsets.only(left: 20, right: 20),
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
+                        crossAxisCount: 4,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 8,
                         childAspectRatio: 2,
@@ -73,25 +74,8 @@ class _RecipesState extends State<Recipes> {
                           padding: (index % 2) == 0
                               ? EdgeInsets.only(bottom: 10)
                               : EdgeInsets.only(top: 10),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  RecipeView.route,
-                                  arguments: {
-                                    "id": snapshot.requireData[index].id
-                                  },
-                                );
-                              },
-                              child: Container(
-                                child: Text(snapshot.requireData[index].name),
-                              ),
-                            ),
+                          child: RecipeCard(
+                            recipe: snapshot.requireData[index],
                           ),
                         );
                       }),
