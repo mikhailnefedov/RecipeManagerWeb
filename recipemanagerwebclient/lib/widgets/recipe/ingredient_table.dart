@@ -24,6 +24,7 @@ class _IngredientTableState extends State<IngredientTable> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text('Zutaten:', style: Theme.of(context).textTheme.headline6),
         DataTable(
           columns: const <DataColumn>[
             DataColumn(

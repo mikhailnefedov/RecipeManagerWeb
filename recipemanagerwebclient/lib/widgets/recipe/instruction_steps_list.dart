@@ -44,6 +44,7 @@ class _InstructionStepsListState extends State<InstructionStepsList> {
               child: TextField(
                 controller: textController,
                 maxLines: null,
+                minLines: 2,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(

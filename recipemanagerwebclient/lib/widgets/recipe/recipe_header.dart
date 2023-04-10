@@ -74,70 +74,113 @@ class _RecipeHeaderState extends State<RecipeHeader> {
         SizedBox(
           height: 16.0,
         ),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Amount',
-                ),
-                controller: amountController,
-              ),
-            ),
-            SizedBox(
-              width: 16.0,
-            ),
-            PortionUnitDropdown(
-              value: _recipe.portionUnit,
-              recipe: _recipe,
-            ),
-            SizedBox(
-              width: 16.0,
-            ),
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Time',
-                ),
-                controller: timeController,
-              ),
-            ),
-          ],
-        ),
         SizedBox(height: 16.0),
-        Row(
-          children: [
-            Checkbox(
-              value: _recipe.vegetarian,
-              onChanged: (value) {
-                setState(() {
-                  _recipe.vegetarian = value!;
-                });
-              },
-            ),
-            Text('vegetarian'),
-            SizedBox(width: 16.0),
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Source',
+        LayoutBuilder(builder: (context, constraints) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: constraints.maxWidth * 0.48,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CheckboxListTile(
+                            contentPadding: EdgeInsets.zero,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            title: Text("vegetarian"),
+                            value: _recipe.vegetarian,
+                            onChanged: (value) {
+                              setState(() {
+                                _recipe.vegetarian = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Time',
+                            ),
+                            controller: timeController,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Source',
+                            ),
+                            controller: sourceController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                controller: sourceController,
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16.0),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Comment',
-          ),
-          controller: commentController,
-        ),
+              SizedBox(
+                width: constraints.maxWidth * 0.48,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Amount',
+                            ),
+                            controller: amountController,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16.0,
+                        ),
+                        PortionUnitDropdown(
+                          value: _recipe.portionUnit,
+                          recipe: _recipe,
+                        ),
+                        SizedBox(
+                          width: 16.0,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      minLines: 3,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Comment',
+                      ),
+                      controller: commentController,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        }),
       ],
     );
   }

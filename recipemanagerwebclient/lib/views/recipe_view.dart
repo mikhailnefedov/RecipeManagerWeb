@@ -50,7 +50,7 @@ class _RecipeViewState extends State<RecipeView> {
           icon: Icon(Icons.save),
           onPressed: () {
             print(_recipe.toJson());
-            _recipe.ingredients.add(Ingredient());
+            //_recipe.ingredients.add(Ingredient());
           }),
       body: FutureBuilder<Recipe>(
         future: isNew
@@ -66,15 +66,30 @@ class _RecipeViewState extends State<RecipeView> {
                   padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 0.0),
                   child: Column(
                     children: [
-                      RecipeHeader(
-                        recipe: _recipe,
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: RecipeHeader(
+                              recipe: _recipe,
+                            ),
+                          );
+                        },
                       ),
                       Divider(),
-                      IngredientTable(
-                        recipe: _recipe,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: InstructionStepsList(recipe: _recipe),
+                          ),
+                          Expanded(
+                            child: IngredientTable(
+                              recipe: _recipe,
+                            ),
+                          ),
+                        ],
                       ),
-                      Divider(),
-                      InstructionStepsList(recipe: _recipe),
                     ],
                   ),
                 ),
