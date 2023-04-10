@@ -17,7 +17,7 @@ class NavigationDrawer extends StatelessWidget {
             buildMenuItem(
               context: context,
               text: 'Rezepte',
-              route: Recipes.route,
+              route: RecipesMain.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(

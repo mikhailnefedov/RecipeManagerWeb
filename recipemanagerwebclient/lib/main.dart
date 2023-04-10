@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
-import 'views/recipes.dart';
+import 'views/recipes_main.dart';
 import 'views/views.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomePage(),
-        Recipes.route: (context) => Recipes(),
+        RecipesMain.route: (context) => RecipesMain(),
         ShoppingList.route: (context) => ShoppingList(),
         RecipeCategoriesMain.route: (context) => RecipeCategoriesMain(),
         GroceryItems.route: (context) => GroceryItems(),
