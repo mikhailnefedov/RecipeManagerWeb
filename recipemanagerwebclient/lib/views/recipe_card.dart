@@ -2,10 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/views/recipe_view.dart';
 
-class RecipeCard extends StatelessWidget {
+class RecipeCard extends StatefulWidget {
   RecipeCard({Key? key, required this.recipe}) : super(key: key);
 
   SmallRecipe recipe;
+
+  @override
+  State<RecipeCard> createState() => _RecipeCardState();
+}
+
+class _RecipeCardState extends State<RecipeCard> {
+  late SmallRecipe _recipe;
+
+  @override
+  void initState() {
+    super.initState();
+    _recipe = widget.recipe;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +32,14 @@ class RecipeCard extends StatelessWidget {
           Navigator.pushNamed(
             context,
             RecipeView.route,
-            arguments: {"id": recipe.id},
-          );
+            arguments: {"id": _recipe.id},
+          ).then((value) {
+            SmallRecipe updatedRecipe =
+                Recipe.convertToSmallRecipe(value as Recipe);
+            setState(() {
+              _recipe = updatedRecipe;
+            });
+          });
         },
         child: Container(
           child: Column(
@@ -32,7 +51,7 @@ class RecipeCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        recipe.name,
+                        _recipe.name,
                         softWrap: true,
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -52,17 +71,17 @@ class RecipeCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.category),
-                        Text(recipe.recipeCategory.name),
+                        Text(_recipe.recipeCategory.name),
                       ],
                     ),
                     Center(
                       child: Text(
-                          "${recipe.amount} ${recipe.portionUnit.toShortString()}"),
+                          "${_recipe.amount} ${_recipe.portionUnit.toShortString()}"),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(recipe.vegetarian ? Icons.check : Icons.close),
+                        Icon(_recipe.vegetarian ? Icons.check : Icons.close),
                         Text("vegetarisch"),
                       ],
                     ),
@@ -70,7 +89,7 @@ class RecipeCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.timelapse),
-                        Text(_convertToTimeString(recipe.time)),
+                        Text(_convertToTimeString(_recipe.time)),
                       ],
                     ),
                   ],

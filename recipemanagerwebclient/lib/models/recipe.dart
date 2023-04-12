@@ -40,4 +40,16 @@ class Recipe extends BaseModel {
   static convertFromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$RecipeToJson(this);
+
+  static SmallRecipe convertToSmallRecipe(Recipe recipe) {
+    return SmallRecipe(
+      id: recipe.id,
+      name: recipe.name,
+      recipeCategory: recipe.recipeCategory,
+      amount: recipe.amount,
+      portionUnit: recipe.portionUnit,
+      time: recipe.time,
+      vegetarian: recipe.vegetarian,
+    );
+  }
 }

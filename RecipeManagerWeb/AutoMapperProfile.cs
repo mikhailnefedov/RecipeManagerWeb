@@ -31,7 +31,9 @@ namespace RecipeManagerWeb
             CreateMap<UpdateGroceryCategoryDto, GroceryCategory>();
             CreateMap<UpdateGroceryItemDto, GroceryItem>();
             CreateMap<UpdateRecipeCategoryDto, RecipeCategory>();
-            CreateMap<UpdateRecipeDto, Recipe>();
+            CreateMap<UpdateRecipeDto, Recipe>()
+                .ForMember(dest => dest.RecipeCategoryId, opt => opt.MapFrom(src => src.RecipeCategory.Id));
+            CreateMap<UpdateRecipeRecipeCategoryDto, RecipeCategory>();
             CreateMap<UpdateRecipeGroceryItemDto, RecipeGroceryItem>();
             CreateMap<UpdateInstructionStepDto, InstructionStep>();
         }

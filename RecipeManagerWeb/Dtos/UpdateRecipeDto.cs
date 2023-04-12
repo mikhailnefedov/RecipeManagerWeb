@@ -6,7 +6,7 @@ namespace RecipeManagerWeb.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int recipeCategoryId { get; set; }
+        public UpdateRecipeRecipeCategoryDto RecipeCategory { get; set; }
         public double? Amount { get; set; }
         public PortionUnit? PortionUnit { get; set; }
         public int? Time { get; set; }
@@ -15,6 +15,13 @@ namespace RecipeManagerWeb.Dtos
         public List<UpdateInstructionStepDto> Instructions { get; set; } = new List<UpdateInstructionStepDto>();
         public string? Source { get; set; }
         public string? Comment { get; set; }
+    }
+
+    public class UpdateRecipeRecipeCategoryDto
+    {
+        public int Id { get; set; }
+        public String Name { get; set; }
+        public string Abbreviation { get; set; }
     }
 
     public class UpdateRecipeGroceryItemDto

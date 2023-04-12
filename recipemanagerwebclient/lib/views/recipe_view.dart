@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/recipe_repository.dart';
+import 'package:recipemanagerwebclient/dtos/create_recipe.dart';
 import '../models/data_layer.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
@@ -49,8 +50,11 @@ class _RecipeViewState extends State<RecipeView> {
       floatingActionButton: IconButton(
           icon: Icon(Icons.save),
           onPressed: () {
-            print(_recipe.toJson());
-            //_recipe.ingredients.add(Ingredient());
+            if (isNew) {
+              addRecipe();
+            } else {
+              updateRecipe();
+            }
           }),
       body: FutureBuilder<Recipe>(
         future: isNew
@@ -101,5 +105,35 @@ class _RecipeViewState extends State<RecipeView> {
         },
       ),
     );
+  }
+
+  void addRecipe() async {
+    CreateRecipe dto = CreateRecipe(
+      name: _recipe.name,
+      recipeCategoryId: _recipe.recipeCategory.id,
+      amount: _recipe.amount,
+      portionUnit: _recipe.portionUnit,
+      time: _recipe.time,
+      vegetarian: _recipe.vegetarian,
+      ingredients: _recipe.ingredients
+          .map((e) => CreateIngredient(
+              groceryItemId: e.groceryItemId,
+              amount: e.amount,
+              measurement: e.measurement))
+          .toList(),
+      instructions: _recipe.instructions
+          .map((e) => CreateInstruction(text: e.text))
+          .toList(),
+      source: _recipe.source,
+      comment: _recipe.comment,
+    );
+
+    Recipe recipe = await _recipeRepository.add(dto);
+    Navigator.pop(context, recipe);
+  }
+
+  void updateRecipe() async {
+    await _recipeRepository.update(_recipe);
+    Navigator.pop(context, _recipe);
   }
 }

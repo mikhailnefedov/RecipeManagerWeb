@@ -1,8 +1,9 @@
+import 'package:recipemanagerwebclient/models/base_model.dart';
 import 'package:recipemanagerwebclient/models/measurement_unit.dart';
 
 import '../models/portion_unit.dart';
 
-class CreateRecipe {
+class CreateRecipe extends BaseModel {
   String name;
   int recipeCategoryId;
   double amount;
