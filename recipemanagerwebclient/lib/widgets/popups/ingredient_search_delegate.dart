@@ -29,7 +29,6 @@ class IngredientSearchDelegate extends SearchDelegate {
     );
   }
 
-  // third overwrite to show query result
   @override
   Widget buildResults(BuildContext context) {
     List<GroceryItem> matchQuery = [];
@@ -64,7 +63,7 @@ class IngredientSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result.name),
+          title: Text("${result.name} (${result.groceryCategoryName})"),
           onTap: () {
             close(context, result);
           },
