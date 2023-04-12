@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/widgets/popups/ingredient_popup.dart';
+import 'package:recipemanagerwebclient/widgets/recipe/ingredient_importer.dart';
 
 import '../../models/data_layer.dart';
 
@@ -25,6 +26,21 @@ class _IngredientTableState extends State<IngredientTable> {
     return Column(
       children: [
         Text('Zutaten:', style: Theme.of(context).textTheme.headline6),
+        ElevatedButton.icon(
+          icon: Icon(Icons.data_object),
+          label: Text("Hinzufügen mehrerer Zutaten"),
+          onPressed: () async {
+            var newIngredient = await showDialog<List<Ingredient>>(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => IngredientImporter(),
+            ).then((value) {
+              setState(() {
+                _recipe.ingredients.addAll(value!);
+              });
+            });
+          },
+        ),
         DataTable(
           columns: const <DataColumn>[
             DataColumn(
