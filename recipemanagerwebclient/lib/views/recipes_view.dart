@@ -53,12 +53,14 @@ class _RecipesViewState extends State<RecipesView> {
                 RecipeView.route,
                 arguments: {"isNew": true},
               ).then((value) {
-                SmallRecipe newRecipe =
-                    Recipe.convertToSmallRecipe(value as Recipe);
-                setState(() {
-                  _recipes.add(newRecipe);
-                  _filterRecipes();
-                });
+                if (value != null) {
+                  SmallRecipe newRecipe =
+                      Recipe.convertToSmallRecipe(value as Recipe);
+                  setState(() {
+                    _recipes.add(newRecipe);
+                    _filterRecipes();
+                  });
+                }
               });
             },
           ),
