@@ -21,12 +21,10 @@ namespace RecipeManagerWeb.Controllers
         /// </summary>
         /// <param name="recipeSelection"></param>
         /// <returns></returns>
-        /// <response code="400">If given recipe list contains duplicates</response> 
         [HttpPost]
-        public async Task<IActionResult> PostShoppingList([FromBody] List<RecipeSelectionDto> recipeSelection)
+        public async Task<ActionResult<ShoppingList>> PostShoppingList([FromBody] List<RecipeSelectionDto> recipeSelection)
         {
-            var recipeIds = GetRecipeIds(recipeSelection);
-            if (ListContainsDuplicates(recipeIds)) return BadRequest();
+            recipeSelection = CleanInput(recipeSelection);
 
             var shoppingList = await ComputeShoppingList(recipeSelection);
 
@@ -34,14 +32,32 @@ namespace RecipeManagerWeb.Controllers
             return Ok(resultDto);
         }
 
+        private List<RecipeSelectionDto> CleanInput(List<RecipeSelectionDto> recipeSelection)
+        {
+            Dictionary<int, double> recipeAmountPairs = new Dictionary<int, double>();
+            recipeSelection.ForEach(recipe =>
+            {
+                if (recipeAmountPairs.ContainsKey(recipe.RecipeId))
+                {
+                    double currentAmount = recipeAmountPairs[recipe.RecipeId];
+                    recipeAmountPairs[recipe.RecipeId] = currentAmount + recipe.RequestedAmount;
+                }
+                else
+                {
+                    recipeAmountPairs[recipe.RecipeId] = recipe.RequestedAmount;
+                }
+
+            });
+            return recipeAmountPairs.Select(pair => new RecipeSelectionDto()
+            {
+                RecipeId = pair.Key,
+                RequestedAmount = pair.Value,
+            }).ToList();
+        }
+
         private List<int> GetRecipeIds(List<RecipeSelectionDto> recipeSelection)
         {
             return recipeSelection.Select(r => r.RecipeId).ToList();
-        }
-
-        private bool ListContainsDuplicates(List<int> list)
-        {
-            return list.Count != list.Distinct().Count();
         }
 
         private async Task<ShoppingList> ComputeShoppingList(List<RecipeSelectionDto> recipeSelection)

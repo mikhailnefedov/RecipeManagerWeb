@@ -15,7 +15,7 @@ class Meal {
 
   Map<String, dynamic> toJson() {
     return {
-      'recipeName': recipeName,
+      'recipeId': recipeId,
       'requestedAmount': requestedAmount,
     };
   }

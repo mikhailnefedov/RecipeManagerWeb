@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/api/shopping_list_repository.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
 import 'package:recipemanagerwebclient/models/meal.dart';
-import 'package:recipemanagerwebclient/models/portion_unit.dart';
+import 'package:recipemanagerwebclient/models/shopping_list.dart';
 import 'package:recipemanagerwebclient/widgets/shopping_list/horizontal_recipe_picker.dart';
-import 'package:recipemanagerwebclient/widgets/shopping_list/meal_drag_target.dart';
 import 'package:recipemanagerwebclient/widgets/shopping_list/meal_row.dart';
 
 import '../models/small_recipe.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';
+
+import 'package:http/http.dart' as http;
 
 class ShoppingList extends StatefulWidget {
   static const route = '/shoppinglist';
@@ -24,6 +28,7 @@ class _ShoppingListState extends State<ShoppingList> {
     MealRow(date: DateTime.now()),
   ];
   int _additionalDays = 0;
+  ShoppingListModel _shoppingList = ShoppingListModel(items: []);
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +73,23 @@ class _ShoppingListState extends State<ShoppingList> {
                 icon: Icon(Icons.add)),
             ElevatedButton(
               child: Text("Einkaufsliste erstellen"),
-              onPressed: () {
-                createShoppingList();
+              onPressed: () async {
+                ShoppingListModel shoppingList = await createShoppingList();
+                setState(() {
+                  _shoppingList = shoppingList;
+                });
               },
+            ),
+            SelectionArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ..._shoppingList.items
+                      .map((e) => Text(
+                          "${e.groceryCategory} - ${e.groceryItem} : ${e.amounts}"))
+                      .toList(),
+                ],
+              ),
             ),
           ],
         ),
@@ -78,13 +97,12 @@ class _ShoppingListState extends State<ShoppingList> {
     );
   }
 
-  createShoppingList() {
+  Future<ShoppingListModel> createShoppingList() async {
     List<Meal> meals = _mealRows.fold<List<Meal>>([], (previousValue, element) {
       previousValue.addAll(element.getMeals());
       return previousValue;
     });
-    meals.forEach((element) {
-      print(element.toJson());
-    });
+    var shoppingList = await ShoppingListRepository().post(meals);
+    return ShoppingListModel.fromJson(shoppingList);
   }
 }
