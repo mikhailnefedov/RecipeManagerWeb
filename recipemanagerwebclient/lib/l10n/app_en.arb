@@ -1,6 +1,24 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  }
+    "helloWorld": "Hello World!",
+    "recipes": "Recipes",
+    "shoppingList": "Shopping list",
+    "recipeCategories": "Recipe categories",
+    "groceryItems": "Grocery items",
+    "groceryCategories": "Grocery categories",
+    "addRecipe": "Add Recipe",
+    "filterByName": "Filter by name",
+    "filterByCategory": "Filter by category",
+    "maxTime": "Max. time:",
+    "name": "Name",
+    "vegetarian": "Vegetarian",
+    "amount": "Amount",
+    "time": "Time",
+    "comment": "Comment",
+    "source": "Source",
+    "instruction": "Instruction",
+    "ingredients": "Ingredients",
+    "addMultipleIngredients": "Add multiple Ingredients",
+    "ingredient": "Ingredient",
+    "measurement": "Measurement",
+    "actions": "Actions"
 }

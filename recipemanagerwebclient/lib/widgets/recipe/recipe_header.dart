@@ -3,6 +3,7 @@ import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/widgets/dropdowns/portion_unit_dropdown.dart';
 import 'package:recipemanagerwebclient/widgets/dropdowns/recipe_category_dropdown.dart';
 
+import '../../gen_exports.dart';
 import '../../models/recipe.dart';
 
 class RecipeHeader extends StatefulWidget {
@@ -58,7 +59,7 @@ class _RecipeHeaderState extends State<RecipeHeader> {
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Name',
+                  labelText: AppLocalizations.of(context)!.name,
                 ),
                 controller: nameController,
               ),
@@ -90,7 +91,8 @@ class _RecipeHeaderState extends State<RecipeHeader> {
                           child: CheckboxListTile(
                             contentPadding: EdgeInsets.zero,
                             controlAffinity: ListTileControlAffinity.leading,
-                            title: Text("vegetarian"),
+                            title:
+                                Text(AppLocalizations.of(context)!.vegetarian),
                             value: _recipe.vegetarian,
                             onChanged: (value) {
                               setState(() {
@@ -110,7 +112,7 @@ class _RecipeHeaderState extends State<RecipeHeader> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Time',
+                              labelText: AppLocalizations.of(context)!.time,
                             ),
                             controller: timeController,
                           ),
@@ -126,7 +128,7 @@ class _RecipeHeaderState extends State<RecipeHeader> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Source',
+                              labelText: AppLocalizations.of(context)!.source,
                             ),
                             controller: sourceController,
                           ),
@@ -146,7 +148,7 @@ class _RecipeHeaderState extends State<RecipeHeader> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Amount',
+                              labelText: AppLocalizations.of(context)!.amount,
                             ),
                             controller: amountController,
                           ),
@@ -171,7 +173,7 @@ class _RecipeHeaderState extends State<RecipeHeader> {
                       maxLines: 3,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Comment',
+                        labelText: AppLocalizations.of(context)!.comment,
                       ),
                       controller: commentController,
                     ),

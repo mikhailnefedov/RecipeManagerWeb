@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/widgets/popups/ingredient_popup.dart';
 import 'package:recipemanagerwebclient/widgets/recipe/ingredient_importer.dart';
 
+import '../../gen_exports.dart';
 import '../../models/data_layer.dart';
 
 class IngredientTable extends StatefulWidget {
@@ -25,10 +26,11 @@ class _IngredientTableState extends State<IngredientTable> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Zutaten:', style: Theme.of(context).textTheme.headline6),
+        Text(AppLocalizations.of(context)!.ingredients,
+            style: Theme.of(context).textTheme.headline6),
         ElevatedButton.icon(
           icon: Icon(Icons.data_object),
-          label: Text("Hinzufügen mehrerer Zutaten"),
+          label: Text(AppLocalizations.of(context)!.addMultipleIngredients),
           onPressed: () async {
             var newIngredient = await showDialog<List<Ingredient>>(
               context: context,
@@ -42,17 +44,17 @@ class _IngredientTableState extends State<IngredientTable> {
           },
         ),
         DataTable(
-          columns: const <DataColumn>[
+          columns: <DataColumn>[
             DataColumn(
-              label: Text('Grocery'),
+              label: Text(AppLocalizations.of(context)!.ingredient),
             ),
             DataColumn(
-              label: Text("Amount"),
+              label: Text(AppLocalizations.of(context)!.amount),
             ),
             DataColumn(
-              label: Text("Measurement"),
+              label: Text(AppLocalizations.of(context)!.measurement),
             ),
-            DataColumn(label: Text('Aktionen'))
+            DataColumn(label: Text(AppLocalizations.of(context)!.actions))
           ],
           rows: _createRows(_recipe),
         ),

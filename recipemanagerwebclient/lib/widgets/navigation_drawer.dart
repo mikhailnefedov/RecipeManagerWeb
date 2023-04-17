@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../gen_exports.dart';
 import '../views/views.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -16,31 +17,31 @@ class NavigationDrawer extends StatelessWidget {
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
-              text: 'Rezepte',
+              text: AppLocalizations.of(context)!.recipes,
               route: RecipesMain.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
-              text: 'Einkaufsliste',
+              text: AppLocalizations.of(context)!.shoppingList,
               route: ShoppingList.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
-              text: 'Rezeptkategorien',
+              text: AppLocalizations.of(context)!.recipeCategories,
               route: RecipeCategoriesMain.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
-              text: 'Lebensmittel',
+              text: AppLocalizations.of(context)!.groceryItems,
               route: GroceryItems.route,
             ),
             SizedBox(height: 16),
             buildMenuItem(
               context: context,
-              text: 'Lebensmittelkategorien',
+              text: AppLocalizations.of(context)!.groceryCategories,
               route: GroceryCategoriesMain.route,
             )
           ],

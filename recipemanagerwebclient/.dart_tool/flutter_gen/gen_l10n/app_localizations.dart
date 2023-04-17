@@ -93,11 +93,137 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
-  /// The conventional newborn programmer greeting
+  /// No description provided for @helloWorld.
   ///
   /// In en, this message translates to:
   /// **'Hello World!'**
   String get helloWorld;
+
+  /// No description provided for @recipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get recipes;
+
+  /// No description provided for @shoppingList.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping list'**
+  String get shoppingList;
+
+  /// No description provided for @recipeCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe categories'**
+  String get recipeCategories;
+
+  /// No description provided for @groceryItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Grocery items'**
+  String get groceryItems;
+
+  /// No description provided for @groceryCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Grocery categories'**
+  String get groceryCategories;
+
+  /// No description provided for @addRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Recipe'**
+  String get addRecipe;
+
+  /// No description provided for @filterByName.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by name'**
+  String get filterByName;
+
+  /// No description provided for @filterByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by category'**
+  String get filterByCategory;
+
+  /// No description provided for @maxTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Max. time:'**
+  String get maxTime;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @vegetarian.
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetarian'**
+  String get vegetarian;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get comment;
+
+  /// No description provided for @source.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get source;
+
+  /// No description provided for @instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Instruction'**
+  String get instruction;
+
+  /// No description provided for @ingredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get ingredients;
+
+  /// No description provided for @addMultipleIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Add multiple Ingredients'**
+  String get addMultipleIngredients;
+
+  /// No description provided for @ingredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient'**
+  String get ingredient;
+
+  /// No description provided for @measurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurement'**
+  String get measurement;
+
+  /// No description provided for @actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
-import 'package:recipemanagerwebclient/views/recipe_card.dart';
-import 'package:recipemanagerwebclient/views/recipe_view.dart';
 import 'package:recipemanagerwebclient/views/recipes_view.dart';
 import '../widgets/header.dart';
 import '../widgets/navigation_drawer.dart';

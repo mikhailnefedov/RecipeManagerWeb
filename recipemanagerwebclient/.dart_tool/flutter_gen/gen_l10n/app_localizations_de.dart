@@ -6,4 +6,67 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get helloWorld => 'Hallo Welt!';
+
+  @override
+  String get recipes => 'Rezepte';
+
+  @override
+  String get shoppingList => 'Einkaufsliste';
+
+  @override
+  String get recipeCategories => 'Rezeptkategorien';
+
+  @override
+  String get groceryItems => 'Lebensmittel';
+
+  @override
+  String get groceryCategories => 'Lebensmittelkategorien';
+
+  @override
+  String get addRecipe => 'Rezept hinzufügen';
+
+  @override
+  String get filterByName => 'Filtere nach Name';
+
+  @override
+  String get filterByCategory => 'Filtere nach Kategorie';
+
+  @override
+  String get maxTime => 'Max. Zeit:';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get vegetarian => 'Vegetarisch';
+
+  @override
+  String get amount => 'Menge';
+
+  @override
+  String get time => 'Zeit';
+
+  @override
+  String get comment => 'Kommentar';
+
+  @override
+  String get source => 'Quelle';
+
+  @override
+  String get instruction => 'Anleitung';
+
+  @override
+  String get ingredients => 'Zutaten';
+
+  @override
+  String get addMultipleIngredients => 'Mehrere Zutaten hinzufügen';
+
+  @override
+  String get ingredient => 'Zutat';
+
+  @override
+  String get measurement => 'Menge';
+
+  @override
+  String get actions => 'Aktionen';
 }

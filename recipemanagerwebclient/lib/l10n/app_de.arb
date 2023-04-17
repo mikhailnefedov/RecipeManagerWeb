@@ -1,3 +1,24 @@
 {
-    "helloWorld": "Hallo Welt!"
+    "helloWorld": "Hallo Welt!",
+    "recipes": "Rezepte",
+    "shoppingList": "Einkaufsliste",
+    "recipeCategories": "Rezeptkategorien",
+    "groceryItems": "Lebensmittel",
+    "groceryCategories": "Lebensmittelkategorien",
+    "addRecipe": "Rezept hinzufügen",
+    "filterByName": "Filtere nach Name",
+    "filterByCategory": "Filtere nach Kategorie",
+    "maxTime": "Max. Zeit:",
+    "name": "Name",
+    "vegetarian": "Vegetarisch",
+    "amount": "Menge",
+    "time": "Zeit",
+    "comment": "Kommentar",
+    "source": "Quelle",
+    "instruction": "Anleitung",
+    "ingredients": "Zutaten",
+    "addMultipleIngredients": "Mehrere Zutaten hinzufügen",
+    "ingredient": "Zutat",
+    "measurement": "Menge",
+    "actions": "Aktionen"
 }

@@ -4,6 +4,8 @@ import 'package:recipemanagerwebclient/views/recipe_card.dart';
 import 'package:recipemanagerwebclient/views/recipe_view.dart';
 import 'package:recipemanagerwebclient/views/recipes_search_parameters.dart';
 
+import '../gen_exports.dart';
+
 class RecipesView extends StatefulWidget {
   RecipesView({Key? key, required this.recipes, this.recipeSearchParameters})
       : super(key: key);
@@ -46,7 +48,7 @@ class _RecipesViewState extends State<RecipesView> {
           width: MediaQuery.of(context).size.width * 0.5,
           child: ElevatedButton.icon(
             icon: Icon(Icons.add),
-            label: Text("Rezepte hinzufügen"),
+            label: Text(AppLocalizations.of(context)!.addRecipe),
             onPressed: () {
               Navigator.pushNamed(
                 context,
@@ -75,7 +77,7 @@ class _RecipesViewState extends State<RecipesView> {
                   child: TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      labelText: "Filtere nach Name",
+                      labelText: AppLocalizations.of(context)!.filterByName,
                       prefixIcon: Icon(Icons.search),
                     ),
                     onChanged: (value) {
@@ -93,7 +95,7 @@ class _RecipesViewState extends State<RecipesView> {
                   child: TextFormField(
                     controller: _categoryController,
                     decoration: InputDecoration(
-                      labelText: "Filtere nach Kategorie",
+                      labelText: AppLocalizations.of(context)!.filterByCategory,
                       prefixIcon: Icon(Icons.search),
                     ),
                     onChanged: (value) {
@@ -105,7 +107,7 @@ class _RecipesViewState extends State<RecipesView> {
                   ),
                 ),
               ),
-              Text("Max. Zeit:"),
+              Text(AppLocalizations.of(context)!.maxTime),
               Slider(
                 value: _recipeSearchParameters.maxTime.toDouble(),
                 min: 0,
