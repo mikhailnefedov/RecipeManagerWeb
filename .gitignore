@@ -245,3 +245,4 @@ recipemanagerwebclient/windows/flutter/generated_plugin_registrant.cc
 recipemanagerwebclient/windows/flutter/generated_plugin_registrant.h
 recipemanagerwebclient/macos/Flutter/GeneratedPluginRegistrant.swift
 recipemanagerwebclient/windows/flutter/generated_plugins.cmake
+start.bat

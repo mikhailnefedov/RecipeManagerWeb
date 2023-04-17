@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/widgets/navigation_drawer.dart';
 
+import 'gen_exports.dart';
 import 'widgets/header.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,9 +18,7 @@ class _HomePageState extends State<HomePage> {
       drawer: NavigationDrawer(),
       appBar: Header(),
       body: Center(
-        child: Text(
-          'Home Page',
-        ),
+        child: Text(AppLocalizations.of(context)!.helloWorld),
       ),
     );
   }

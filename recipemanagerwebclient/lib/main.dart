@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_page.dart';
-import 'views/recipes_main.dart';
 import 'views/views.dart';
 
 void main() {
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RecipeManagerWeb',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: [Locale('de')],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
