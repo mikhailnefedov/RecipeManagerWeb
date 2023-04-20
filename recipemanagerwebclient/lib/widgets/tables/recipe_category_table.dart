@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/api/request_urls.dart';
+import 'package:recipemanagerwebclient/gen_exports.dart';
 import '../../api/recipe_category_repository.dart';
 import '../../models/recipe_category.dart';
 import '../popups/save_recipe_category_popup.dart';
@@ -30,13 +31,13 @@ class _RecipeCategoryTableState extends State<RecipeCategoryTable> {
     _categories = widget.categories;
     return LayoutBuilder(
       builder: (context, constraints) => PaginatedDataTable(
-        header: Text('Rezeptkategorien'),
+        header: Text(AppLocalizations.of(context)!.recipeCategories),
         showFirstLastButtons: true,
         columns: [
           DataColumn(
             label: Row(
               children: [
-                Text("Name"),
+                Text(AppLocalizations.of(context)!.name),
                 _sortColumnIndex == 0
                     ? _isAscending
                         ? Icon(Icons.arrow_upward)
@@ -54,8 +55,8 @@ class _RecipeCategoryTableState extends State<RecipeCategoryTable> {
               });
             },
           ),
-          DataColumn(label: Text("Abkürzung")),
-          DataColumn(label: Text("Aktionen"))
+          DataColumn(label: Text(AppLocalizations.of(context)!.abbreviation)),
+          DataColumn(label: Text(AppLocalizations.of(context)!.actions))
         ],
         source: _DataSource(context, constraints, _categories),
       ),

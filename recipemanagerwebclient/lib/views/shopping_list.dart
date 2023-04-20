@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/shopping_list_repository.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
+import 'package:recipemanagerwebclient/gen_exports.dart';
 import 'package:recipemanagerwebclient/models/meal.dart';
 import 'package:recipemanagerwebclient/models/shopping_list.dart';
 import 'package:recipemanagerwebclient/widgets/shopping_list/horizontal_recipe_picker.dart';
@@ -72,7 +73,7 @@ class _ShoppingListState extends State<ShoppingList> {
                 },
                 icon: Icon(Icons.add)),
             ElevatedButton(
-              child: Text("Einkaufsliste erstellen"),
+              child: Text(AppLocalizations.of(context)!.createShoppingList),
               onPressed: () async {
                 ShoppingListModel shoppingList = await createShoppingList();
                 setState(() {

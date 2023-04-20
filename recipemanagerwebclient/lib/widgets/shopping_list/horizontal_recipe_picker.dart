@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
+import 'package:recipemanagerwebclient/gen_exports.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 
 import '../../models/meal.dart';
@@ -35,7 +36,7 @@ class _HorizontalRecipePickerState extends State<HorizontalRecipePicker> {
           child: TextFormField(
             controller: _searchController,
             decoration: InputDecoration(
-              labelText: "Suche nach Rezept",
+              labelText: AppLocalizations.of(context)!.searchForRecipe,
               prefixIcon: Icon(Icons.search),
             ),
             onChanged: (value) {

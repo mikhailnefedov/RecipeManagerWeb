@@ -20,5 +20,13 @@
     "addMultipleIngredients": "Mehrere Zutaten hinzufügen",
     "ingredient": "Zutat",
     "measurement": "Menge",
-    "actions": "Aktionen"
+    "actions": "Aktionen",
+    "searchForRecipe": "Suche nach Rezepten",
+    "breakfast": "Frühstück",
+    "lunch": "Mittagessen",
+    "dinner": "Abendessen",
+    "createShoppingList": "Einkaufliste erstellen",
+    "search": "Suche",
+    "add": "Hinzufügen",
+    "abbreviation": "Abkürzung"
 }

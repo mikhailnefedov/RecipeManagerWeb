@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipemanagerwebclient/gen_exports.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 
 import '../widgets/popups/save_recipe_category_popup.dart';
@@ -39,7 +40,7 @@ class _RecipeCategoriesViewState extends State<RecipeCategoriesView> {
               child: TextFormField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  labelText: "Suche",
+                  labelText: AppLocalizations.of(context)!.search,
                   prefixIcon: Icon(Icons.search),
                 ),
                 onChanged: (value) {
@@ -54,7 +55,7 @@ class _RecipeCategoriesViewState extends State<RecipeCategoriesView> {
               width: MediaQuery.of(context).size.width * 0.5,
               child: ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Text("Hinzufügen"),
+                label: Text(AppLocalizations.of(context)!.add),
                 onPressed: () {
                   showDialog(
                     context: context,

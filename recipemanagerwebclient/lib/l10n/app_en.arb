@@ -20,5 +20,13 @@
     "addMultipleIngredients": "Add multiple Ingredients",
     "ingredient": "Ingredient",
     "measurement": "Measurement",
-    "actions": "Actions"
+    "actions": "Actions",
+    "searchForRecipe": "Search for recipe",
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "createShoppingList": "Create Shoppinglist",
+    "search": "Search",
+    "add": "Add",
+    "abbreviation": "Abbreviation"
 }

@@ -224,6 +224,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Actions'**
   String get actions;
+
+  /// No description provided for @searchForRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for recipe'**
+  String get searchForRecipe;
+
+  /// No description provided for @breakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get breakfast;
+
+  /// No description provided for @lunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get lunch;
+
+  /// No description provided for @dinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get dinner;
+
+  /// No description provided for @createShoppingList.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Shoppinglist'**
+  String get createShoppingList;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @abbreviation.
+  ///
+  /// In en, this message translates to:
+  /// **'Abbreviation'**
+  String get abbreviation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

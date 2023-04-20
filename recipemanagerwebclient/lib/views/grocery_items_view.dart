@@ -3,6 +3,8 @@ import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/widgets/popups/save_grocery_item_popup.dart';
 import 'package:recipemanagerwebclient/widgets/tables/grocery_item_table.dart';
 
+import '../gen_exports.dart';
+
 class GroceryItemsView extends StatefulWidget {
   const GroceryItemsView({Key? key, required this.groceryItems})
       : super(key: key);
@@ -38,7 +40,7 @@ class _GroceryItemsViewState extends State<GroceryItemsView> {
               child: TextFormField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  labelText: "Suche",
+                  labelText: AppLocalizations.of(context)!.search,
                   prefixIcon: Icon(Icons.search),
                 ),
                 onChanged: (value) {

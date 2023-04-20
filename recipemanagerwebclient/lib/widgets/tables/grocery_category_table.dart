@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:recipemanagerwebclient/api/grocery_category_repository.dart';
 
 import 'package:recipemanagerwebclient/api/request_urls.dart';
+import '../../gen_exports.dart';
 import '../../models/grocery_category.dart';
 import '../popups/save_grocery_category_popup.dart';
 
@@ -25,13 +26,13 @@ class _GroceryCategoryTableState extends State<GroceryCategoryTable> {
     _categories = widget.categories;
     return LayoutBuilder(
       builder: (context, constraints) => PaginatedDataTable(
-          header: Text('Lebensmittelkategorien'),
+          header: Text(AppLocalizations.of(context)!.groceryCategories),
           showFirstLastButtons: true,
           columns: [
             DataColumn(
               label: Row(
                 children: [
-                  Text("Name"),
+                  Text(AppLocalizations.of(context)!.name),
                   _sortColumnIndex == 0
                       ? _isAscending
                           ? Icon(Icons.arrow_upward)
@@ -49,7 +50,7 @@ class _GroceryCategoryTableState extends State<GroceryCategoryTable> {
                 });
               },
             ),
-            DataColumn(label: Text("Aktionen"))
+            DataColumn(label: Text(AppLocalizations.of(context)!.actions))
           ],
           source: _DataSource(context, constraints, _categories)),
     );

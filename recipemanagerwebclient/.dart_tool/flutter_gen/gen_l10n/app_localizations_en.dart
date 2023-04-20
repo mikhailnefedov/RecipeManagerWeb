@@ -69,4 +69,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actions => 'Actions';
+
+  @override
+  String get searchForRecipe => 'Search for recipe';
+
+  @override
+  String get breakfast => 'Breakfast';
+
+  @override
+  String get lunch => 'Lunch';
+
+  @override
+  String get dinner => 'Dinner';
+
+  @override
+  String get createShoppingList => 'Create Shoppinglist';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get abbreviation => 'Abbreviation';
 }

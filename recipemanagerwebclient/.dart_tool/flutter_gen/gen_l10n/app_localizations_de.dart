@@ -69,4 +69,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get actions => 'Aktionen';
+
+  @override
+  String get searchForRecipe => 'Suche nach Rezepten';
+
+  @override
+  String get breakfast => 'Frühstück';
+
+  @override
+  String get lunch => 'Mittagessen';
+
+  @override
+  String get dinner => 'Abendessen';
+
+  @override
+  String get createShoppingList => 'Einkaufliste erstellen';
+
+  @override
+  String get search => 'Suche';
+
+  @override
+  String get add => 'Hinzufügen';
+
+  @override
+  String get abbreviation => 'Abkürzung';
 }

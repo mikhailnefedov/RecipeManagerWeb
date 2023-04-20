@@ -43,7 +43,7 @@ class MealDragTarget extends StatelessWidget {
           } else {
             return Center(
               child: Text(
-                mealType.name,
+                mealType.toLocalizedString(context),
                 style: TextStyle(color: Colors.black38),
               ),
             );

@@ -4,6 +4,7 @@ import 'package:recipemanagerwebclient/api/grocery_item_repository.dart';
 
 import 'package:recipemanagerwebclient/api/request_urls.dart';
 import 'package:recipemanagerwebclient/widgets/popups/save_grocery_item_popup.dart';
+import '../../gen_exports.dart';
 import '../../models/grocery_item.dart';
 
 class GroceryItemTable extends StatefulWidget {
@@ -25,13 +26,13 @@ class _GroceryItemTableState extends State<GroceryItemTable> {
     _items = widget.items;
     return LayoutBuilder(
       builder: (context, constraints) => PaginatedDataTable(
-          header: Text('Lebensmittel'),
+          header: Text(AppLocalizations.of(context)!.groceryItems),
           showFirstLastButtons: true,
           columns: [
             DataColumn(
               label: Row(
                 children: [
-                  Text("Name"),
+                  Text(AppLocalizations.of(context)!.name),
                   _sortColumnIndex == 0
                       ? _isAscending
                           ? Icon(Icons.arrow_upward)
@@ -49,8 +50,9 @@ class _GroceryItemTableState extends State<GroceryItemTable> {
                 });
               },
             ),
-            DataColumn(label: Text("Kategorie")),
-            DataColumn(label: Text("Aktionen"))
+            DataColumn(
+                label: Text(AppLocalizations.of(context)!.groceryCategories)),
+            DataColumn(label: Text(AppLocalizations.of(context)!.actions))
           ],
           source: _DataSource(context, constraints, _items)),
     );
