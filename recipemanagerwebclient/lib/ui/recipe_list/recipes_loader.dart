@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/api/small_recipes_repository.dart';
 import 'package:recipemanagerwebclient/models/small_recipe.dart';
-import 'package:recipemanagerwebclient/views/recipes_view.dart';
-import '../widgets/header.dart';
-import '../widgets/navigation_drawer.dart';
+import 'package:recipemanagerwebclient/ui/recipe_list/recipe_list.dart';
+import 'package:recipemanagerwebclient/widgets/loader_helper/loading.dart';
+import '../../widgets/header.dart';
+import '../../widgets/loader_helper/loader_error.dart';
+import '../../widgets/navigation_drawer.dart';
 
-class RecipesMain extends StatefulWidget {
+class RecipesLoader extends StatefulWidget {
   static const route = '/recipes';
 
-  const RecipesMain({super.key});
+  const RecipesLoader({super.key});
 
   @override
-  State<RecipesMain> createState() => _RecipesMainState();
+  State<RecipesLoader> createState() => _RecipesLoaderState();
 }
 
-class _RecipesMainState extends State<RecipesMain> {
+class _RecipesLoaderState extends State<RecipesLoader> {
   late SmallRecipeRepository _smallRecipeRepository;
-  late Future<List<SmallRecipe>> _recipes;
 
   @override
   void initState() {
     super.initState();
     _smallRecipeRepository = SmallRecipeRepository();
-    _recipes = _smallRecipeRepository.fetchAll();
   }
 
   @override
@@ -31,14 +31,14 @@ class _RecipesMainState extends State<RecipesMain> {
       drawer: NavigationDrawer(),
       appBar: Header(),
       body: FutureBuilder<List<SmallRecipe>>(
-        future: _recipes,
+        future: _smallRecipeRepository.fetchAll(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return RecipesView(recipes: snapshot.requireData);
+            return RecipeList(recipes: snapshot.requireData);
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return LoaderError<SmallRecipe>(snapshot: snapshot);
           }
-          return Center(child: const CircularProgressIndicator());
+          return Loading();
         },
       ),
     );

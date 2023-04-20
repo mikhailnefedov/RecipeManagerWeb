@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomePage(),
-        RecipesMain.route: (context) => RecipesMain(),
+        RecipesLoader.route: (context) => RecipesLoader(),
         ShoppingList.route: (context) => ShoppingList(),
         RecipeCategoriesMain.route: (context) => RecipeCategoriesMain(),
         GroceryItems.route: (context) => GroceryItems(),

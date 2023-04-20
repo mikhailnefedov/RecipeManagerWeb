@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:recipemanagerwebclient/models/data_layer.dart';
 import 'package:recipemanagerwebclient/views/recipe_card.dart';
 import 'package:recipemanagerwebclient/views/recipe_view.dart';
-import 'package:recipemanagerwebclient/views/recipes_search_parameters.dart';
+import 'package:recipemanagerwebclient/ui/recipe_list/recipes_search_parameters.dart';
 
-import '../gen_exports.dart';
+import '../../gen_exports.dart';
 
-class RecipesView extends StatefulWidget {
-  RecipesView({Key? key, required this.recipes, this.recipeSearchParameters})
+class RecipeList extends StatefulWidget {
+  RecipeList({Key? key, required this.recipes, this.recipeSearchParameters})
       : super(key: key);
 
   List<SmallRecipe> recipes;
   RecipeSearchParameters? recipeSearchParameters;
 
   @override
-  _RecipesViewState createState() => _RecipesViewState();
+  _RecipeListState createState() => _RecipeListState();
 }
 
-class _RecipesViewState extends State<RecipesView> {
+class _RecipeListState extends State<RecipeList> {
   late List<SmallRecipe> _recipes;
   late RecipeSearchParameters _recipeSearchParameters;
   late TextEditingController _nameController;
@@ -139,9 +139,7 @@ class _RecipesViewState extends State<RecipesView> {
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
-                padding: (index % 2) == 0
-                    ? EdgeInsets.only(bottom: 10)
-                    : EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: 0),
                 child: RecipeCard(
                   recipe: _filteredRecipes[index],
                 ),
