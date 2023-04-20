@@ -55,7 +55,7 @@ class _GroceryItemsViewState extends State<GroceryItemsView> {
               width: MediaQuery.of(context).size.width * 0.5,
               child: ElevatedButton.icon(
                 icon: Icon(Icons.add),
-                label: Text("Hinzufügen"),
+                label: Text(AppLocalizations.of(context)!.add),
                 onPressed: () {
                   showDialog(
                     context: context,
